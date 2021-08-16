@@ -23,5 +23,3 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### test
-反正vscode不行 就去桌面终端操作 一样的
