@@ -1,4 +1,4 @@
-# inis.cn
+# inis default theme
 
 ## Project setup
 ```
