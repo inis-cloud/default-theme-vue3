@@ -1,0 +1,38 @@
+<!-- +---------------------------------------------------------------------- -->
+<!-- | INIS [ WE CAN DO IT JUST THINK ]                                      -->
+<!-- +---------------------------------------------------------------------- -->
+<!-- | Copyright (c) 2020~2021 http://inis.cc All rights reserved.           -->
+<!-- +---------------------------------------------------------------------- -->
+<!-- | Author: racns <email: racns@qq.com> <url: https://inis.cn>            -->
+<!-- +---------------------------------------------------------------------- -->
+<!-- | 公共页脚组件                                                           -->
+<!-- +---------------------------------------------------------------------- -->
+
+<template>
+    <footer class="footer">
+        <div class="row">
+            <div class="col-md-6 font-12px">
+                <span class="item left bg-dark">© {{ year }} Copyright</span>
+                <span class="item right bg-primary"><a href="https://beian.miit.gov.cn" target="_blank">{{site_info.copy || '备案码'}}</a></span>
+            </div>
+            <div class="col-md-6">
+                <div class="text-md-right footer-links d-none d-md-block">
+                    <span class="item left bg-dark"><a href="//inis.cc" target="_blank">Theme</a></span>
+                    <span class="item right bg-warning"><a href="//racns.com/inis.html" target="_blank">inis</a></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+export default {
+    computed: {
+        year:()=>{
+            return (new Date).getFullYear()
+        },
+        ...mapState(['site_info'])
+    }
+}
+</script>

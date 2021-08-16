@@ -1,0 +1,40 @@
+/* 大型设备（大台式电脑，1200px 起） */
+@media screen and (min-width:1200px) {
+    
+}
+
+/* 中型设备（台式电脑，992px 起） */
+@media screen and (min-width:992px) and (max-width:1200px) { 
+    .navbar-custom {left: 0}
+}
+
+/* 小型设备（平板电脑，768px 起） */
+@media screen and (min-width:768px) and (max-width:992px) {
+
+}
+
+/* 超小设备（手机，小于 768px） */
+@media screen and (max-width:768px) {
+    .master-info .col-sm-4{text-align:center}
+    .master-info p.text-muted.mb-0{padding-bottom:10px}
+    .master-info .col-sm-8{display:none}
+    .left-side-menu{min-width: 75vw;max-width: 75vw;}
+    .navbar-custom + .container-fluid{overflow: hidden;}
+    .left-side-menu{display:block;top:50px;transform:translate3d(-75vw,0,0);-ms-transform:translate3d(-75vw,0,0);-webkit-transform:translate3d(-75vw,0,0);transition:transform .4s;-ms-transform:transform .4s;-webkit-transform:transform .4s}
+    .sidebar-enable .left-side-menu{transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);transition:transform .4s;-ms-transform:transform .4s;-webkit-transform:transform .4s}
+    .content-page{position:inherit;transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);transition:transform .4s;-ms-transform:transform .4s;-webkit-transform:transform .4s}
+    .sidebar-enable .content-page{position:fixed;transform:translate3d(75vw,0,0);-ms-transform:translate3d(75vw,0,0);-webkit-transform:translate3d(75vw,0,0);transition:transform .4s;-ms-transform:transform .4s;-webkit-transform:transform .4s}
+    .wrapper{padding-top: 50px;}
+    .inis-page-list{display: flex;flex-flow: unset;flex-wrap: unset;}
+    .notification-list .dropdown-menu.dropdown-menu-right.dropdown-menu-animated.dropdown-lg.dropdown-msg.show{width: 260px!important;}
+    .mobile-head-title{margin-top: 1.5em;}
+    #article #article-comments #example-textarea > .card {width: 100%!important;}
+    #msg-wall #msg-wall-comments #example-textarea > .card {width: 100%!important;}
+    p.msg-wall-scroll{height: unset;}
+    .home .col-md-6.col-xl-3 .card-img-top{object-fit: cover;}
+    .small-container{padding-left: 0;padding-right: 0;}
+    .article-head-title{margin-bottom: 15px;margin-top: 10px;}
+    .cross .profile-img{top: 50px;}
+    .cross .profile-img strong{color: white;}
+    #update-info .alert.alert-light{margin-left: 0!important;margin-right: 0 !important;}
+}
