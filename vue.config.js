@@ -23,13 +23,14 @@ module.exports = {
   // 向 PWA 插件传递选项。
   pwa: {
     iconPaths: {
-      favicon64:      'favicon.ico',
-      favicon32:      'favicon.ico',
-      favicon16:      'favicon.ico',
+      favicon64: 'favicon.ico',
+      favicon32: 'favicon.ico',
+      favicon16: 'favicon.ico',
       appleTouchIcon: 'favicon.ico',
-      maskIcon:       'favicon.ico',
-      msTileImage:    'favicon.ico'
-    }
+      maskIcon: 'favicon.ico',
+      msTileImage: 'favicon.ico'
+    },
+    themeColor: '#727cf5'
   },
   chainWebpack: config => {
     // 修复热更新失效
