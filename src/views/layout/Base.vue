@@ -36,6 +36,7 @@
       <!-- 核心CSS - 开始 -->
       <i-link src="assets/css/inis.min.css"></i-link>
       <i-link src="assets/css/inis.media.css"></i-link>
+      <i-tag tag="style" v-html="theme_config.code.css"></i-tag>
       <!-- 核心CSS - 结束 -->
     </teleport>
     <teleport to="body">
@@ -48,6 +49,7 @@
 
 <script>
 // 公共组件
+import iTag from '@/components/tool/Tag'
 import iLink from '@/components/tool/Link'
 import iNav from '@/components/public/navbar'
 import iSide from '@/components/public/sidebar'
@@ -57,7 +59,7 @@ import { useStore } from 'vuex'
 import { onBeforeRouteUpdate } from 'vue-router'
 
 export default {
-  components: { iNav, iSide, iLink, iTool },
+  components: { iNav, iSide, iLink, iTool, iTag },
   setup() {
     const store = useStore()
     
@@ -78,6 +80,13 @@ export default {
         clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
       }
     })
+
+    // 自定义代码
+    setTimeout(()=>{
+      let code = store.state.theme_config.code
+      JQ('head').append(code.head_html)
+      JQ('body').append(code.body_html)
+    },500)
 
     // 监听路由更新
     onBeforeRouteUpdate((to, from, next)=>{

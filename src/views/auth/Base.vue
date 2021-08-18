@@ -49,8 +49,8 @@
 
 <script>
 // 公共组件
-import iLink from '@/components/tool/Link'
 import iTag from '@/components/tool/Tag'
+import iLink from '@/components/tool/Link'
 import iNav from '@/components/auth/navbar'
 import iSide from '@/components/auth/sidebar'
 import iTool from '@/components/public/tool'
