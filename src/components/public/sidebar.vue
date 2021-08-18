@@ -15,7 +15,7 @@
 
         <div class="leftbar-user">
             <router-link :to="{path:'/cross'}">
-                <img :src=" user.head_img || theme_config.site.head_img" height="42" class="rounded-circle shadow-sm">
+                <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
                 <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
                 <span class="leftbar-user-name text-muted font-12px">
                     {{user.description || theme_config.site.present}}
@@ -35,14 +35,14 @@
             </li>
 
             <!-- 自定义菜单栏 - 开始 -->
-            <li v-for="(data, index) in left_side.one" :key="index" class="side-nav-item">
+            <li v-for="(data, index) in JSON.parse(theme_config.menu.one)" :key="index" class="side-nav-item">
                 <a :href="data.url || null" :target="data.target || '_block'" class="side-nav-link">
                     <i :class="data.class || ''" v-html="data.svg" aria-hidden="true"></i>
                     <span> {{ data.title || '标题' }} </span>
                 </a>
             </li>
 
-            <li v-for="(data, index) in left_side.two" :key="index" class="side-nav-item">
+            <li v-for="(data, index) in JSON.parse(theme_config.menu.two)" :key="index" class="side-nav-item">
                 <a href="javascript: void(0);" class="side-nav-link">
                     <i :class="data.class || ''" v-html="data.svg" aria-hidden="true"></i>
                     <span> {{ data.title || '标题' }} </span>
@@ -136,7 +136,6 @@ export default {
             user: [],           // 登录的用户
             links: [],          // 友链数据
             article_sort: [],   // 文章分类数据
-            left_side: [],      // 侧边栏菜单数据
             pages: [],          // 页面数据
         })
 
@@ -158,7 +157,6 @@ export default {
                 })
                 // 侧边栏滚动
                 inisHelper.set.css(".left-side-menu .slimScrollDiv","height:" + (window.innerHeight - 100) + "px!important;")
-                methods.getConfig()
                 methods.getPage()
             },
             // 获取友链
@@ -179,12 +177,6 @@ export default {
                     if (links.data.code == 200) state.links = links.data.data
                 }
 
-            },
-            // 获取JSON配置
-            getConfig(){
-                axios.get("/static/config.json").then(res=>{
-                    state.left_side = res.data.left_side
-                })
             },
             // 打印彩色字体
             colorFont(){

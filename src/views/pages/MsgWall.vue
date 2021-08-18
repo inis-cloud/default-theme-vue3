@@ -24,7 +24,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="media">
-                                                <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40">
+                                                <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40" height="40">
                                                 <div class="media-body">
                                                     <h5 class="mt-0 mb-1 text-dark">{{data.nickname || '友链名称'}}</h5>
                                                     <span class="font-13 text-muted text-line line-limit-1">{{data.url || '这个人很懒，什么都没留下！'}}</span>
@@ -77,7 +77,7 @@
                 <div :class="'card text-white text-xs-center ' + (data.opt.bg || 'bg-primary')">
                     <div class="card-body">
                         <blockquote class="card-bodyquote mb-0">
-                            <img :src="data.expand.head_img || null" height="42" class="rounded-circle shadow-sm head-img">
+                            <img :src="data.expand.head_img || null" height="42" width="42" class="rounded-circle shadow-sm head-img">
                             <span class="nickname">{{data.nickname || '用户'}}</span>
                             <p class="mb-1 mt-1 msg-wall-scroll">{{data.content || '评论内容'}}</p>
                             <div class="flex mb-1">
@@ -250,7 +250,7 @@ export default {
                         // 加载动画
                         state.is_load = false
                         // 设置页面 title
-                        document.title = '留言墙 - ' + store.state.site_info.title
+                        document.title = '留言墙 - ' + store.state.theme_config.site.title
                     }
                 })
 

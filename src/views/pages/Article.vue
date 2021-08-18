@@ -308,7 +308,7 @@ export default {
                     else state.tag = {is_show:true,data:tag}
                     state.is_load = false
                     // 设置页面 title
-                    document.title = state.article.title + ' - ' + store.state.site_info.title
+                    document.title = state.article.title + ' - ' + store.state.theme_config.site.title
                 }else{
                     $.NotificationApp.send("加载超时！", '请求错误，请<a href="'+window.location.protocol+"//"+window.location.host+'">刷新页面！</a>', "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
@@ -404,11 +404,13 @@ export default {
             document.addEventListener('scroll', ()=>{
                 let offsetY   = window.pageYOffset
                 let is_show   = directory.style.display
-                let width     = document.querySelector('#article .content .row .col-md-4').offsetWidth - 30
-                if (is_show != 'none' && offsetY >= offsetTop) {
-                    inisHelper.set.css('.directory', `position: fixed;top: 100px;width: ${width}px;`)
-                } else {
-                    inisHelper.set.css('.directory', 'position: unset;top: auto;')
+                let width     = document.querySelector('#article .content .row .col-md-4')
+                if (!!width) {
+                    if (is_show != 'none' && offsetY >= offsetTop) {
+                        inisHelper.set.css('.directory', `position: fixed;top: 100px;width: ${width.offsetWidth - 30}px;`)
+                    } else {
+                        inisHelper.set.css('.directory', 'position: unset;top: auto;')
+                    }
                 }
             }, true)
         }

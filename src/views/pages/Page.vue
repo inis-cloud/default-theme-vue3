@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import iLink from '@/components/tool/Link'
 import { GET } from '@/utils/http/request'
 import iFooter from '@/components/public/footer'
@@ -55,6 +56,8 @@ export default {
 
         // 响应式实例
         const route = useRoute()
+        // Vuex 响应实例
+        const store = useStore()
 
         const state = reactive({
             alias: null,     // 别名
@@ -82,12 +85,14 @@ export default {
                 GET('page', {params}).then(res=>{
                     if (res.data.code == 200) {
                         state.pages = res.data.data
+                        // 设置页面 title
+                        document.title = state.pages.title + ' - ' + store.state.theme_config.site.title
                     }
                 })
             },
             // 人性化时间
             natureTime(date = null){
-                const time = inisHelper.date.to.time(date)
+                const time = inisHelper.date.to.time((inisHelper.is.empty(date) ? '2021-5-20 13:14:00' : date))
                 return inisHelper.time.nature(time)
             },
         }

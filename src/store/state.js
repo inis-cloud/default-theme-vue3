@@ -41,6 +41,10 @@ export default {
             "auto_night"  :  false,
             "night_start" :  22,
             "night_end"   :  6
+        },
+        "menu": {           // 侧边栏菜单
+            "one": `[{"title":"inis官网","class":"mr-2","svg":"<svg t=\\\"1600000888204\\\" class=\\\"icon\\\" viewBox=\\\"0 0 1024 1024\\\" version=\\\"1.1\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\" p-id=\\\"3727\\\" width=\\\"20\\\" height=\\\"20\\\"><path d=\\\"M272 196h140c44.182 0 80 35.818 80 80v140c0 44.182-35.818 80-80 80h-140c-44.182 0-80-35.818-80-80v-140c0-44.182 35.818-80 80-80z\\\" fill=\\\"#4988FD\\\" p-id=\\\"3728\\\"></path><path d=\\\"M612 196h140c44.184 0 80 35.818 80 80v140c0 44.182-35.816 80-80 80h-140c-44.184 0-80-35.818-80-80v-140c0-44.182 35.816-80 80-80z\\\" fill=\\\"#DFECFD\\\" p-id=\\\"3729\\\"></path><path d=\\\"M272 536h140c44.182 0 80 35.816 80 80v140c0 44.184-35.818 80-80 80h-140c-44.182 0-80-35.816-80-80v-140c0-44.184 35.818-80 80-80zM612 536h140c44.184 0 80 35.816 80 80v140c0 44.184-35.816 80-80 80h-140c-44.184 0-80-35.816-80-80v-140c0-44.184 35.816-80 80-80z\\\" fill=\\\"#4988FD\\\" p-id=\\\"3730\\\"></path></svg>","url":"https://inis.cc","target":"_block"},{"title":"INIS - 使用文档","class":"mr-2 fas fa-bicycle text-primary","svg":"","url":"https://docs.inis.cc","target":"_block"}]`,
+            "two": `[{"title":"菜单一","class":"fas fa-tags text-danger font-12px","svg":"","child":[{"title":"萌卜兔","url":"//racns.com","target":"_block"},{"title":"自定义 - 后台修改","url":"//inis.cn","target":"_block"}]},{"title":"菜单二","class":"fas fa-comments text-warning font-12px","svg":"","child":[{"title":"萌卜兔","url":"//racns.com","target":"_block"}]}]`
         }
     },
 }

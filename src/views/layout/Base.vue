@@ -55,8 +55,10 @@ import iNav from '@/components/public/navbar'
 import iSide from '@/components/public/sidebar'
 import iTool from '@/components/public/tool'
 import { inisHelper } from '@/utils/helper/helper'
-import { useStore } from 'vuex'
+import { watch } from 'vue'
+import { useStore, mapState } from 'vuex'
 import { onBeforeRouteUpdate } from 'vue-router'
+import JQ from 'jquery'
 
 export default {
   components: { iNav, iSide, iLink, iTool, iTag },
@@ -70,23 +72,38 @@ export default {
     // 站点信息
     store.dispatch('commitSiteInfo')
 
-    // 监听复制操作
-    document.addEventListener('copy',(e)=>{
-      let clipboardData = e.clipboardData || window.clipboardData;
-      if(!clipboardData) return;
-      let text = window.getSelection().toString();
-      if (text) {
-        e.preventDefault();
-        clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
-      }
-    })
+    const methods = {
+      initData(){
+        // 监听复制操作
+        document.addEventListener('copy',(e)=>{
+          let clipboardData = e.clipboardData || window.clipboardData;
+          if(!clipboardData) return;
+          let text = window.getSelection().toString();
+          if (text) {
+            e.preventDefault();
+            clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
+          }
+        })
 
-    // 自定义代码
-    setTimeout(()=>{
-      let code = store.state.theme_config.code
-      JQ('head').append(code.head_html)
-      JQ('body').append(code.body_html)
-    },500)
+        // 自定义代码
+        setTimeout(()=>{
+          let code = store.state.theme_config.code
+          JQ('head').append(code.head_html)
+          JQ('body').append(code.body_html)
+        },500)
+
+        // 动态修改 favicon
+        watch(()=>store.state.theme_config,()=>{
+          let link  = document.querySelector("link[rel*='icon']") || document.createElement('link');
+          link.type = 'image/x-icon';
+          link.rel  = 'shortcut icon';
+          link.href = store.state.theme_config.site.favicon;
+          document.getElementsByTagName('head')[0].appendChild(link);
+        })
+      }
+    }
+
+    methods.initData()
 
     // 监听路由更新
     onBeforeRouteUpdate((to, from, next)=>{
@@ -94,6 +111,9 @@ export default {
       document.querySelector("body").classList.remove("sidebar-enable")
       next()
     })
+  },
+  computed: {
+    ...mapState(['theme_config'])
   },
 }
 </script>

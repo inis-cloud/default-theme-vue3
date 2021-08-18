@@ -190,13 +190,13 @@
                                             <div class="card">
                                                 <div class="card-header" id="copy">
                                                     <h5 class="m-0">
-                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#copyOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#copyOne" aria-expanded="false" aria-controls="collapseOne">
                                                             复制携带内容
                                                             <span class="float-right"><i class="fa fa-chevron-down"></i></span>
                                                         </a>
                                                     </h5>
                                                 </div>
-                                                <div id="copyOne" class="collapse show" aria-labelledby="copy" data-parent="#accordion">
+                                                <div id="copyOne" class="collapse" aria-labelledby="copy" data-parent="#accordion">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-12">
@@ -346,22 +346,22 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="set-dev">
-                                    <h4 class="header-title">页脚信息</h4>
+                                    <h4 class="header-title">高级配置</h4>
                                     <p class="text-muted">
                                         位置是博客底部，可以填写备案号等一些信息
                                     </p>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="card">
+                                            <div class="card mb-1">
                                                 <div class="card-header" id="footer">
                                                     <h5 class="m-0">
-                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#footerOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#footerOne" aria-expanded="false" aria-controls="collapseOne">
                                                             配置页脚
                                                             <span class="float-right"><i class="fa fa-chevron-down"></i></span>
                                                         </a>
                                                     </h5>
                                                 </div>
-                                                <div id="footerOne" class="collapse show" aria-labelledby="footer" data-parent="#accordion">
+                                                <div id="footerOne" class="collapse" aria-labelledby="footer" data-parent="#accordion">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-12">
@@ -374,6 +374,38 @@
                                                                 <div class="form-group">
                                                                     <label>底部右侧信息</label>
                                                                     <textarea v-model="theme_config.footer.right" class="form-control inis-scroll" rows="3" placeholder="推荐填写HTML代码"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-header" id="menu">
+                                                    <h5 class="m-0">
+                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#menuOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            配置侧边栏菜单
+                                                            <span class="float-right"><i class="fa fa-chevron-down"></i></span>
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="menuOne" class="collapse" aria-labelledby="menu" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group mb-3">
+                                                                    <label>一级菜单</label>
+                                                                    <textarea v-model="theme_config.menu.one" class="form-control inis-scroll" rows="5" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <p class="text-muted mb-0">推荐将配置复制粘贴到 <a href="//json.cn" target="_blank">在线编辑器</a> 编辑</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label>二级菜单</label>
+                                                                    <textarea v-model="theme_config.menu.two" class="form-control inis-scroll" rows="5" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <p class="text-muted mb-0">推荐将配置复制粘贴到 <a href="//json.cn" target="_blank">在线编辑器</a> 编辑</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -445,7 +477,7 @@ import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs  } from 'vue'
+import { onMounted, reactive, toRefs, watch } from 'vue'
 
 export default {
     components: { iFooter },
@@ -514,6 +546,12 @@ export default {
             methods.initData()
         })
 
+        watch(()=>store.state.theme_config,()=>{
+            let site = store.state.theme_config.site
+            // 设置页面 title
+            document.title = site.title
+        })
+
         return { ...toRefs(state), methods }
     },
     methods: {
@@ -524,7 +562,10 @@ export default {
         }
     },
     computed: {
-        ...mapState(['theme_config'])
+        ...mapState(['theme_config']),
+        theme_config() {
+            return this.theme_config
+        }
     },
 }
 </script>

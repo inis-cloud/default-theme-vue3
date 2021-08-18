@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { inisHelper } from '@/utils/helper/helper'
+import store from '@/store'
 
 const routes = [
   {
@@ -56,7 +57,7 @@ const routes = [
       }
     ],
     meta: {
-      title:"加载中 ... ",
+      title: store.state.theme_config.site.title,
     }
   },
   {
@@ -94,7 +95,7 @@ const routes = [
       }
     ],
     meta: {
-      title:"加载中 ... ",
+      title: store.state.theme_config.site.title,
     }
   },
   {
@@ -134,19 +135,33 @@ const router = createRouter({
 })
 
 // 获取缓存中的登录信息
+let level    = 'user'
 let is_login = inisHelper.get.storage("login")
 // 判断缓存是否存在且未过期
-if (is_login != "expire" && is_login != false) is_login = true
-else is_login = false
+if (is_login != "expire" && is_login != false) {
+  level    = is_login.user.level
+  is_login = true
+} else is_login = false
 
-// 路由守卫 - 方法一
 router.beforeEach((to, from, next) => {
-  /* 路由发生变化修改页面title */
+
+  // 路由发生变化修改页面title
   if (to.meta.title) {
     document.title = to.meta.title ? to.meta.title : defaultTitle;
   }
-  if (!is_login && to.path.indexOf('/auth') != -1) next({path: '/'})
-  else next()
+
+  // 非管理员禁止
+  const prohibit = ['option']
+
+  // 判断是否已经登录
+  if (!is_login && to.path.indexOf('/auth') != -1) {
+    // 未登录
+    next({path: '/'})
+  } else if (is_login && level != 'admin' && prohibit.includes(to.name)){
+    // 无权限
+    next({name: 'admin'})
+  } else next()
+  
 });
 
 export default router

@@ -162,7 +162,8 @@
 import iFooter from '@/components/public/footer'
 import { GET } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs, watch } from 'vue'
+import { useStore } from 'vuex'
 import * as echarts from 'echarts'
 const unwarp = (obj) => obj && (obj.__v_raw || obj.valueOf() || obj);
 
@@ -170,6 +171,8 @@ export default {
     components: { iFooter },
     setup(){
 
+        // Vuex 响应实例
+        const store = useStore()
         const state = reactive({
             visit: {title:[],data:[]},          // 访客数据
             count: {title:[],links:[],article:[],users:[],comments:[],tag:[]},  // 统计每日数据
@@ -401,6 +404,12 @@ export default {
                 })
             },
         }
+
+        watch(()=>store.state.theme_config,()=>{
+            let site = store.state.theme_config.site
+            // 设置页面 title
+            document.title = site.title
+        })
 
         onMounted(()=>{
             methods.initData()

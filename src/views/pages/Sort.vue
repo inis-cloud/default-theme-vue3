@@ -187,7 +187,7 @@ export default {
                         if(state.article_is_empty || state.article.page == 1) state.page_is_show = false
                         else state.page_is_show = true
                         // 设置页面 title
-                        document.title = `分类 ${state.sort.name} 下的文章 - ${store.state.site_info.title}`
+                        document.title = `分类 ${state.sort.name} 下的文章 - ${store.state.theme_config.site.title}`
                     }
                 })
             },

@@ -35,13 +35,16 @@
 <script>
 import iFooter from '@/components/public/footer'
 import { GET } from '@/utils/http/request'
+import { useStore } from 'vuex'
 import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs, watch } from 'vue'
 
 export default {
     components: { iFooter },
     setup(){
 
+        // Vuex 响应实例
+        const store = useStore()
         const state = reactive({
 
         })
@@ -55,6 +58,12 @@ export default {
 
         onMounted(()=>{
             methods.initData()
+        })
+
+        watch(()=>store.state.theme_config,()=>{
+            let site = store.state.theme_config.site
+            // 设置页面 title
+            document.title = site.title
         })
 
         return { ...toRefs(state), methods }

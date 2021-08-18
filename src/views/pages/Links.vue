@@ -40,7 +40,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="media">
-                                                        <img :src="data.head_img || null" :alt="data.description || '这个人很懒，什么都没留下！'" class="mr-3 rounded-circle" width="40">
+                                                        <img :src="data.head_img || null" :alt="data.description || '这个人很懒，什么都没留下！'" class="mr-3 rounded-circle" width="40" height="40">
                                                         <div class="media-body">
                                                             <h5 class="mt-0 mb-1 text-dark">{{data.name || '友链名称'}}</h5>
                                                             <span class="font-13 text-muted text-line line-limit-1">{{data.description || '这个人很懒，什么都没留下！'}}</span>
@@ -81,7 +81,7 @@
         </div>
     </div>
     <i-footer></i-footer>
-    </div>
+</div>
 </template>
 
 <script>
@@ -145,7 +145,8 @@ export default {
                         state.is_load = false
                         state.links_page = res.data.data
                         // 设置页面 title
-                        document.title = state.links_page.title + ' - ' + store.state.site_info.title
+                        // 设置页面 title
+                        document.title = state.links_page.title + ' - ' + store.state.theme_config.site.title
                     }
                 })
             },

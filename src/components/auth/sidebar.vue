@@ -15,7 +15,7 @@
 
         <div class="leftbar-user">
             <router-link :to="{path:'/cross'}">
-                <img :src=" user.head_img || theme_config.site.head_img" height="42" class="rounded-circle shadow-sm">
+                <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
                 <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
                 <span class="leftbar-user-name text-muted font-12px">
                     {{user.description || theme_config.site.present}}
@@ -66,7 +66,7 @@
 
             <li class="side-nav-title side-nav-item mt-1">控制台</li>
 
-            <li class="side-nav-item">
+            <li v-if="user.level == 'admin'" class="side-nav-item">
                 <router-link :to="{name:'option'}" class="side-nav-link">
                     <i><svg-icon file-name="option"></svg-icon></i>
                     <span> 主题配置 </span>
@@ -104,13 +104,15 @@ export default {
     setup(){
 
         const state = reactive({
-            user: [],           // 登录的用户
+            user: {'level':'user'}, // 登录的用户
+            is_login: false,        // 是否登录
         })
 
         // 获取缓存中的登录信息
         let login_storage = inisHelper.get.storage("login")
         // 判断缓存是否存在且未过期
         if (login_storage != "expire" && login_storage != false) {
+            state.is_login = true
             state.user = login_storage.user
         }
 

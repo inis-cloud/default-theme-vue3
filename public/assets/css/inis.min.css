@@ -489,7 +489,7 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .unresize{resize: unset !important;;}
 .flex{display: flex !important;}
 .directory-item .w-auto {width: 1.5em !important; height: 1.5em !important;}
-
+.home .position-relative > p {white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 
 
 

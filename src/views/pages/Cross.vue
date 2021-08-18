@@ -41,7 +41,7 @@
                             </ul>
                         </div>
                         <div class="profile-img">
-                            <img :src="user.head_img || null" class="rounded-circle shadow-sm mb-1" height="100">
+                            <img :src="user.head_img || null" class="rounded-circle shadow-sm mb-1" height="100" width="100">
                             <strong>{{user.nickname || '站长'}}</strong>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <div v-show="moving.count >= 1" v-for="(data, index) in moving.data" :key="data.id" class="card">
                             <div class="card-body">
                                 <div class="media mb-2">
-                                    <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40">
+                                    <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40" height="40">
                                     <div class="media-body">
                                         <h5 class="mt-0 mb-1">{{data.nickname || '昵称'}}</h5>
                                         <span class="font-13">{{methods.natureTime(data.create_time)}}</span>
@@ -183,7 +183,7 @@
                     <div class="tab-pane" id="timeline">
                         <div class="card">
                             <div class="card-body">
-                                <div class="slimscroll" style="max-height: 400px;">
+                                <div class="inis-scroll" style="max-height: 400px;">
 
                                     <div v-for="data in timeline_data" :key="data.id" class="timeline-alt pb-0 pt-0">
                                         <div class="timeline-item">
@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row flex-center">
+                                    <div v-show="linksItemData.count != 0" class="row flex-center">
                                         <div v-if="linksItemData.page != 1" class="btn-group inis-page-list mt-2" style="float: right">
                                             <button v-if="self_page != 1" v-on:click="methods.linksSortItem(linksSortItem.id, self_page - 1)" class="btn btn-light">
                                                 <span class="inis-page">
@@ -768,7 +768,7 @@ export default {
 
         onUpdated(()=>{
             methods.caches()
-            const scroll = '.cross #timeline .slimscroll'
+            const scroll = '.cross #timeline .inis-scroll'
             inisHelper.set.css(scroll,'height:auto;max-height:400px;')
             document.querySelector(scroll).onscroll = () =>{
                 let scrollHeight = document.querySelector(scroll).scrollHeight
