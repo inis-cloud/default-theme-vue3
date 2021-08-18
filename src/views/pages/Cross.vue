@@ -5,7 +5,7 @@
             <div class="col-lg-8">
 
                 <div class="card">
-                    <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" src="https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8338cc6defcfcf0d0762e43866eb4d0075c41c747f21ab56061a5c86f1aa03f276f2de0a8dc015c19f079946be304978?pictype=scale&from=30013&version=3.3.3.3&uin=1211515059&fname=1565407470038.jpg&size=1024" />
+                    <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" :src="theme_config.site.cross_bg || null" />
                     <div class="card-body">
                         <div class="float-left flex-center">
                             <a :href="switchUrl(sociality.qq, 'qq')" class="mr-2" target="_blank">
@@ -319,7 +319,7 @@ import { onMounted, onUpdated, reactive, toRefs, watch } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
 import axios from "axios"
 import Vditor from "vditor"
-import { useStore } from 'vuex'
+import { useStore, mapState } from 'vuex'
 import * as echarts from 'echarts'
 
 export default {
@@ -376,7 +376,7 @@ export default {
                 methods.moving()
                 methods.users()
                 // 设置页面 title
-                document.title = '时光机 - ' + store.state.site_info.title
+                document.title = '时光机 - ' + store.state.theme_config.site.title
             },
             // 初始化编辑器
             initVditor(){
@@ -816,7 +816,7 @@ export default {
         }
     },
     computed: {
-        
+        ...mapState(['theme_config'])
     }
 }
 </script>

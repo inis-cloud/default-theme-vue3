@@ -15,10 +15,10 @@
             <!-- LOGO -->
             <router-link :to="{name:'index'}" class="topnav-logo">
                 <span class="topnav-logo-lg">
-                    <img src="assets/images/logo.png" height="32">
+                    <img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32">
                 </span>
                 <span class="topnav-logo-sm">
-                    <img src="assets/images/logo_sm.png" height="28">
+                    <img :src="theme_config.logo.small_day || 'assets/images/logo_sm.png'" height="28">
                 </span>
             </router-link>
 
@@ -33,7 +33,7 @@
                     </a>
                 </li>
 
-                <li class="dropdown notification-list music-nav">
+                <li v-show="music_is_show" class="dropdown notification-list music-nav">
                     <a class="nav-link dropdown-toggle arrow-none nav-item" data-toggle="dropdown" href="#" id="topbar-music" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
                         <div id="lottie-music"></div>
@@ -293,7 +293,7 @@
 import axios from 'axios'
 import { onMounted } from 'vue'
 import lottie from 'lottie-web'
-import { mapState } from 'vuex'
+import { mapState, useStore } from 'vuex'
 import { GET, POST } from '@/utils/http/request'
 import { reactive, toRefs, watch } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
@@ -303,6 +303,7 @@ export default {
     components: { iMusic },
     setup() {
 
+        const store = useStore()
         const state = reactive({
             account: null,       // 帐号
             password: null,      // 密码
@@ -315,6 +316,7 @@ export default {
             moving: [],          // 动态
             update: [],          // 最新版本
             is_update: false,    // 是否显示更新
+            music_is_show: false,// 是否显示音乐播放器
         })
 
         // 获取缓存中的登录信息
@@ -449,6 +451,12 @@ export default {
             } else $('#search-notice').dropdown('hide')
         })
 
+        // 监听是否显示音乐播放器
+        watch(()=>store.state.theme_config.basic, ()=>{
+            let basic = store.state.theme_config.basic
+            state.music_is_show = (basic.music_show == 'true') ? true : false
+        })
+
         onMounted(()=>{
             methods.initData()
         })
@@ -475,7 +483,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['site_info'])
+        ...mapState(['site_info', 'theme_config'])
     },
     watch: {
 

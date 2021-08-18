@@ -136,12 +136,12 @@
                                 </teleport>
                             </div>
 
-                            <div v-if="inis_config.article.end_copy" class="row flex-center copy">
+                            <div v-show="((theme_config.basic.article_copy == 'true') ? true : false)" class="row flex-center copy">
                                 <span class="end">END</span>
                                 <span class="line"></span>
                             </div>
 
-                            <div v-if="inis_config.article.end_copy" class="row table mt-2 ml-0">
+                            <div v-show="((theme_config.basic.article_copy == 'true') ? true : false)" class="row table mt-2 ml-0">
                                 <table>
                                     <thead>
                                         <tr>
@@ -184,7 +184,7 @@
                 
                 <div class="col-md-4">
 
-                    <div class="card">
+                    <div v-show="is_top.is_show" class="card">
                         <div class="card-body">
                             <h4 class="header-title mb-3">置顶文章</h4>
                             <!-- 淡入淡出 .carousel-fade 停止轮播 data-touch="false" data-interval="false" -->
@@ -195,10 +195,9 @@
                         </div>
                     </div>
 
-                    <div v-if="tag.is_show" class="card">
+                    <div v-show="tag.is_show" class="card">
                         <div class="card-body">
                             <h4 class="header-title mb-2">标签云</h4>
-                            <!-- <span v-for="data in tag.data" :key="data.id" :class="'badge badge-pill mr-2 badge-' + data.color">{{data.name}}</span> -->
                             <span v-for="data in tag.data" :key="data.id" v-on:click="toPage('/tags/',data.id)" :class="'badge badge-pill cursor mr-2 badge-' + data.color">
                                 {{data.name}}
                             </span>
@@ -208,7 +207,7 @@
                     <div class="card directory">
                         <div class="card-body">
                             <h4 class="header-title mb-3">文章目录</h4>
-                            <div class="slimscroll" style="max-height: 300px;"></div>
+                            <div class="inis-scroll" style="max-height: 300px;"></div>
                         </div>
                     </div>
                 </div>
@@ -256,7 +255,7 @@ import { inisHelper } from '@/utils/helper/helper'
 import iFooter from '@/components/public/footer.vue'
 import { onMounted, reactive, toRefs, ref, onUpdated, watch } from 'vue'
 import iCommentReply from '@/components/module/comments/CommentReply.vue'
-import { useStore } from 'vuex'
+import { useStore, mapState } from 'vuex'
 
 export default {
   components: { iFooter, iLink, iCommentReply },
@@ -274,7 +273,7 @@ export default {
         sort: [],           // 分类
         tag: [],            // 标签
         is_load: true,      // 加载
-        is_top: [],         // 指定文章
+        is_top: [],         // 置顶文章
         url: '#',           // 当前URL
         inis_config: INIS,  // inis配置文件
     })
@@ -326,6 +325,7 @@ export default {
             }).then(res=>{
                 if (res.data.code == 200) {
                     state.is_top = res.data.data
+                    state.is_top.is_show = (state.is_top.count != 0) ? true : false
                     state.is_top.data.forEach((item,index)=>{
 
                         let li = document.querySelector("#carouselExampleCaptions .carousel-indicators")
@@ -352,9 +352,9 @@ export default {
         },
         // 文章目录
         directory(){
-            document.querySelector(".directory .slimscroll").style.setProperty("height","200px")
+            document.querySelector(".directory .inis-scroll").style.setProperty("height","200px")
             let content    = document.querySelector(".article-content")
-            let slimscroll = document.querySelector(".directory .slimscroll")
+            let slimscroll = document.querySelector(".directory .inis-scroll")
             let children   = content.children
             slimscroll.innerHTML = ''
             inisHelper.set.css(".directory","display: none;")
@@ -366,7 +366,7 @@ export default {
                     // 设置锚点ID
                     let mark = "mark-" + tag_name + "-" + index
                     item.setAttribute("id", mark)
-                    document.querySelector(".directory .slimscroll").innerHTML += '<div class="directory-item pl-4" name="'+mark+'">'+text+'</div>'
+                    document.querySelector(".directory .inis-scroll").innerHTML += '<div class="directory-item pl-4" name="'+mark+'"># '+text+'</div>'
                     inisHelper.set.css(".directory","display: block;")
                 }
             })
@@ -421,7 +421,7 @@ export default {
     onUpdated(()=>{
         methods.directory()
         methods.markLocation()
-        inisHelper.set.css('.directory .slimscroll', 'height:auto!important;max-height:200px!important;')
+        inisHelper.set.css('.directory .inis-scroll', 'height:auto!important;max-height:200px!important;')
         methods.setDirectory()
     })
 
@@ -442,7 +442,10 @@ export default {
         let time = inisHelper.date.to.time(date)
         return inisHelper.time.nature(time)
       }
-  }
+  },
+  computed: {
+    ...mapState(['theme_config'])
+  },
 }
 </script>
 

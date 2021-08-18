@@ -30,13 +30,15 @@
 
 <script>
 import axios from 'axios'
-import { onMounted, reactive, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import lottie from 'lottie-web'
+import { onMounted, reactive, toRefs, watch } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
 
 export default {
     setup(){
 
+        const store = useStore()
         const state = reactive({
             theme: '夜间模式'
         })
@@ -46,7 +48,6 @@ export default {
             initData(){
                 methods.lottie()
                 methods.listener()
-                // methods.autoNight()
                 methods.setTheme()
             },
             // 动态图标
@@ -84,13 +85,23 @@ export default {
             setTheme(){
                 let body    = document.querySelector('body')
                 let theme   = inisHelper.get.storage("inis",'theme')
+                let lg_logo = document.querySelector('.topnav-logo .topnav-logo-lg img')
+                let sm_logo = document.querySelector('.topnav-logo .topnav-logo-sm img')
                 // 判断缓存是否存在且未过期
                 if (inisHelper.in.array(theme,['night'])) {
                     state.theme = '日间模式'
                     body.setAttribute('theme','night')
+                    setTimeout(()=>{
+                        lg_logo.src = store.state.theme_config.logo.big_night
+                        sm_logo.src = store.state.theme_config.logo.small_night
+                    }, 500)
                 } else {
                     state.theme = '夜间模式'
                     body.setAttribute('theme','')
+                    setTimeout(()=>{
+                        lg_logo.src = store.state.theme_config.logo.big_day
+                        sm_logo.src = store.state.theme_config.logo.small_day
+                    }, 500)
                 }
             },
             // 切换主题模式
@@ -105,15 +116,26 @@ export default {
                     inisHelper.set.storage('inis',{'theme':'night'})
                 }
 
+                // 更新vuex主题配置
+                store.dispatch('commitThemeConfig')
+
                 methods.setTheme()
             },
             // 自动夜间模式
-            autoNight(){
-              if ((new Date).getHours() <= 6 || (new Date).getHours() >= 22) {
-                inisHelper.set.storage('inis',{'theme':'night'})
-              } else inisHelper.set.storage('inis',{'theme':''})
+            autoNight(start = 22, end = 6){
+                if ((new Date).getHours() <= parseInt(end) || (new Date).getHours() >= parseInt(start)) {
+                    inisHelper.set.storage('inis',{'theme':'night'})
+                } else inisHelper.set.storage('inis',{'theme':''})
             }
         }
+
+        watch(()=>store.state.theme_config.basic, ()=>{
+            let config = store.state.theme_config
+            if (config.basic.auto_night == 'true') {
+                methods.autoNight(config.basic.night_start, config.basic.night_end)
+                methods.setTheme()
+            }
+        })
 
         onMounted(()=>{
             methods.initData()

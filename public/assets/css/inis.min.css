@@ -185,7 +185,7 @@ code ::selection{background:#344449;color:#fff;text-shadow:none}
 #carouselExampleCaptions.article-popular .carousel-indicators .active {height: 20px!important;}
 
 .directory{display: none;}
-.directory .directory-item{height: 2em;line-height: 2em;cursor: pointer;}
+.directory .directory-item{line-height: 2em;cursor: pointer;}
 .directory .directory-item:hover{color: var(--primary);}
 
 .links-page .flex-center .spinner-border{width: 1.5em;height: 1.5em;}
@@ -488,7 +488,7 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .inis-scroll::-webkit-scrollbar-track{background-color:rgba(0,0,0,.1)}
 .unresize{resize: unset !important;;}
 .flex{display: flex !important;}
-
+.directory-item .w-auto {width: 1.5em !important; height: 1.5em !important;}
 
 
 

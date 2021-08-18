@@ -89,11 +89,13 @@
 import { GET } from '@/utils/http/request'
 import { onMounted, reactive, toRefs, watch, watchEffect } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
+import { useStore } from 'vuex'
 import JQ from 'jquery'
 
 export default {
     setup() {
 
+        const store = useStore()
         const state = reactive({
             music: [],          // 音乐
             music_info:[],      // 当前播放的音乐数据
@@ -371,7 +373,12 @@ export default {
 
         onMounted(()=>{
             methods.autoBar()
-            methods.musicPlayList()
+            // 监听是否显示音乐播放器
+            watch(()=>store.state.theme_config.basic, ()=>{
+                let basic = store.state.theme_config.basic
+                let music_show = (basic.music_show == 'true') ? true : false
+                if (music_show) methods.musicPlayList()
+            })
             // 监听静音按钮，初始化缓存中的数据
             watchEffect(() => {
                 let audio = document.querySelector("#audio audio")

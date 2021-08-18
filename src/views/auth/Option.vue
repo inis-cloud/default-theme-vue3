@@ -77,30 +77,37 @@
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
                                                                     <label>站点标题</label>
-                                                                    <input v-model="config.site.title" type="text" class="form-control">
+                                                                    <input v-model="theme_config.site.title" type="text" class="form-control">
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label>favicon 地址</label>
-                                                                    <input v-model="config.site.favicon" type="text" class="form-control" placeholder="请提交一个图片链接">
+                                                                    <input v-model="theme_config.site.favicon" type="text" class="form-control" placeholder="请提交一个图片链接">
                                                                 </div>
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>博主的昵称</label>
-                                                                    <input v-model="config.site.nickname" type="text" class="form-control" placeholder="您希望大家怎么称呼您">
+                                                                    <input v-model="theme_config.site.nickname" type="text" class="form-control" placeholder="您希望大家怎么称呼您">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
                                                                     <label>站点描述</label>
-                                                                    <input v-model="config.site.description" type="text" class="form-control" placeholder="为空默认使用一言">
+                                                                    <input v-model="theme_config.site.description" type="text" class="form-control" placeholder="为空默认使用一言">
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label>站点头像</label>
-                                                                    <input v-model="config.site.head_img" type="text" class="form-control" placeholder="请提交一个图片链接">
+                                                                    <input v-model="theme_config.site.head_img" type="text" class="form-control" placeholder="请提交一个图片链接">
                                                                 </div>
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>博主的介绍</label>
-                                                                    <input v-model="config.site.present" type="text" class="form-control" placeholder="简单的介绍一下自己">
+                                                                    <input v-model="theme_config.site.present" type="text" class="form-control" placeholder="简单的介绍一下自己">
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group mb-3">
+                                                                    <label>时光机背景图</label>
+                                                                    <input v-model="theme_config.site.cross_bg" type="text" class="form-control" placeholder="请提交一个图片链接">
+                                                                </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -127,15 +134,15 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>大LOGO</label>
-                                                                    <input v-model="config.logo.big_day" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
+                                                                    <input v-model="theme_config.logo.big_day" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>小LOGO</label>
-                                                                    <input v-model="config.logo.small_day" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
+                                                                    <input v-model="theme_config.logo.small_day" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -155,15 +162,15 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>大LOGO</label>
-                                                                    <input v-model="config.logo.big_night" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
+                                                                    <input v-model="theme_config.logo.big_night" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>小LOGO</label>
-                                                                    <input v-model="config.logo.small_night" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
+                                                                    <input v-model="theme_config.logo.small_night" type="text" class="form-control" placeholder="填写HTML代码，如：<img src='//inis.cn/assets/images/logo.png'> ，也可以填写更复杂的html代码，如svg等">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -193,8 +200,8 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <div class="form-group mb-3">
-                                                                    <textarea v-model="config.copy.text" class="form-control inis-scroll" rows="3" placeholder="为空不添加内容"></textarea>
+                                                                <div class="form-group">
+                                                                    <textarea v-model="theme_config.copy.text" class="form-control inis-scroll" rows="3" placeholder="为空不添加内容"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -203,30 +210,78 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 class="header-title">文章配置</h4>
+                                    <h4 class="header-title">基本配置</h4>
                                     <p class="text-muted">
-                                        关于文章版权信息的一些配置
+                                        关于文章版权和音乐播放器的配置
                                     </p>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-header" id="article">
+                                            <div class="card mb-1">
+                                                <div class="card-header" id="basic">
                                                     <h5 class="m-0">
-                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#articleOne" aria-expanded="false" aria-controls="collapseOne">
-                                                            文章配置信息
+                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#basicOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            配置信息
                                                             <span class="float-right"><i class="fa fa-chevron-down"></i></span>
                                                         </a>
                                                     </h5>
                                                 </div>
-                                                <div id="articleOne" class="collapse" aria-labelledby="article" data-parent="#accordion">
+                                                <div id="basicOne" class="collapse" aria-labelledby="basic" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <p class="mb-0 flex">
+                                                                        显示音乐播放器：
+                                                                        <input v-model="theme_config.basic.music_show" type="checkbox" id="music_show" checked data-switch="success">
+                                                                        <label for="music_show" data-on-label="Yes" data-off-label="No"></label>
+                                                                    </p>
+                                                                    <p class="mb-0 flex">
+                                                                        文章详情页显示版权信息：
+                                                                        <input v-model="theme_config.basic.article_copy" type="checkbox" id="article_copy" checked data-switch="success">
+                                                                        <label for="article_copy" data-on-label="Yes" data-off-label="No"></label>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-header" id="basic-1">
+                                                    <h5 class="m-0">
+                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#basicTwo" aria-expanded="false" aria-controls="collapseOne">
+                                                            夜间模式
+                                                            <span class="float-right"><i class="fa fa-chevron-down"></i></span>
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="basicTwo" class="collapse" aria-labelledby="basic-1" data-parent="#accordion">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
-                                                                    <label>是否在文章页面显示页脚版权信息</label>
-                                                                    <p class="mb-0">
-                                                                        <input type="checkbox" id="is_copy" checked data-switch="success">
-                                                                        <label for="is_copy" data-on-label="Yes" data-off-label="No"></label>
+                                                                    <label>夜间模式开始时间（24小时制）</label>
+                                                                    <input v-model="theme_config.basic.night_start" type="text" class="form-control" placeholder="该配置项填写小时的时间（24进制），如：22">
+                                                                    <p class="text-muted mb-0">该配置只有在 夜间/日间模式选择自动才会生效。</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label>夜间模式结束时间（24小时制）</label>
+                                                                    <input v-model="theme_config.basic.night_end" type="text" class="form-control" placeholder="该配置项填写小时的时间（24进制），如：6">
+                                                                    <p class="text-muted mb-0">该配置只有在 夜间/日间模式选择自动才会生效。</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <p class="mb-0 flex">
+                                                                        自动开启夜间模式：
+                                                                        <input v-model="theme_config.basic.auto_night" type="checkbox" id="auto_night" checked data-switch="success">
+                                                                        <label for="auto_night" data-on-label="Yes" data-off-label="No"></label>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -257,28 +312,28 @@
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
                                                                     <label>描述</label>
-                                                                    <input v-model="config.help.description" type="text" class="form-control">
+                                                                    <input v-model="theme_config.help.description" type="text" class="form-control">
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label>按钮文字</label>
-                                                                    <input v-model="config.help.btn_text" type="text" class="form-control" placeholder>
+                                                                    <input v-model="theme_config.help.btn_text" type="text" class="form-control" placeholder>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="form-group mb-3">
                                                                     <label>图片地址</label>
-                                                                    <input v-model="config.help.img_src" type="text" class="form-control" placeholder="请填写图片链接">
+                                                                    <input v-model="theme_config.help.img_src" type="text" class="form-control" placeholder="请填写图片链接">
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label>按钮跳转地址</label>
-                                                                    <input v-model="config.help.btn_url" type="text" class="form-control" placeholder="请填写跳转链接">
+                                                                    <input v-model="theme_config.help.btn_url" type="text" class="form-control" placeholder="请填写跳转链接">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <p class="mb-0 flex">
                                                                         是否显示帮助：
-                                                                        <input type="checkbox" id="is_help" checked data-switch="success">
+                                                                        <input v-model="theme_config.help.is_show" type="checkbox" id="is_help" checked data-switch="success">
                                                                         <label for="is_help" data-on-label="Yes" data-off-label="No"></label>
                                                                     </p>
                                                                 </div>
@@ -312,13 +367,13 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-group mb-3">
                                                                     <label>底部左侧信息</label>
-                                                                    <textarea v-model="config.footer.left" class="form-control inis-scroll" rows="3" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <textarea v-model="theme_config.footer.left" class="form-control inis-scroll" rows="3" placeholder="推荐填写HTML代码"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>底部右侧信息</label>
-                                                                    <textarea v-model="config.footer.right" class="form-control inis-scroll" rows="3" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <textarea v-model="theme_config.footer.right" class="form-control inis-scroll" rows="3" placeholder="推荐填写HTML代码"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -329,7 +384,7 @@
                                     </div>
                                     <h4 class="header-title">自定义代码</h4>
                                     <p class="text-muted">
-                                        位置是博客底部，可以填写备案号等一些信息
+                                        提供开发者使用的自定义代码配置 <span class="text-danger">（注意：不支持JS代码）</span>
                                     </p>
                                     <div class="row">
                                         <div class="col-lg-12">
@@ -348,20 +403,20 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-group mb-3">
                                                                     <label>自定义 CSS</label>
-                                                                    <textarea v-model="config.code.css" class="form-control inis-scroll" rows="3" placeholder="这里填写的是css代码，来进行自定义样式，会自动输出到</head>标签之前"></textarea>
+                                                                    <textarea v-model="theme_config.code.css" class="form-control inis-scroll" rows="3" placeholder="这里填写的是css代码，来进行自定义样式，会自动输出到</head>标签之前"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group mb-3">
                                                                     <label>自定义输出head 头部的HTML代码</label>
-                                                                    <textarea v-model="config.code.head_html" class="form-control inis-scroll" rows="3" placeholder="这里填写的是html代码，会输入到</head>之前"></textarea>
+                                                                    <textarea v-model="theme_config.code.head_html" class="form-control inis-scroll" rows="3" placeholder="这里填写的是html代码，会输入到</head>之前"></textarea>
                                                                     <p class="text-muted mb-0">你可以填写网站统计代码等其他信息，网站统计代码推荐google 统计和百度统计</p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group">
                                                                     <label>自定义输出body 尾部的HTML代码</label>
-                                                                    <textarea v-model="config.code.body_html" class="form-control inis-scroll" rows="3" placeholder="这里填写的是html代码，会输入到</body>之前"></textarea>
+                                                                    <textarea v-model="theme_config.code.body_html" class="form-control inis-scroll" rows="3" placeholder="这里填写的是html代码，会输入到</body>之前"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -386,49 +441,74 @@
 </template>
 
 <script>
+import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
-import { GET } from '@/utils/http/request'
+import { GET, POST } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs  } from 'vue'
 
 export default {
     components: { iFooter },
     setup(){
 
+        const store = useStore()
         const state = reactive({
-            config: {},     // 配置信息
+            user: [],                                   // 用户信息
+            theme_config: store.state.theme_config,     // 主题配置
         })
 
         const methods = {
             // 初始化
             initData(){
-
+                methods.getConfig()
             },
-            // 初始化配置
-            initConfig(){
-                // 站点配置
-                const site = {title:'', favicon:'', nickname:'', description:'', head_img:'', present:''}
-                // LOGO配置
-                const logo = {big_day:'',small_day:'',big_night:'',small_night:''}
-                // 复制配置
-                const copy = {text:''}
-                // 帮助配置
-                const help = {description:'',btn_text:'',btn_url:'',img_src:''}
-                // 页脚配置
-                const footer = {left:'',right:''}
-                // 自定义代码
-                const code = {css:'',head_html:'',body_html:''}
-                // 设置初始化配置
-                state.config = {site,logo,copy,help,footer,code}
+            // 获取主题配置
+            getConfig(){
+                GET('options',{
+                    params:{key:'inis_config'}
+                }).then(res=>{
+                    if (res.data.code == 200) {
+                        state.theme_config = res.data.data.opt
+                        // 更新vuex主题配置
+                        store.dispatch('commitThemeConfig', state.theme_config)
+                    } else if (res.data.code == 204) {
+                        if (state.user.user.level == 'admin') {
+                            $.NotificationApp.send("提示！", "正在为您初始化主题配置信息！", "top-right", "rgba(0,0,0,0.2)", "info")
+                            methods.save(true)
+                        }
+                    } else $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                })
             },
             // 保存信息
-            save(){
-                console.log(state.config)
+            save(init = false){
+
+                let params = {'login-token':state.user['login-token'],keys:'inis_config',opt:state.theme_config}
+                POST('options', params).then(res=>{
+                    if (res.data.code == 200) {
+                        if (init) $.NotificationApp.send("提示！", "主题配置初始化完成！", "top-right", "rgba(0,0,0,0.2)", "info")
+                        else {
+                            $.NotificationApp.send("提示！", "主题配置保存成功！", "top-right", "rgba(0,0,0,0.2)", "info")
+                            // 更新vuex主题配置
+                            store.dispatch('commitThemeConfig', state.theme_config)
+                        }
+                    } else {
+                        $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                    }
+                })
+            },
+            // 登录信息
+            loginToken(){
+                // 获取缓存中的登录信息
+                let login_storage = inisHelper.get.storage("login")
+                // 判断缓存是否存在且未过期
+                if (login_storage != "expire" && login_storage) {
+                    state.user = login_storage
+                }
             }
         }
 
         // 初始化配置
-        methods.initConfig()
+        methods.loginToken()
 
         onMounted(()=>{
             methods.initData()
@@ -442,6 +522,9 @@ export default {
             let time = inisHelper.date.to.time(date)
             return inisHelper.time.nature(time)
         }
-    }
+    },
+    computed: {
+        ...mapState(['theme_config'])
+    },
 }
 </script>

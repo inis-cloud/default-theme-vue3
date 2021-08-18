@@ -63,16 +63,19 @@ export default {
     
     // 记录一下是否为手机设备
     inisHelper.set.storage('inis',{'mobile':inisHelper.is.mobile()})
+    // 主题配置
+    store.dispatch('commitThemeConfig')
+    // 站点信息
     store.dispatch('commitSiteInfo')
 
     // 监听复制操作
-    if (INIS.copyright) document.addEventListener('copy',(e)=>{
+    document.addEventListener('copy',(e)=>{
       let clipboardData = e.clipboardData || window.clipboardData;
-      if(!clipboardData) return ;
+      if(!clipboardData) return;
       let text = window.getSelection().toString();
       if (text) {
         e.preventDefault();
-        clipboardData.setData('text/plain', text + '\n' + INIS.copy_text || null)
+        clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
       }
     })
 

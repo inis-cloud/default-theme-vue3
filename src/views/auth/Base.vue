@@ -36,6 +36,7 @@
       <!-- 核心CSS - 开始 -->
       <i-link src="assets/css/inis.min.css"></i-link>
       <i-link src="assets/css/inis.media.css"></i-link>
+      <i-tag tag="style" v-html="theme_config.code.css"></i-tag>
       <!-- 核心CSS - 结束 -->
     </teleport>
     <teleport to="body">
@@ -49,30 +50,34 @@
 <script>
 // 公共组件
 import iLink from '@/components/tool/Link'
+import iTag from '@/components/tool/Tag'
 import iNav from '@/components/auth/navbar'
 import iSide from '@/components/auth/sidebar'
 import iTool from '@/components/public/tool'
 import { inisHelper } from '@/utils/helper/helper'
-import { useStore } from 'vuex'
+import { useStore, mapState } from 'vuex'
 import { onBeforeRouteUpdate } from 'vue-router'
 
 export default {
-  components: { iNav, iSide, iLink, iTool },
+  components: { iNav, iSide, iLink, iTool, iTag },
   setup() {
     const store = useStore()
     
     // 记录一下是否为手机设备
     inisHelper.set.storage('inis',{'mobile':inisHelper.is.mobile()})
+    // 主题配置
+    store.dispatch('commitThemeConfig')
+    // 站点信息
     store.dispatch('commitSiteInfo')
 
     // 监听复制操作
-    if (INIS.copyright) document.addEventListener('copy',(e)=>{
+    document.addEventListener('copy',(e)=>{
       let clipboardData = e.clipboardData || window.clipboardData;
-      if(!clipboardData) return ;
+      if(!clipboardData) return;
       let text = window.getSelection().toString();
       if (text) {
         e.preventDefault();
-        clipboardData.setData('text/plain', text + '\n' + INIS.copy_text || null)
+        clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
       }
     })
 
@@ -82,6 +87,9 @@ export default {
       document.querySelector("body").classList.remove("sidebar-enable")
       next()
     })
+  },
+  computed: {
+    ...mapState(['theme_config'])
   },
 }
 </script>

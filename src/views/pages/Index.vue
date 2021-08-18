@@ -12,49 +12,10 @@
     <div class="content-page home">
         <div class="content">
 
-            <!-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src="https://api.inis.cn/storage/banner/1565407459914.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
-                    </div>
-                    </div>
-                    <div class="carousel-item">
-                    <img src="https://api.inis.cn/storage/banner/1565407459914.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
-                    </div>
-                    </div>
-                    <div class="carousel-item">
-                    <img src="https://api.inis.cn/storage/banner/1565407459914.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
-                    </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions"  data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions"  data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </button>
-            </div> -->
-            
             <div class="row mb-2 master-info">
                 <div class="col-sm-4">
-                    <h1 class="page-title display-6">{{site_info.title}}</h1>
-                    <p class="text-muted mb-0">{{hitokoto.hitokoto}}</p>
+                    <h1 class="page-title display-6">{{theme_config.site.title || site_info.title}}</h1>
+                    <p class="text-muted mb-0">{{hitokoto.hitokoto || ''}}</p>
                 </div>
                 <div v-if="false" class="col-sm-8">
                     <div class="text-sm-right">
@@ -182,6 +143,8 @@ export default {
     components: { iFooter },
     setup() {
 
+        // Vuex 响应实例
+        const store = useStore()
         const state = reactive({
             article_sort: [],       // 文章分类
             hitokoto: [],           // 一言
@@ -190,10 +153,13 @@ export default {
             page_is_show: true,     // 是否显示分页
         })
 
-        // Vuex 响应实例
-        const store = useStore()
-
         const methods = {
+            // 初始化数据
+            initData(){
+                methods.hitokoto()
+                methods.getArticle()
+                methods.getArticleSort()
+            },
             // 获取文章数据
             getArticle(opt){
                 // 从缓存中获取分页码 - 防止刷新页面，分页数据也刷新
@@ -216,7 +182,7 @@ export default {
                         // 设置分页码到缓存中
                         inisHelper.set.storage('article',{'page':opt.page})
                         // 设置页面 title
-                        document.title = store.state.site_info.title
+                        document.title = store.state.theme_config.site.title
                     }
                 })
             },
@@ -235,22 +201,30 @@ export default {
                         page_list.style.left = "calc(50% - "+(page_list.offsetWidth/2)+"px)";
                     }
                 }
+            },
+            // 获取文章分类
+            getArticleSort(){
+                GET('article-sort').then( res => {
+                    state.article_sort = res.data.data.data
+                })
+            },
+            // 获取一言数据
+            hitokoto(){
+                // 太快了，延迟一下
+                setTimeout(()=>{
+                    let description = store.state.theme_config.site.description
+                    let check = inisHelper.is.empty(description) ? true : false
+                    if (check) {
+                        GET('https://v1.hitokoto.cn').then( res => {
+                            state.hitokoto = res.data
+                        })
+                    } else state.hitokoto.hitokoto = description
+                },500)
             }
         }
+
         onMounted(() => {
-            methods.getArticle()
-            // 获取文章分类
-            GET('article-sort').then( res => {
-                state.article_sort = res.data.data.data
-            }),
-            // 获取一言数据
-            GET('https://v1.hitokoto.cn').then( res => {
-                state.hitokoto = res.data
-                // $('.carousel-inner').carousel({
-                //     interval: 1000,
-                //     keyboard: true
-                // })
-            })
+            methods.initData()
         })
 
         onBeforeUpdate(()=>{
@@ -271,7 +245,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['site_info'])
+        ...mapState(['site_info', 'theme_config'])
     }
 }
 </script>

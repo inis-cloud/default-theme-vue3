@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="header-title">{{ inis_config.page.msg_wall.ordain_day_ranking || 'XX' }}天内评论排行</h4>
+                        <h4 class="header-title">90天内评论排行</h4>
 
                         <div class="flex-center">
                             <canvas id="comments-chart"></canvas>
@@ -219,7 +219,6 @@ export default {
             login_storage: [],     // 登录缓存
             show_comments:null,    // 显示评论
             like:[],               // 点赞
-            inis_config: INIS,     // inis配置文件
         })
 
         // Vuex 响应实例
@@ -256,7 +255,7 @@ export default {
                 })
 
                 // 七天内时间戳
-                const time = Math.round(new Date / 1000) - 86400 * state.inis_config.page.msg_wall.ordain_day_ranking
+                const time = Math.round(new Date / 1000) - 86400 * 90
                 const params_sql = {
                     where: `create_time,>=,${time};`,
                     limit:99999

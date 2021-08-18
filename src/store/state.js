@@ -1,3 +1,46 @@
 export default {
     site_info: {},          // 站点信息
+    theme_config: {         // 主题配置
+        "site": {           // 站点配置
+            "title"       :  "inis默认主题",
+            "favicon"     :  "./favicon.ico",
+            "nickname"    :  "inis",
+            "description" :  "",
+            "head_img"    :  "https://q.qlogo.cn/g?b=qq&nk=97783391&s=640",
+            "present"     :  "",
+            "cross_bg"    :  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8338cc6defcfcf0d0762e43866eb4d0075c41c747f21ab56061a5c86f1aa03f276f2de0a8dc015c19f079946be304978?pictype=scale&from=30013&version=3.3.3.3&uin=1211515059&fname=1565407470038.jpg&size=1024"
+        },
+        "logo": {           // LOGO信息
+            "big_day"     :  "assets/images/logo.png",
+            "small_day"   :  "assets/images/logo_sm.png",
+            "big_night"   :  "assets/images/logo.png",
+            "small_night" :  "assets/images/logo_sm.png"
+        },
+        "copy": {           // 文章复制版权
+            "text"        :  "您复制了inis系统的内容\n网址：https://inis.cn"
+        },
+        "help": {           // 帮助信息
+            "description" :  "您好！请问有什么可以帮您！",
+            "btn_text"    :  "帮助",
+            "btn_url"     :  "//docs.inis.cc",
+            "img_src"     :  "assets/images/help-icon.svg",
+            "is_show"     :  true
+        },                  // 页脚配置
+        "footer": {
+            "left"        :  "<span class=\"item left bg-danger ml-1\">自定义脚</span><span class=\"item right bg-success\"><a href=\"//inis.cn\" target=\"_blank\">左边</a></span>",
+            "right"       :  "<span class=\"item left bg-info\"><a href=\"//racns.com/inis.html\" target=\"_blank\">自定义脚</a></span><span class=\"item right bg-light mr-1\"><a href=\"//inis.cc\" target=\"_blank\">右边</a></span>"
+        },
+        "code": {           // 自定义代码
+            "css"         :  "",
+            "head_html"   :  "",
+            "body_html"   :  ""
+        },
+        "basic": {          // 基本信息
+            "article_copy":  true,
+            "music_show"  :  true,
+            "auto_night"  :  false,
+            "night_start" :  22,
+            "night_end"   :  6
+        }
+    },
 }

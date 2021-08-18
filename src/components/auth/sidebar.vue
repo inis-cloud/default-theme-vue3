@@ -15,11 +15,11 @@
 
         <div class="leftbar-user">
             <router-link :to="{path:'/cross'}">
-                <img :src=" user.head_img || site_info.site_img" height="42" class="rounded-circle shadow-sm">
+                <img :src=" user.head_img || theme_config.site.head_img" height="42" class="rounded-circle shadow-sm">
+                <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
                 <span class="leftbar-user-name text-muted font-12px">
-                    {{user.description || null}}
+                    {{user.description || theme_config.site.present}}
                 </span>
-                <span v-if="user.description == null" class="text-muted">{{site_info.title}}</span>
             </router-link>
         </div>
 
@@ -75,14 +75,16 @@
 
         </ul>
 
-        <div v-if="help.is_show && help.is_help" class="help-box text-center">
+        <div v-if="((theme_config.help.is_show == 'true') ? true : false)" class="help-box text-center">
             <a v-on:click="methods.setHelp()" href="javascript: void(0);" class="float-right close-btn text-body">
                 <i><svg-icon file-name="close" style="width: 0.6em;height: 0.6em;"></svg-icon></i>
             </a>
-            <img :src="help.img_src" height="90" />
-            <h5 class="mt-3">{{ user.nickname || null}}</h5>
-            <p class="mb-3">{{ help.title || null}}</p>
-            <a :href="help.btn_url || null" target="_block" class="btn btn-outline-primary btn-sm">{{ help.btn_title || null}}</a>
+            <img :src="theme_config.help.img_src || null" height="90" />
+            <h5 class="mt-3">{{ user.nickname || null }}</h5>
+            <p class="mb-3">{{theme_config.help.description || null}}</p>
+            <a :href="theme_config.help.btn_url || null" target="_block" class="btn btn-outline-primary btn-sm">
+                {{theme_config.help.btn_text || null}}
+            </a>
         </div>
 
         <div class="clearfix"></div>
@@ -103,7 +105,6 @@ export default {
 
         const state = reactive({
             user: [],           // 登录的用户
-            help: [],           // 是否显示帮助
         })
 
         // 获取缓存中的登录信息
@@ -113,24 +114,11 @@ export default {
             state.user = login_storage.user
         }
 
-        // 从缓冲中获取帮助信息
-        let is_help = inisHelper.get.storage('inis','is_help')
-        if (is_help && is_help != "expire") {
-            state.help.is_help = is_help.value
-        } else state.help.is_help = true
-
         const methods = {
             // 初始化数据
             initData(){
                 // 侧边栏滚动
                 inisHelper.set.css(".left-side-menu .slimScrollDiv","height:" + (window.innerHeight - 100) + "px!important;")
-                
-                for (let item in INIS.help) state.help[item] = INIS.help[item]
-            },
-            // 帮助按钮
-            setHelp(boolean = false){
-                state.help.is_help = boolean
-                inisHelper.set.storage('inis', "is_help",{value:boolean,time:3600})
             },
             // 打印彩色字体
             colorFont(){
@@ -152,7 +140,7 @@ export default {
         
     },
     computed: {
-        ...mapState(['site_info'])
+        ...mapState(['site_info','theme_config'])
     },
 }
 

@@ -25,7 +25,7 @@ const plugins = {
                 })
                 let pre_head = document.createElement("div")
                 pre_head.classList.add('pre-head')
-                pre_head.innerHTML = "<p><span class='code-language'>" + language.toUpperCase() + "</span><span class='copy'><img class='w-auto mr-1' src='/assets/svg/tag.svg' />复制</span></p>";
+                pre_head.innerHTML = "<p><span class='code-language'>" + language.toUpperCase() + "</span><span class='copy'><img class='w-auto mr-1' src='assets/svg/tag.svg' />复制</span></p>";
                 block.parentNode.insertBefore(pre_head, block)
                 // 创建修复滚动条白点
                 let repair = document.createElement("span")
@@ -36,7 +36,7 @@ const plugins = {
             el.querySelectorAll('pre').forEach((item)=>{
                 JQ(item).find('.copy').click(()=>{
                     let result = inisHelper.set.copy.text(JQ(item).find('code').text(), INIS.copy_text || null)
-                    if (result) $(item).find(".copy").html("<img class='w-auto mr-1' src='/assets/svg/tag.svg' />已复制</span>")
+                    if (result) $(item).find(".copy").html("<img class='w-auto mr-1' src='assets/svg/tag.svg' />已复制</span>")
                 })
             })
         })
