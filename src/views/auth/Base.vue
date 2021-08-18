@@ -57,6 +57,7 @@ import iTool from '@/components/public/tool'
 import { inisHelper } from '@/utils/helper/helper'
 import { useStore, mapState } from 'vuex'
 import { onBeforeRouteUpdate } from 'vue-router'
+import JQ from 'jquery'
 
 export default {
   components: { iNav, iSide, iLink, iTool, iTag },
@@ -80,6 +81,13 @@ export default {
         clipboardData.setData('text/plain', text + '\n' + store.state.theme_config.copy.text || null)
       }
     })
+
+    // 自定义代码
+    setTimeout(()=>{
+      let code = store.state.theme_config.code
+      JQ('head').append(code.head_html)
+      JQ('body').append(code.body_html)
+    },500)
 
     // 监听路由更新
     onBeforeRouteUpdate((to, from, next)=>{
