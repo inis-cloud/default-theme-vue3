@@ -36,7 +36,7 @@
                 <li v-show="music_is_show" class="dropdown notification-list music-nav">
                     <a class="nav-link dropdown-toggle arrow-none nav-item" data-toggle="dropdown" href="#" id="topbar-music" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
-                        <div id="lottie-music"></div>
+                        <div id="lottie-music" :key="$route.fullPath"></div>
                         <!-- 点点 -->
                         <!-- <span class="bg-danger dots"></span> -->
                     </a>
@@ -46,7 +46,7 @@
                 <li class="dropdown notification-list nav-item">
                     <a href="#" class="nav-link dropdown-toggle arrow-none nav-item right-bar-toggle" data-toggle="dropdown" id="news-notice" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
-                        <div id="lottie-mail"></div>
+                        <div id="lottie-mail" :key="$route.fullPath"></div>
                         <!-- 点点 -->
                         <!-- <span class="bg-info count-mail"></span> -->
                     </a>

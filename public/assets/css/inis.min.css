@@ -490,7 +490,7 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .flex{display: flex !important;}
 .directory-item .w-auto {width: 1.5em !important; height: 1.5em !important;}
 .home .position-relative > p {white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
-
+.article-footer .btn-link{width: 200px;}
 
 
 

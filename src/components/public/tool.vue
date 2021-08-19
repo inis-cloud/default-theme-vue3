@@ -12,16 +12,16 @@
 <div class="list-container">
   <button class="more-button" aria-label="Menu Button">
     <div class="menu-icon-wrapper">
-      <div id="lottie-menu"></div>
+      <div id="lottie-menu" :key="$route.fullPath"></div>
     </div>
   </button>
   <ul class="more-button-list">
     <li v-on:click="methods.switchNight()" class="more-button-list-item">
-        <div id="lottie-night"></div>
+        <div id="lottie-night" :key="$route.fullPath"></div>
       <span>{{theme}}</span>
     </li>
     <li v-on:click="goToTop" class="more-button-list-item">
-      <div id="lottie-upup"></div>
+      <div id="lottie-upup" :key="$route.fullPath"></div>
       <span>返回顶部</span>
     </li>
   </ul>

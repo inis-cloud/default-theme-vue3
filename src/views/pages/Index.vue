@@ -36,9 +36,8 @@
             </div>
 
             <div class="row">
-                
                 <!-- 文章展示 - 开始 -->
-                <div v-if="is_mobile" v-for="data in article.data" :key="data.id" class="col-md-6 col-xl-3">
+                <div v-if="is_mobile" v-for="data in article_data" :key="data.id" class="col-md-6 col-xl-3">
                     <div class="card d-block">
                         <router-link :to="{name: 'article', params: { id: data.id }}">
                             <img class="card-img-top" :src="data.expand.img_src" alt="project image cap">
@@ -69,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="!is_mobile" class="col-md-6 col-xl-3 un-mobile" v-for="data in article.data" :key="data.id">
+                <div v-else-if="!is_mobile" v-for="data in article_data" :key="data.id" class="col-md-6 col-xl-3 un-mobile" >
                     <div class="card d-block">
                         <div class="card-body p-2">
                             <router-link :to="{name: 'article', params: { id: data.id }}">
@@ -108,23 +107,17 @@
                     </div>
                 </div>
                 <!-- 文章展示 - 结束 -->
-            </div>
-
-            <teleport to="body">
-                <div v-if="page_is_show" class="btn-group inis-page-list" style="float: right">
-                    <button v-if="article.self_page != 1" v-on:click="methods.getArticle({page:article.self_page-1})" type="button" class="btn btn-light inis-btn-page">
-                        <span class="inis-page">
-                            <svg-icon :file-name="(is_mobile) ? 'primary-left' : 'primary-upper'"></svg-icon>
-                        </span>
-                    </button>
-                    <button v-for="(item, index) in article.page_list" :key="index" v-on:click="methods.getArticle({page:item})" :class="(article.self_page == item) ? 'btn inis-btn-page btn-primary' : 'btn inis-btn-page btn-light'">{{item}}</button>
-                    <button v-if="article.self_page != article.page" v-on:click="methods.getArticle({page:article.self_page+1})" type="button" class="btn btn-light inis-btn-page">
-                        <span class="inis-page">
-                            <svg-icon :file-name="(is_mobile) ? 'primary-right' : 'primary-lower'"></svg-icon>
-                        </span>
-                    </button>
+                <div class="col-lg-12 article-footer">
+                    <div class="card-body pt-0">
+                        <div class="flex-center">
+                            <span v-show="last_page">再怎么找也没有啦~</span>
+                            <span>
+                                <button v-show="!last_page" v-on:click="methods.getArticle(self_page+1)" type="button" class="btn btn-link text-muted">查看更多</button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </teleport>
+            </div>
 
         </div>
         <i-footer></i-footer>
@@ -148,9 +141,11 @@ export default {
         const state = reactive({
             article_sort: [],       // 文章分类
             hitokoto: [],           // 一言
-            article: [],            // 文章数据
+            article: {page:2},      // 文章数据
+            article_data: [],       // 文章数据
             is_mobile: inisHelper.get.storage('inis','mobile'),       // 是否为手机
-            page_is_show: true,     // 是否显示分页
+            self_page: 1,           // 当前页码
+            last_page: false,       // 最后一页
         })
 
         const methods = {
@@ -161,30 +156,24 @@ export default {
                 methods.getArticleSort()
             },
             // 获取文章数据
-            getArticle(opt){
-                // 从缓存中获取分页码 - 防止刷新页面，分页数据也刷新
-                const storage = inisHelper.get.storage('article','page')
-                const page = (inisHelper.is.empty(storage) || !storage) ? 1 : storage
+            getArticle(page = 1){
 
-                opt = opt || {page}
-
-                GET('article',{params:{limit:8,page:opt.page}}).then((res)=>{
-                    if (res.data.code == 200) {
-                        // 设置文章列表数据
-                        state.article = res.data.data
-                        // 设置当前分页码
-                        state.article.self_page = opt.page
-                        // 分页码列表
-                        state.article.page_list = inisHelper.create.paging(opt.page, res.data.data.page, 7)
-                        // 是否显示分页码
-                        if(inisHelper.is.empty(res.data.data.data) || res.data.data.page == 1) state.page_is_show = false
-                        else state.page_is_show = true
-                        // 设置分页码到缓存中
-                        inisHelper.set.storage('article',{'page':opt.page})
-                        // 设置页面 title
-                        document.title = store.state.theme_config.site.title
-                    }
-                })
+                if (page <= state.article.page) {
+                    if (page == state.article.page) state.last_page = true
+                    GET('article',{params:{limit:8,page}}).then((res)=>{
+                        if (res.data.code == 200) {
+                            // 设置文章列表数据
+                            state.article = res.data.data
+                            state.article.data.forEach(item=>{
+                                state.article_data.push(item)
+                            })
+                            // 设置当前分页码
+                            state.self_page = page
+                            // 设置页面 title
+                            document.title = store.state.theme_config.site.title
+                        }
+                    })
+                } else state.last_page = true
             },
             // 设置分页
             setPage(){
