@@ -242,7 +242,6 @@ export default {
     methods: {
         // 自然时间
         natureTime(date){
-            
             let time = inisHelper.date.to.time(date)
             return inisHelper.time.nature(time)
         }
