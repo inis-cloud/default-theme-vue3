@@ -128,7 +128,7 @@
 import iFooter from '@/components/public/footer'
 import { GET } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs, onBeforeUpdate } from 'vue'
+import { onMounted, reactive, toRefs } from 'vue'
 import { mapState, useStore } from 'vuex'
 
 export default {
@@ -175,22 +175,6 @@ export default {
                     })
                 } else state.last_page = true
             },
-            // 设置分页
-            setPage(){
-                if (state.page_is_show) {
-                    // 计算分页码页面居中位置
-                    let page_list = document.querySelector(".inis-page-list")
-                    if (!state.is_mobile) {
-                        page_list.style.setProperty('position','absolute')
-                        page_list.style.setProperty('right','1%')
-                        page_list.style.top = "calc(50% - "+(page_list.offsetHeight/2 + 30)+"px)";
-                    } else {
-                        page_list.style.setProperty('position','fixed')
-                        page_list.style.setProperty('bottom','20px')
-                        page_list.style.left = "calc(50% - "+(page_list.offsetWidth/2)+"px)";
-                    }
-                }
-            },
             // 获取文章分类
             getArticleSort(){
                 GET('article-sort').then( res => {
@@ -214,10 +198,6 @@ export default {
 
         onMounted(() => {
             methods.initData()
-        })
-
-        onBeforeUpdate(()=>{
-            methods.setPage()
         })
 
         // 返回数据

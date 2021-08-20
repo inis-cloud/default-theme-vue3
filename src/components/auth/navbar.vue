@@ -13,19 +13,19 @@
         <div class="container-fluid">
 
             <!-- LOGO -->
-            <router-link :to="{name:'index'}" class="topnav-logo">
+            <a href="/" class="topnav-logo">
                 <span class="topnav-logo-lg">
                     <img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32">
                 </span>
                 <span class="topnav-logo-sm">
                     <img :src="theme_config.logo.small_day || 'assets/images/logo_sm.png'" height="28">
                 </span>
-            </router-link>
+            </a>
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
                 
-                <li v-show="is_update" class="dropdown notification-list nav-item">
-                    <a data-toggle="modal" data-target="#update-info" class="nav-link dropdown-toggle arrow-none nav-item" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <li v-show="is_update" v-on:click.stop="setClass('#show-update')" id="show-update" class="dropdown notification-list nav-item">
+                    <a data-toggle="modal" data-target="#update-info" class="nav-link dropdown-toggle arrow-none nav-item" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
                         <div id="lottie-beil"></div>
                         <!-- 点点 -->
@@ -33,20 +33,20 @@
                     </a>
                 </li>
 
-                <li v-show="music_is_show" class="dropdown notification-list music-nav">
-                    <a class="nav-link dropdown-toggle arrow-none nav-item" data-toggle="dropdown" href="#" id="topbar-music" role="button" aria-haspopup="true" aria-expanded="false">
+                <li v-show="music_is_show" v-on:click.stop="setClass('#show-music')" id="show-music" class="dropdown notification-list music-nav">
+                    <a class="nav-link dropdown-toggle arrow-none nav-item" href="javascript:;" id="topbar-music" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
-                        <div id="lottie-music" :key="$route.fullPath"></div>
+                        <div id="lottie-music"></div>
                         <!-- 点点 -->
                         <!-- <span class="bg-danger dots"></span> -->
                     </a>
                     <i-music></i-music>
                 </li>
 
-                <li class="dropdown notification-list nav-item">
-                    <a href="#" class="nav-link dropdown-toggle arrow-none nav-item right-bar-toggle" data-toggle="dropdown" id="news-notice" role="button" aria-haspopup="true" aria-expanded="false">
+                <li v-on:click.stop="setClass('#show-mail')" id="show-mail" class="dropdown notification-list nav-item">
+                    <a href="javascript:;" class="nav-link dropdown-toggle arrow-none nav-item" id="news-notice" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
-                        <div id="lottie-mail" :key="$route.fullPath"></div>
+                        <div id="lottie-mail"></div>
                         <!-- 点点 -->
                         <!-- <span class="bg-info count-mail"></span> -->
                     </a>
@@ -58,8 +58,7 @@
                             </h5>
                         </div>
 
-                        <div class="slimscroll" style="max-height: 230px;">
-                            
+                        <div class="inis-scroll" style="max-height: 230px;">
                             
                             <div v-for="data in moving.data" :key="data.id" class="dropdown-item notify-item">
                                 <div class="notify-icon">
@@ -89,8 +88,9 @@
                     </a>
                 </li>
 
-                <li v-else-if="is_login" v-on:click.stop="setClass()" id="show-login" class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" id="topbar-userdrop" href="javascript:;" role="button" aria-haspopup="true"
+                <li v-else-if="is_login" v-on:click.stop="setClass('#show-login')" id="show-login" class="dropdown notification-list">
+                    <!-- data-toggle="dropdown"  -->
+                    <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" id="topbar-userdrop" href="javascript:;" role="button" aria-haspopup="true"
                         aria-expanded="false">
                         <span class="account-user-name">{{user.nickname || '用户'}}</span>
                         <span class="menu-arrow user-lower">
@@ -477,8 +477,8 @@ export default {
             window.open('https://inis.cc/index/detail/1.html')
         },
         // 设置class
-        setClass(){
-            let dom = document.querySelector("#show-login")
+        setClass(className){
+            let dom = document.querySelector(className)
             dom.classList.toggle('show')
         }
     },

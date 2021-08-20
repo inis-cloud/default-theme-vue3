@@ -12,25 +12,25 @@
   <div id="nav">
 
     <!-- 顶部导航 - 开始 -->
-    <i-nav />
+    <i-nav></i-nav>
     <!-- 顶部导航 - 结束 -->
 
     <div class="container-fluid small-container">
       <div class="wrapper">
 
         <!-- 侧边栏 - 开始 -->
-        <i-side />
+        <i-side></i-side>
         <!-- 侧边栏 - 结束 -->
 
         <!-- 内容 - 开始 -->
         <!-- 路由变化更新 :key="$route.fullPath" -->
-        <router-view />
+        <router-view></router-view>
         <!-- 内容 - 结束 -->
         
       </div>
     </div>
 
-    <i-tool />
+    <i-tool></i-tool>
 
     <teleport to="head">
       <!-- 核心CSS - 开始 -->
@@ -71,6 +71,8 @@ export default {
     store.dispatch('commitThemeConfig')
     // 站点信息
     store.dispatch('commitSiteInfo')
+    // 登录信息
+    store.dispatch('commitLogin')
 
     const methods = {
       initData(){

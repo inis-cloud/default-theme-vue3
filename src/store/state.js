@@ -47,4 +47,29 @@ export default {
             "two": `[{"title":"菜单一","class":"fas fa-tags text-danger font-12px","svg":"","child":[{"title":"萌卜兔","url":"//racns.com","target":"_block"},{"title":"自定义 - 后台修改","url":"//inis.cn","target":"_block"}]},{"title":"菜单二","class":"fas fa-comments text-warning font-12px","svg":"","child":[{"title":"萌卜兔","url":"//racns.com","target":"_block"}]}]`
         }
     },
+    login: {                // 用户登录信息
+        "login-token":"",
+        user: {
+            address_url:"",
+            create_time:"",
+            description:"",
+            email:"",
+            expand:"",
+            head_img:"",
+            id:"",
+            last_login_time:"",
+            level:"",
+            longtext:"",
+            nickname:"",
+            opt:{
+                alipay:"",
+                login_auth:"",
+                qq_pay:"",
+                wechat_pay:""
+            },
+            sex:"",
+            status:"",
+            update_time:""
+        }
+    }
 }

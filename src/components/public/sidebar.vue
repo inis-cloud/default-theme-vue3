@@ -127,7 +127,6 @@ import { GET } from '@/utils/http/request'
 import { reactive, onMounted, toRefs } from 'vue'
 import { mapState } from 'vuex'
 import { inisHelper } from '@/utils/helper/helper'
-import axios from 'axios'
 
 export default {
     setup(){

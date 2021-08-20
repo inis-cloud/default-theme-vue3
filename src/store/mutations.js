@@ -25,4 +25,16 @@ export default {
             })
         } else state.theme_config = params
     },
+    // 设置登录信息
+    setLogin(state, params = {}) {
+
+        if (inisHelper.is.empty(params)) {
+
+            // 获取缓存中的登录信息
+            let login = inisHelper.get.storage("login")
+            // 判断缓存是否存在且未过期
+            if (login != "expire" && login) state.login = login
+
+        } else state.login = params
+    }
 }

@@ -460,4 +460,5 @@ textarea.form-control{padding:12px}
 /* 加载动画 */
 .load{display:flex;align-items: center;justify-content: center;}
 .load .spinner-border{width: 1em;height: 1em;border: .18em solid currentColor;border-right-color: transparent;}
+.svg-icon-article.views, .svg-icon-article.article-comment{fill:#555}
 </style>

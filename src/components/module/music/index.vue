@@ -51,7 +51,7 @@
         <!-- 歌曲列表 - 结束 -->
 
         <!-- VIEW All -->
-        <a v-on:click="methods.openList" href="javascript:void(0);" data-stopPropagation="true" class="dropdown-item text-center text-primary notify-item notify-all">
+        <a v-on:click.stop="methods.openList()" href="javascript:;" data-stopPropagation="true" class="dropdown-item text-center text-primary notify-item notify-all">
             {{music.view || '显示歌曲列表'}}
         </a>
         <!-- VIEW All -->
