@@ -320,6 +320,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/svg/comment.svg"
   },
   {
+    "revision": "1467d7c7c6ee2476642b195858dc2939",
+    "url": "assets/svg/diamond.svg"
+  },
+  {
     "revision": "17eac21446015325ebdc8efd8a5c7e9a",
     "url": "assets/svg/edit.svg"
   },
@@ -370,6 +374,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "fb0bb40a1d280012e6b865fa8918715d",
     "url": "assets/svg/list.svg"
+  },
+  {
+    "revision": "b66894a612f3effe80c56f795260b840",
+    "url": "assets/svg/lock.svg"
   },
   {
     "revision": "0db8e31e44257d882702bd988c7647af",
@@ -488,6 +496,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/svg/save.svg"
   },
   {
+    "revision": "8957d4214efbff10b4c6dfd35fd8ae8a",
+    "url": "assets/svg/self.svg"
+  },
+  {
     "revision": "d87e76480999e3c07f04c46b03b2d4b5",
     "url": "assets/svg/share.svg"
   },
@@ -536,7 +548,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/svg/write.svg"
   },
   {
-    "revision": "b09b031c3d2e1c31454f082a3633884b",
+    "revision": "4394ddc6de0eb718f3a8cf657e09556b",
     "url": "index.html"
   },
   {
@@ -552,16 +564,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/config.js"
   },
   {
-    "revision": "c0c84eb772f78fa36c09",
+    "revision": "7967c924c4bcbbeefd5d",
     "url": "static/css/app.6051a1ff.css"
   },
   {
     "revision": "9e30c8acc841bb0a47dd",
     "url": "static/css/chunk-0a4ac333.d636ed6d.css"
-  },
-  {
-    "revision": "794ad63ff504e6802305",
-    "url": "static/css/chunk-0f3a71f5.6c351913.css"
   },
   {
     "revision": "59fccc261ee07fb73562",
@@ -576,10 +584,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/css/chunk-2713ddfb.652dc6c2.css"
   },
   {
-    "revision": "18d59f4066c12ccddb8e",
-    "url": "static/css/chunk-366ebdc2.874a8f1b.css"
-  },
-  {
     "revision": "df10421bd2c4e65ed9ae",
     "url": "static/css/chunk-6999ffe5.29435565.css"
   },
@@ -592,8 +596,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/css/chunk-70e6b26c.2b13f305.css"
   },
   {
+    "revision": "650d192f4668838e412b",
+    "url": "static/css/chunk-785ebde0.225961a8.css"
+  },
+  {
     "revision": "f01674415089e5c2946c",
     "url": "static/css/chunk-7efbc90f.af332b86.css"
+  },
+  {
+    "revision": "82b04d2ae6952c3a05df",
+    "url": "static/css/chunk-b44cc1e2.0a4f745c.css"
   },
   {
     "revision": "05b58d8fe7dc9f0505de",
@@ -628,16 +640,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/img/bg-pattern-light.69836a7b.svg"
   },
   {
-    "revision": "c0c84eb772f78fa36c09",
-    "url": "static/js/app.36fed6ac.js"
+    "revision": "7967c924c4bcbbeefd5d",
+    "url": "static/js/app.a2a0779b.js"
   },
   {
     "revision": "9e30c8acc841bb0a47dd",
     "url": "static/js/chunk-0a4ac333.ae943ad4.js"
-  },
-  {
-    "revision": "794ad63ff504e6802305",
-    "url": "static/js/chunk-0f3a71f5.14277f29.js"
   },
   {
     "revision": "59fccc261ee07fb73562",
@@ -650,10 +658,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "83b63959077eef506640",
     "url": "static/js/chunk-2713ddfb.4c56a967.js"
-  },
-  {
-    "revision": "18d59f4066c12ccddb8e",
-    "url": "static/js/chunk-366ebdc2.585b067f.js"
   },
   {
     "revision": "bf670e4a33c28e442312",
@@ -676,12 +680,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/js/chunk-729867ff.3f21005c.js"
   },
   {
+    "revision": "650d192f4668838e412b",
+    "url": "static/js/chunk-785ebde0.beb3dd05.js"
+  },
+  {
     "revision": "f01674415089e5c2946c",
     "url": "static/js/chunk-7efbc90f.0a69d362.js"
   },
   {
     "revision": "b0f7647bf74eeb73966e",
     "url": "static/js/chunk-a5b9fe4a.b222ebbb.js"
+  },
+  {
+    "revision": "82b04d2ae6952c3a05df",
+    "url": "static/js/chunk-b44cc1e2.65d31dd2.js"
   },
   {
     "revision": "8ca61efb7bfa9a7dd3c7",

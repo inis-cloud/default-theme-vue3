@@ -200,7 +200,8 @@ export default {
                 let params = {
                     page,
                     limit: 10,
-                    where:`users_id=${store.state.login.user.id}`
+                    where:`users_id=${store.state.login.user.id};`,
+                    'login-token':store.state.login['login-token']
                 }
                 GET('article/sql', {params}).then(res=>{
                     if (res.data.code == 200) {
