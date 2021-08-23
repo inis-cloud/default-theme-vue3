@@ -48,9 +48,13 @@ import { POST } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 export default {
     setup(props,context){
 
+        // 响应式实例
+        const route = useRoute()
+        const store = useStore()
         const state = reactive({
             content: '',        // 评论内容
             nickname: '',       // 昵称
@@ -63,14 +67,12 @@ export default {
 
         // 评论ID
         state.pid = props.pid
-        // 响应式实例
-        const route = useRoute()
         // 文章ID
         state.article_id = route.params.id
 
         const methods = {
             btnReply(){
-                /* 评论前验证 */
+                // 评论前验证
                 if(inisHelper.is.empty(state.content)){
                     $.NotificationApp.send("提示！", '请填写评论内容！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 }else if(inisHelper.is.empty(state.nickname)){
@@ -83,9 +85,9 @@ export default {
 
                     // 发送评论
                     POST('comments', state).then((res) => {
-                        if(res.data.code == 200){
+                        if (res.data.code == 200) {
 
-                            $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "success");
+                            $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "info");
 
                             // 触发父组件重新获取评论数据
                             context.emit('reset');
@@ -96,8 +98,11 @@ export default {
                             state.email    = '';
                             state.url      = '';
 
+                            // 评论状态
+                            store.dispatch('commitArticle', {is_comments:true})
+
                         } else {
-                            $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "danger");
+                            $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning");
                         }
                     })
                 }

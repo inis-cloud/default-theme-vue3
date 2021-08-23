@@ -7,39 +7,46 @@
                 <div class="card">
                     <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" :src="theme_config.site.cross_bg || null" />
                     <div class="card-body">
-                        <div class="float-left flex-center">
-                            <a :href="switchUrl(sociality.qq, 'qq')" class="mr-2" target="_blank">
-                                <svg-icon file-name="qq" class="head-svg"></svg-icon>
-                            </a>
-                            <a v-on:click="copyWeChat()" href="javascript:;" class="mr-2">
-                                <svg-icon file-name="wechat" class="head-svg"></svg-icon>
-                            </a>
-                            <a :href="switchUrl(sociality.weibo, 'weibo')" class="mr-2" target="_blank">
-                                <svg-icon file-name="weibo" class="head-svg"></svg-icon>
-                            </a>
-                            <a :href="switchUrl(sociality.github, 'github')" class="mr-2" target="_blank">
-                                <svg-icon file-name="github" class="head-svg"></svg-icon>
-                            </a>
-                            <a :href="switchUrl(sociality.gitee, 'gitee')" class="mr-2" target="_blank">
-                                <svg-icon file-name="gitee" class="head-svg"></svg-icon>
-                            </a>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="float-left flex-center">
+                                    <a :href="switchUrl(sociality.qq, 'qq')" class="mr-2" target="_blank">
+                                        <svg-icon file-name="qq" class="head-svg"></svg-icon>
+                                    </a>
+                                    <a v-on:click="copyWeChat()" href="javascript:;" class="mr-2">
+                                        <svg-icon file-name="wechat" class="head-svg"></svg-icon>
+                                    </a>
+                                    <a :href="switchUrl(sociality.weibo, 'weibo')" class="mr-2" target="_blank">
+                                        <svg-icon file-name="weibo" class="head-svg"></svg-icon>
+                                    </a>
+                                    <a :href="switchUrl(sociality.github, 'github')" class="mr-2" target="_blank">
+                                        <svg-icon file-name="github" class="head-svg"></svg-icon>
+                                    </a>
+                                    <a :href="switchUrl(sociality.gitee, 'gitee')" class="mr-2" target="_blank">
+                                        <svg-icon file-name="gitee" class="head-svg"></svg-icon>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="float-right">
+                                    <ul class="mb-0 list-inline text-light">
+                                        <li class="list-inline-item mr-2">
+                                            <h5 class="text-dark font-13 m-0">文章</h5>
+                                            <p class="mb-0 font-13 text-muted text-center">{{timeline.count || 0}}</p>
+                                        </li>
+                                        <li class="list-inline-item mr-2">
+                                            <h5 class="text-dark font-13 m-0">朋友</h5>
+                                            <p class="mb-0 font-13 text-muted text-center">{{links.count || 0}}</p>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5 class="text-dark font-13 m-0">评论</h5>
+                                            <p class="mb-0 font-13 text-muted text-center">{{comments.count || 0}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="float-right">
-                            <ul class="mb-0 list-inline text-light">
-                                <li class="list-inline-item mr-2">
-                                    <h5 class="text-dark font-13 m-0">文章</h5>
-                                    <p class="mb-0 font-13 text-muted text-center">{{timeline.count || 0}}</p>
-                                </li>
-                                <li class="list-inline-item mr-2">
-                                    <h5 class="text-dark font-13 m-0">朋友</h5>
-                                    <p class="mb-0 font-13 text-muted text-center">{{links.count || 0}}</p>
-                                </li>
-                                <li class="list-inline-item">
-                                    <h5 class="text-dark font-13 m-0">评论</h5>
-                                    <p class="mb-0 font-13 text-muted text-center">{{comments.count || 0}}</p>
-                                </li>
-                            </ul>
-                        </div>
+                        
                         <div class="profile-img">
                             <img :src="user.head_img || null" class="rounded-circle shadow-sm mb-1" height="100" width="100">
                             <strong>{{user.nickname || '站长'}}</strong>
@@ -254,7 +261,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-show="linksItemData.count != 0" class="row flex-center">
+                                    <div v-show="linksItemData.count != 0 && linksSort.count != 0" class="row flex-center">
                                         <div v-if="linksItemData.page != 1" class="btn-group inis-page-list mt-2" style="float: right">
                                             <button v-if="self_page != 1" v-on:click="methods.linksSortItem(linksSortItem.id, self_page - 1)" class="btn btn-light">
                                                 <span class="inis-page">
@@ -603,6 +610,8 @@ export default {
                         state.linksSort = res.data.data
                         let item = state.linksSort.data
                         if (!inisHelper.is.empty(item)) methods.linksSortItem(item[0].id)
+                        // 加载动画
+                        state.is_load = false
                     }
                 })
             },

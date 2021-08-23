@@ -10,5 +10,9 @@ export default {
     // 提交登录信息
     commitLogin(context, params = {}){
         context.commit('setLogin', params)
-    }
+    },
+    // 提交文章信息
+    commitArticle(context, params = {}){
+        context.commit('setArticle', params)
+    },
 }

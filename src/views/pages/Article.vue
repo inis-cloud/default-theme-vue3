@@ -19,7 +19,7 @@
                             <div v-if="!is_load">
                                 <a href="javascript:;" class="article-svg" data-toggle="tooltip" data-placement="top" data-original-title="作者">
                                     <svg-icon i-class="article" file-name="user"></svg-icon>
-                                    {{ author.nickname }}
+                                    {{ author.nickname || '***' }}
                                 </a>
                                 <a href="javascript:;" class="article-svg" data-toggle="tooltip" data-placement="top" data-original-title="创建时间">
                                     <svg-icon i-class="article" file-name="clock"></svg-icon>
@@ -61,6 +61,18 @@
                             </h3>
 
                             <br>
+
+                            <div v-if="auth.is_pwd" class="is-password">
+                                <p class="text-muted text-center">这是一篇受到保护的文章，在访问之前，请输入 <span class="text-primary">访问密码</span> </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <input v-model="auth.password" v-on:keyup.enter="methods.getArticle()" type="text" class="form-control chat-input" placeholder="访问密码">
+                                    </div>
+                                    <div class="col-auto">
+                                        <button v-on:click="methods.getArticle()" class="btn btn-danger chat-send btn-block waves-effect waves-light">确定</button>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div v-code-highlight v-html="article.content" class="article-content"></div>
 
@@ -152,7 +164,7 @@
                                     <tbody>
                                         <tr>
                                             <td>本文作者</td>
-                                            <td class="text-dark">{{author.nickname || '本文作者'}}</td>
+                                            <td class="text-dark">{{author.nickname || '***'}}</td>
                                         </tr>
                                         <tr>
                                             <td>文章标题</td>
@@ -198,7 +210,7 @@
                     <div v-show="tag.is_show" class="card">
                         <div class="card-body">
                             <h4 class="header-title mb-2">标签云</h4>
-                            <span v-for="data in tag.data" :key="data.id" v-on:click="toPage('/tags/',data.id)" :class="'badge badge-pill cursor mr-2 badge-' + data.color">
+                            <span v-for="data in tag.data" :key="data.id" v-on:click="this.$router.push({path: `/tags/${data.id}`})" :class="'badge badge-pill cursor mr-2 badge-' + data.color">
                                 {{data.name}}
                             </span>
                         </div>
@@ -218,7 +230,7 @@
                 <div id="outline"></div>
             </div>
 
-            <div class="row">
+            <div v-if="!auth.is_pwd" class="row">
                 <div class="col-md-8">
                     <!-- 评论 - 开始 -->
                     <div class="card" id="article-comments">
@@ -253,7 +265,7 @@ import iLink from '@/components/tool/Link'
 import { GET } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
 import iFooter from '@/components/public/footer.vue'
-import { onMounted, reactive, toRefs, ref, onUpdated, watch } from 'vue'
+import { onMounted, reactive, toRefs, onUpdated, watch, watchEffect } from 'vue'
 import iCommentReply from '@/components/module/comments/CommentReply.vue'
 import { useStore, mapState } from 'vuex'
 
@@ -264,7 +276,6 @@ export default {
     // 响应式实例
     const route = useRoute()
     const store = useStore()
-
     const state = reactive({
         id: null,           // 文章ID
         article: [],        // 文章
@@ -275,11 +286,10 @@ export default {
         is_load: true,      // 加载
         is_top: [],         // 置顶文章
         url: '#',           // 当前URL
-        inis_config: INIS,  // inis配置文件
+        auth:[],            // 文章权限
     })
 
-    // 初始化路由参数ID
-    state.id = route.params.id
+    store.dispatch('commitArticle', {is_comments:false})
 
     // 监听路由更新
     onBeforeRouteUpdate((to, from, next)=>{
@@ -288,29 +298,55 @@ export default {
         next()
     })
 
-    state.url = window.location.href
-
     const methods = {
         initData(){
-            methods.getArticle()
+            methods.checkArticle()
             methods.getIsTop()
+        },
+        initState(){
+            // 初始化路由参数ID
+            state.id     = route.params.id
+            state.url    = window.location.href
+            state.author = {pay:{alipay:"", wechat_pay:""}}
+            state.auth   = {is_pwd:false,password:""}
+            state.hide   = []
+        },
+        checkArticle(){
+            GET('article/sql',{
+                params:{where:`id=${state.id};`,'login-token':`${store.state.login['login-token']}`}
+            }).then(res=>{
+                if (res.data.code == 200) {
+                    let result = res.data.data
+                    if (result.count > 0) {
+                        if (!inisHelper.is.empty(result.data[0].opt) && result.data[0].opt.auth == 'password') {
+                            state.auth.is_pwd = true
+                            state.article = result.data[0]
+                            state.is_load = false
+                        } else methods.getArticle()
+                    }
+                }
+            })
         },
         getArticle(){
             // 获取文章数据
-            GET('article',{params:{id:state.id}}).then( res=> {
+            GET('article',{
+                params:{id:state.id,'login-token':`${store.state.login['login-token']}`,password:state.auth.password}
+            }).then( res=> {
                 if(res.data.code == 200){
-                    state.article = res.data.data
-                    state.comment = res.data.data.expand.comments
-                    state.author  = res.data.data.expand.author
-                    state.sort = res.data.data.expand.sort
-                    let tag    = res.data.data.expand.tag
+                    state.auth.is_pwd = false
+                    let result    = res.data.data
+                    state.article = result
+                    state.comment = result.expand.comments
+                    state.author  = result.expand.author
+                    state.sort    = result.expand.sort
+                    let tag       = result.expand.tag
                     if (inisHelper.is.empty(tag)) state.tag = {is_show:false,data:[]}
                     else state.tag = {is_show:true,data:tag}
                     state.is_load = false
                     // 设置页面 title
                     document.title = state.article.title + ' - ' + store.state.theme_config.site.title
-                }else{
-                    $.NotificationApp.send("加载超时！", '请求错误，请<a href="'+window.location.protocol+"//"+window.location.host+'">刷新页面！</a>', "top-right", "rgba(0,0,0,0.2)", "warning")
+                } else {
+                    $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
             })
         },
@@ -413,8 +449,35 @@ export default {
                     }
                 }
             }, true)
+        },
+        // 评论可见
+        hide(){
+            let content= document.querySelectorAll('.hide .hide-content')
+            let status = store.state.article.is_comments
+            let description = document.querySelectorAll('.hide .hide-description')
+            
+            if (!status && !inisHelper.is.empty(content)) {
+                content.forEach((item, index)=>{
+                    state.hide[index] = {html:item.innerHTML}
+                    item.innerHTML = '你好坏坏哟，居然想偷看人家的秘密'
+                    item.style.display = "none"
+                })
+                description.forEach(item=>{
+                    item.style.display = "block"
+                })
+            } else if (status) {
+                content.forEach((item, index)=>{
+                    item.innerHTML = state.hide[index].html
+                    item.style.display = "block"
+                })
+                description.forEach(item=>{
+                    item.style.display = "none"
+                })
+            }
         }
     }
+
+    methods.initState()
 
     onMounted(() => {
         methods.initData()
@@ -425,6 +488,11 @@ export default {
         methods.markLocation()
         inisHelper.set.css('.directory .inis-scroll', 'height:auto!important;max-height:200px!important;')
         methods.setDirectory()
+        methods.hide()
+    })
+
+    watchEffect(()=>{
+        methods.hide()
     })
 
     // 窗口大小发生变化
@@ -436,18 +504,27 @@ export default {
     return { ...toRefs(state), methods }
   },
   methods:{
-      toPage(path,id){
-        this.$router.push({path: `${path}` + id})
-      },
       // 人性化时间  
       natureTime(date){
         let time = inisHelper.date.to.time(date)
         return inisHelper.time.nature(time)
-      }
+      },
   },
   computed: {
     ...mapState(['theme_config'])
   },
+  watch:{
+    //   test: {
+    //     handler(newValue,oldValue){
+    //         if (newValue) {
+    //             console.log(newValue)
+    //             this.methods.getArticle()
+    //         }
+    //     },
+    //     immediate: true,
+    //     deep: true,
+    //   }
+  }
 }
 </script>
 
@@ -461,4 +538,5 @@ textarea.form-control{padding:12px}
 .load{display:flex;align-items: center;justify-content: center;}
 .load .spinner-border{width: 1em;height: 1em;border: .18em solid currentColor;border-right-color: transparent;}
 .svg-icon-article.views, .svg-icon-article.article-comment{fill:#555}
+.is-password .form-control {padding: .45rem .9rem;}
 </style>

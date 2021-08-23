@@ -82,8 +82,10 @@
                             <div class="position-relative p-1 mt-2">
                                 <h4 class="mt-0">
                                     <router-link :to="{name: 'article', params: { id: data.id }}" class="text-title text-line line-limit-1">
+                                    <a v-on:click="routerLink({name: 'article', params: { id: data.id }}, data)" href="javascript:;" class="text-title text-line line-limit-1">
                                         <span v-if="data.is_top == 1" class="badge badge-danger mr-1">置顶</span>
                                         {{ data.title }}
+                                    </a>
                                     </router-link>
                                 </h4>
 
@@ -160,7 +162,9 @@ export default {
 
                 if (page <= state.article.page) {
                     if (page == state.article.page) state.last_page = true
-                    GET('article',{params:{limit:8,page}}).then((res)=>{
+                    GET('article',{
+                        params:{limit:8,page,'login-token':`${store.state.login['login-token']}`}
+                    }).then((res)=>{
                         if (res.data.code == 200) {
                             // 设置文章列表数据
                             state.article = res.data.data
@@ -204,10 +208,6 @@ export default {
         return{ ...toRefs(state), methods }
     },
     methods: {
-        // 页面跳转
-        toPage(id) {
-            this.$router.push(`/article/`+id)
-        },
         natureTime(date){
             let time = inisHelper.date.to.time(date)
             return inisHelper.time.nature(time)

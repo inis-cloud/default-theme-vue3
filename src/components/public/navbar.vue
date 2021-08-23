@@ -210,9 +210,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <div class="text-center mt-2 flex">
+                    <div class="text-center mt-2">
                         <router-link :to="{name: 'login'}" class="text-success" data-dismiss="modal">
-                            <span><img src="assets/images/logo.png" height="32"></span>
+                            <span><img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32"></span>
                         </router-link>
                     </div>
                     <div class="card-body">

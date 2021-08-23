@@ -71,5 +71,8 @@ export default {
             status:"",
             update_time:""
         }
+    },
+    article: {
+        is_comments: false,     // 是否触发评论
     }
 }

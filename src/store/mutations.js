@@ -36,5 +36,14 @@ export default {
             if (login != "expire" && login) state.login = login
 
         } else state.login = params
+    },
+    // 设置评论
+    setArticle(state, params = {}){
+
+        if (!inisHelper.is.empty(params)) {
+
+            for (let item in params) state.article[item] = params[item]
+
+        } else state.article = params
     }
 }
