@@ -8,7 +8,7 @@
 
 #### ** 前端 **
 
-![图片](https://docs.inis.cc/assets/img/index/1-1.png)
+![图片](//docs.inis.cc/assets/img/index/1-1.png)
 
 #### ** 后端 **
 
