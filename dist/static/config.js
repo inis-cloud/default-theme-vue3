@@ -1,7 +1,7 @@
 window.INIS = {
 
     // API地址
-    api: "https://api.inis.cn/api/",
+    api: "https://api.inis.cn/api",
 
     token: '19221686b6db02eb4953d688e5cb7231',
 

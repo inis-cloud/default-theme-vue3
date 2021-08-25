@@ -5,7 +5,7 @@
 <!-- +---------------------------------------------------------------------- -->
 <!-- | Author: racns <email: racns@qq.com> <url: https://inis.cn>            -->
 <!-- +---------------------------------------------------------------------- -->
-<!-- | 管理文章组件                                                           -->
+<!-- | 主题配置组件                                                           -->
 <!-- +---------------------------------------------------------------------- -->
 
 <template>
@@ -30,20 +30,17 @@
                             <ul class="nav nav-tabs nav-bordered">
                                 <li class="nav-item">
                                     <a href="#set-site" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                                        <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                                        <span class="d-none d-lg-block">站点设置</span>
+                                        <span>站点设置</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#set-other" data-toggle="tab" aria-expanded="true" class="nav-link">
-                                        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
-                                        <span class="d-none d-lg-block">其他设置</span>
+                                        <span>其他设置</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#set-dev" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                        <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                                        <span class="d-none d-lg-block">开发者设置</span>
+                                        <span>开发者设置</span>
                                     </a>
                                 </li>
                             </ul>

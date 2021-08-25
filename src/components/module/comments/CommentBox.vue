@@ -35,7 +35,10 @@
                     </div>
                     <!-- 发表评论 -->
                     <div class="col-md-6">
-                        <button v-on:click="methods.btnReply()" type="button" class="btn btn-inis-info btn-sm btn-rounded float-right">发表评论</button>
+                        <button v-if="!is_load" v-on:click="methods.btnReply()" type="button" class="btn btn-inis-info btn-sm btn-rounded float-right">发表评论</button>
+                        <button v-else type="button" class="btn btn-inis-info btn-sm btn-rounded float-right">
+                            <div class="spinner-border text-light is-load mr-1" role="status"></div>发送中...
+                        </button>
                     </div>
                 </div>
             </div>
@@ -63,6 +66,7 @@ export default {
             article_id: '',     // 文章ID
             pid: 0,             // 父级评论ID
             is_login: false,    // 是否登录
+            is_load: false,     // 加载中
         })
 
         // 评论ID
@@ -73,18 +77,29 @@ export default {
         const methods = {
             btnReply(){
                 // 评论前验证
-                if(inisHelper.is.empty(state.content)){
+                if (inisHelper.is.empty(state.content)) {
                     $.NotificationApp.send("提示！", '请填写评论内容！', "top-right", "rgba(0,0,0,0.2)", "warning")
-                }else if(inisHelper.is.empty(state.nickname)){
+                } else if (inisHelper.is.empty(state.nickname)) {
                     $.NotificationApp.send("提示！", '请告诉我您的昵称！', "top-right", "rgba(0,0,0,0.2)", "warning")
-                }else if(inisHelper.is.empty(state.email)){
+                } else if (inisHelper.is.empty(state.email)) {
                     $.NotificationApp.send("提示！", '请填写邮箱，方便我们给您回复！', "top-right", "rgba(0,0,0,0.2)", "warning")
-                }else if(!inisHelper.is.email(state.email)){
+                } else if (!inisHelper.is.email(state.email)) {
                     $.NotificationApp.send("提示！", '邮箱格式错误，请填写正确的邮箱！', "top-right", "rgba(0,0,0,0.2)", "warning")
-                }else{
+                } else {
+
+                    let parasm = {
+                        content:state.content,
+                        nickname:state.nickname,
+                        email:state.email,
+                        url:state.url,
+                        article_id:state.article_id,
+                        pid: state.pid,
+                    }
+
+                    state.is_load = true
 
                     // 发送评论
-                    POST('comments', state).then((res) => {
+                    POST('comments', parasm).then((res) => {
                         if (res.data.code == 200) {
 
                             $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "info");
@@ -94,9 +109,6 @@ export default {
 
                             // 清空评论框数据
                             state.content  = '';
-                            state.nickname = '';
-                            state.email    = '';
-                            state.url      = '';
 
                             // 评论状态
                             store.dispatch('commitArticle', {is_comments:true})
@@ -104,6 +116,7 @@ export default {
                         } else {
                             $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning");
                         }
+                        state.is_load = false
                     })
                 }
             },
@@ -149,4 +162,5 @@ export default {
 #example-textarea .form-control::-webkit-scrollbar{width:4px;height:10px;background-color:rgba(110, 110, 110, 0)}
 #example-textarea .form-control::-webkit-scrollbar-thumb{border-radius:6px;background-color:rgba(0,0,0,.2);transition:all .4s ease;-moz-transition:all .4s ease;-webkit-transition:all .4s ease;-o-transition:all .4s ease}
 #example-textarea .form-control::-webkit-scrollbar-track{background-color:rgba(0,0,0,.1)}
+.is-load{width: 1.3em;height: 1.3em;}
 </style>

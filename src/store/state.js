@@ -13,7 +13,7 @@ export default {
         "logo": {           // LOGO信息
             "big_day"     :  "assets/images/logo.png",
             "small_day"   :  "assets/images/logo_sm.png",
-            "big_night"   :  "assets/images/logo.png",
+            "big_night"   :  "assets/images/logo_night.png",
             "small_night" :  "assets/images/logo_sm.png"
         },
         "copy": {           // 文章复制版权

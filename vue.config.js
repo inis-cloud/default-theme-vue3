@@ -22,6 +22,7 @@ module.exports = {
   parallel: require('os').cpus().length > 1, 
   // 向 PWA 插件传递选项。
   pwa: {
+    name: 'inis默认主题',
     // iconPaths: {
     //   favicon64: 'favicon.ico',
     //   favicon32: 'favicon.ico',
@@ -38,7 +39,7 @@ module.exports = {
     // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
     config.plugin('html').tap(args => {
       // 修复 Lazy loading routes Error
-      args[0].chunksSortMode = 'none';
+      args[0].chunksSortMode = 'none'
       return args
     })
     // 添加别名
@@ -70,4 +71,19 @@ module.exports = {
     // 去掉文件名中的 .module
     requireModuleExtension: false 
   },
+  // 代理
+  devServer: {
+    // open: true,
+    https: false,
+    hotOnly: false,
+    proxy: {
+        '/api': {
+            target: "https://test.inis.cn/api",
+            changeOrigin: true,             // 是否跨域
+            pathRewrite: {                  // 路径重置
+                '^/api': ''
+            }
+        }
+    }
+}
 }

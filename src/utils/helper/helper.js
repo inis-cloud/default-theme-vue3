@@ -109,9 +109,10 @@ export class helper{
         
         /* 定义 format 方法 */
         const bytes = (bytes,decimals) => this.formatBytes(bytes,decimals)
+        const number= (number,unit) => this.formatNumber(number,unit)
         
         // 链式操作 format 属性
-        this.format = { bytes }
+        this.format = { bytes, number }
         
         
         
@@ -783,6 +784,31 @@ export class helper{
 
         return result;
     }
+
+    /*
+     * @name 格式化数字
+     * @param {number} bytes 
+     * @param {boolean} unit 
+     * @return {string}
+     */
+    formatNumber (number = 1, unit = true)
+    {
+        number = parseInt(number)
+        
+        let [result,units] = [null,null]
+        
+        if (number >= 100000000) {
+            units  = '亿'
+            result = Math.round(number / 10000000) / 10
+        } else if (number >= 10000) {
+            units  = '万'
+            result = Math.round(number / 1000) / 10
+        }  else result = number
+        
+        if (unit) result = result + units
+        
+        return result
+    };
     
     /*
      * @name 图片转base64

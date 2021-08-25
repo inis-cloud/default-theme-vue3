@@ -116,18 +116,6 @@
                                     <p class="mb-0 font-size-12">记录美好生活！</p>
                                 </div>
                             </div>
-                        </a>
-
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="media align-items-center">
-                                <div class="rounded">
-                                    <svg-icon file-name="comment"></svg-icon>
-                                </div>
-                                <div class="media-body ml-2">
-                                    <h6 class="mb-0 ">评论管理</h6>
-                                    <p class="mb-0 font-size-12">回复你的小伙伴！</p>
-                                </div>
-                            </div>
                         </a> -->
 
                         <router-link :to="{name:'admin'}" class="dropdown-item notify-item">
@@ -138,6 +126,18 @@
                                 <div class="media-body ml-2">
                                     <h6 class="mb-0 ">后台管理</h6>
                                     <p class="mb-0 font-size-12">您是尊贵的贵宾吗！</p>
+                                </div>
+                            </div>
+                        </router-link>
+
+                        <router-link :to="{name:'profile'}" class="dropdown-item notify-item">
+                            <div class="media align-items-center">
+                                <div class="rounded">
+                                    <svg-icon file-name="profile"></svg-icon>
+                                </div>
+                                <div class="media-body ml-2">
+                                    <h6 class="mb-0 ">个人信息</h6>
+                                    <p class="mb-0 font-size-12">编辑您的个人资料！</p>
                                 </div>
                             </div>
                         </router-link>

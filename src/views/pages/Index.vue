@@ -23,7 +23,7 @@
                             <button type="button" class="btn btn-primary">全部</button>
                         </div>
                         <div class="btn-group mb-3 ml-1">
-                            <button type="button" class="btn btn-light" v-for="(sort, id) in article_sort" :key="id">{{ sort.name }}</button>
+                            <button type="button" class="btn btn-light">占位符</button>
                         </div>
                         <div class="btn-group mb-3 ml-2 d-none d-sm-inline-block">
                             <button type="button" class="btn btn-primary"><span class="menu-list"><svg-icon file-name="matrix"></svg-icon></span></button>
@@ -151,7 +151,6 @@ export default {
         // Vuex 响应实例
         const store = useStore()
         const state = reactive({
-            article_sort: [],       // 文章分类
             hitokoto: [],           // 一言
             article: {page:2},      // 文章数据
             article_data: [],       // 文章数据
@@ -165,7 +164,6 @@ export default {
             initData(){
                 methods.hitokoto()
                 methods.getArticle()
-                methods.getArticleSort()
             },
             // 获取文章数据
             getArticle(page = 1){
@@ -188,12 +186,6 @@ export default {
                         }
                     })
                 } else state.last_page = true
-            },
-            // 获取文章分类
-            getArticleSort(){
-                GET('article-sort').then( res => {
-                    state.article_sort = res.data.data.data
-                })
             },
             // 获取一言数据
             hitokoto(){
@@ -233,6 +225,7 @@ export default {
                 } else if (inisHelper.is.empty(item.opt.auth)) {
                     item.opt.auth = "anyone"
                 }
+                item.views = inisHelper.format.number(item.views)
             })
             return result
         }

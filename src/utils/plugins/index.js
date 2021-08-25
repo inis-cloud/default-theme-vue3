@@ -4,6 +4,7 @@ import svgIcon from '@/components/tool/SvgIcon'
 import hljs from 'highlight.js'
 import JQ from 'jquery'
 import { inisHelper } from '@/utils/helper/helper'
+import store from '@/store'
 
 const plugins = {
     install: Vue => {
@@ -35,7 +36,7 @@ const plugins = {
             // 复制操作
             el.querySelectorAll('pre').forEach((item)=>{
                 JQ(item).find('.copy').click(()=>{
-                    let result = inisHelper.set.copy.text(JQ(item).find('code').text(), INIS.copy_text || null)
+                    let result = inisHelper.set.copy.text(JQ(item).find('code').text(), store.state.theme_config.copy.text || null)
                     if (result) $(item).find(".copy").html("<img class='w-auto mr-1' src='assets/svg/tag.svg' />已复制</span>")
                 })
             })

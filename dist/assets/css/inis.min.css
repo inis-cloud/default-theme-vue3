@@ -507,18 +507,27 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 /* 夜间模式 CSS */
 body[theme=night], body[theme=night] .help-box, body[theme=night] .bg-white, body[theme=night] .article-content blockquote{
     color: #fff;
-    background-color: #191919!important;
+    background-color: rgba(0,0,0,1) !important;
 }
 body[theme=night] .left-side-menu, body[theme=night] .navbar-custom, body[theme=night] .card, body[theme=night] .modal-content{
-    background-color: #212121!important;
+    background-color: 	rgba(33,33,33,1) !important;
     box-shadow: 0 1px 1px 1px rgb(0 0 0 / 25%)!important;
 }
-body[theme=night] img, body[theme=night] p, body[theme=night] ul, body[theme=night] ol, body[theme=night] span, body[theme=night] .btn,
-body[theme=night] h1, body[theme=night] h2, body[theme=night] h3, body[theme=night] h4, body[theme=night] h5, body[theme=night] h6, 
+body[theme=night] img, body[theme=night] svg{
+    filter: brightness(70%);
+}
+body[theme=night] .bg-primary{
+    opacity: .5 !important;
+}
+body[theme=night] h1, body[theme=night] h2, body[theme=night] h3, body[theme=night] h4, body[theme=night] h5, body[theme=night] h6,
+body[theme=night] .position-relative .text-title, body[theme=night] .notify-details > span, body[theme=night] .btn{
+    color:rgba(255,255,255,.8) !important;
+}
+body[theme=night] p, body[theme=night] ul, body[theme=night] ol, body[theme=night] span, 
 body[theme=night] .tab-content, body[theme=night] .nav-pills .nav-link.active, .nav-pills .show > .nav-link, body[theme=night] .alert,
-body[theme=night] .card-header, body[theme=night] #accordion .card-body, body[theme=night] hr, body[theme=night] .bg-primary, 
+body[theme=night] .card-header, body[theme=night] #accordion .card-body, body[theme=night] hr,
 body[theme=night] .directory-item, body[theme=night] .more-button, body[theme=night] .head-svg, body[theme=night] .profile-img strong{
-    opacity: 0.5!important;
+    color: #999!important;
 }
 body[theme=night] .nav-tabs .nav-link.active{
     color: white;

@@ -33,6 +33,11 @@
                             <img class="card-img-top" :src="data.expand.img_src" alt="project image cap">
                             <div class="card-img-overlay">
                                 <div class="badge badge-secondary p-1">
+                                     <span>
+                                        <svg-icon v-if="data.opt.auth =='password'" file-name="lock"></svg-icon>
+                                        <svg-icon v-else-if="data.opt.auth =='login'" file-name="diamond"></svg-icon>
+                                        <svg-icon v-else-if="data.opt.auth =='private'" file-name="self"></svg-icon>
+                                    </span>
                                     {{ data.views || 0 }}
                                 </div>
                             </div>
@@ -64,6 +69,11 @@
                             <router-link :to="{name: 'article', params: { id: data.id }}">
                                 <img :src="data.expand.img_src" class="card-img-top">
                                 <div class="card-img-overlay">
+                                     <span>
+                                        <svg-icon v-if="data.opt.auth =='password'" file-name="lock"></svg-icon>
+                                        <svg-icon v-else-if="data.opt.auth =='login'" file-name="diamond"></svg-icon>
+                                        <svg-icon v-else-if="data.opt.auth =='private'" file-name="self"></svg-icon>
+                                    </span>
                                     <div class="badge badge-secondary p-1">
                                         {{ data.views || 0 }}
                                     </div>
@@ -209,9 +219,29 @@ export default {
             return inisHelper.time.nature(time)
         }
     },
+    computed:{
+        article_data(){
+            let result = this.article_data
+            result.forEach(item=>{
+                if (inisHelper.is.empty(item.opt)) {
+                    item.opt = {auth:"anyone"}
+                } else if (inisHelper.is.empty(item.opt.auth)) {
+                    item.opt.auth = "anyone"
+                }
+                item.views = inisHelper.format.number(item.views)
+            })
+            return result
+        }
+    }
 }
 </script>
 
 <style scoped>
-.badge-secondary{opacity: .7;right: 2em;position: absolute;}
+.badge-secondary{opacity: .8;right: 2em;position: absolute;background-color: rgba(255, 255, 255, 0.3);}
+@media screen and (max-width:768px) {
+    .card-img-overlay{
+        top: -8px;
+        right: -6px;
+    }
+}
 </style>

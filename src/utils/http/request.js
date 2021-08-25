@@ -13,8 +13,9 @@ import axios from 'axios'
 
 // 创建 axios 对象
 const instance = axios.create({
-    baseURL: INIS.api,
-    timeout: 5*1000
+    // baseURL: process.env.VUE_APP_API,
+    baseURL: INIS.api + '/',
+    timeout: 60 * 1000,
 })
 
 // 请求拦截

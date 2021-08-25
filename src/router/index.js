@@ -92,6 +92,12 @@ const routes = [
         name: 'option',
         path: 'option',
         component: () => import('@/views/auth/Option'),
+      },
+      {
+        title: '个人资料',
+        name: 'profile',
+        path: 'profile',
+        component: () => import('@/views/auth/Profile'),
       }
     ],
     meta: {
@@ -127,7 +133,7 @@ const routes = [
 ]
 
 // 路由模式
-let history = (INIS.route_hash) ? createWebHashHistory() : createWebHistory();
+let history   = (INIS.route_hash) ? createWebHashHistory() : createWebHistory();
 
 const router = createRouter({
   history,
