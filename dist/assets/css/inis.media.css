@@ -39,4 +39,6 @@
     .cross .col-lg-8 .card-body .col-lg-6{display: flex;justify-content: center;align-items: center;}
     .cross .col-lg-8 .card-body .col-lg-6:first-child{margin-bottom: 1em;}
     #update-info .alert.alert-light{margin-left: 0!important;margin-right: 0 !important;}
+    #profile .profile-user-box .save{position: unset;}
+    #profile .profile-user-box .save button{width: 100%;}
 }

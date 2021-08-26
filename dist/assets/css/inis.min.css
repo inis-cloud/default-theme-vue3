@@ -472,8 +472,12 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .pre-line{display: inline-flex;white-space: pre-line;}
 .inis-slimscroll{max-height: 170px;overflow-y: scroll;}
 #option .nav-tabs.nav-bordered{border-bottom:unset}
-#option input[type=text], #option textarea {border: unset;border-bottom: 1px solid rgba(0,0,0,.6);border-radius: 0;}
-#option input[type=text]:hover, #option input[type=text]:focus, #option textarea:hover, #option textarea:focus{
+#option input[type=text], #option textarea, .custom-input,
+#profile .select2-container .select2-selection--single{
+    border: unset;border-bottom: 1px solid rgba(0,0,0,.6);border-radius: 0;
+}
+#option input[type=text]:hover, #option input[type=text]:focus, #option textarea:hover, #option textarea:focus, 
+.custom-input:hover, .custom-input:focus{
     cursor: pointer;
     border-bottom: 2px solid rgba(0,0,0,.87);
     transition: all .4s ease;
@@ -481,6 +485,7 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
     -webkit-transition: all .4s ease;
     -o-transition: all .4s ease;
 }
+#profile .select2-container .select2-selection--single .select2-selection__rendered{padding-left:0;}
 #option .custom-accordion-title[aria-expanded=false] .fa-chevron-down{transform: rotate(270deg);}
 .inis-scroll {border:unset;overflow-x:hidden;overflow-y:auto;overflow-wrap:break-word;outline:none;scrollbar-width: thin;scrollbar-color: rgba(0,0,0,.2) transparent;}
 .inis-scroll::-webkit-scrollbar{width:4px;height:10px;background-color:rgba(110, 110, 110, 0)}
@@ -491,6 +496,10 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .directory-item .w-auto {width: 1.5em !important; height: 1.5em !important;}
 .home .position-relative > p {white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .article-footer .btn-link{width: 200px;}
+#profile .profile-user-box .save{position: absolute;bottom: 0;right: 5%;}
+
+
+
 
 
 
@@ -567,7 +576,7 @@ body[theme=night] .cross .bg-white, body[theme=night] .cross .bg-white img, body
 body[theme=night] .article-content blockquote{
     border-left: 3px solid #6c7071!important;
 }
-
+body[theme=night] #show-login .dropdown-menu .media h6{color: #212121 !important;}
 body[theme=night] .bg-primary{background-color:#727cf5!important;opacity: 0.5!important;}
 body[theme=night] .bg-secondary{background-color:#6c757d!important;opacity: 0.5!important;}
 body[theme=night] .bg-success{background-color:#0acf97!important;opacity: 0.5!important;}

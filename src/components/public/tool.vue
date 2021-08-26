@@ -87,6 +87,7 @@ export default {
                 let theme   = inisHelper.get.storage("inis",'theme')
                 let lg_logo = document.querySelector('.topnav-logo .topnav-logo-lg img')
                 let sm_logo = document.querySelector('.topnav-logo .topnav-logo-sm img')
+                let login_logo = document.querySelector('.login-logo')
                 // 判断缓存是否存在且未过期
                 if (inisHelper.in.array(theme,['night'])) {
                     state.theme = '日间模式'
@@ -94,14 +95,16 @@ export default {
                     setTimeout(()=>{
                         lg_logo.src = store.state.theme_config.logo.big_night
                         sm_logo.src = store.state.theme_config.logo.small_night
-                    }, 500)
+                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.logo.big_night
+                    }, 300)
                 } else {
                     state.theme = '夜间模式'
                     body.setAttribute('theme','')
                     setTimeout(()=>{
                         lg_logo.src = store.state.theme_config.logo.big_day
                         sm_logo.src = store.state.theme_config.logo.small_day
-                    }, 500)
+                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.logo.big_day
+                    }, 300)
                 }
             },
             // 切换主题模式
