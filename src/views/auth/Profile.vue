@@ -135,10 +135,20 @@
                                                     <input v-model="user.account" name="username" onkeyup="this.value=this.value.replace(/\s+/g,'')" type="text" class="form-control custom-input" placeholder="帐号">
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-3">
+                                            <div v-if="!modify_email" class="form-group row mb-3">
                                                 <label class="col-md-3 col-form-label">邮箱地址</label>
                                                 <div class="col-md-9">
                                                     <input v-model="user.email" onkeyup="this.value=this.value.replace(/\s+/g,'')" type="email" class="form-control custom-input" placeholder="用于找回密码或邮箱登录">
+                                                </div>
+                                            </div>
+                                            <div v-if="modify_email" class="form-group row mb-3">
+                                                <div class="col-md-6">
+                                                    <label>邮箱地址</label>
+                                                    <input v-model="user.email" onkeyup="this.value=this.value.replace(/\s+/g,'')" type="email" class="form-control custom-input" placeholder="用于找回密码或邮箱登录">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>验证码</label>
+                                                    <input v-model="user.code" type="text" class="form-control custom-input" placeholder="请填写验证码">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-3">
@@ -198,7 +208,6 @@ export default {
                 state.user = store.state.login.user
                 state.password1 = null
                 state.password2 = null
-                console.log(state.user)
                 state.sex = {
                     data: [{"id":0,"text":"女"},{"id":1,"text":"男"},{"id":3,"text":"保密"}],
                     opt: {
@@ -206,6 +215,7 @@ export default {
                     },
                     value: null,
                 }
+                state.modify_email = false
             }
         }
 
@@ -263,8 +273,14 @@ export default {
 
             if (check) POST('users', user).then(res=>{
                 if (res.data.code == 200) {
-                    $.NotificationApp.send("提示！", "保存成功！", "top-right", "rgba(0,0,0,0.2)", "info")
-                } else $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "info")
+                    this.modify_email = false
+                    $.NotificationApp.send("提示！", "保存成功，修改结果将会在重新登录后生效！", "top-right", "rgba(0,0,0,0.2)", "info")
+                } else if (res.data.code == 201) {
+                    this.modify_email = true
+                    $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "info")
+                } else {
+                    $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                }
             })
         }
     },

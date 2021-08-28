@@ -497,7 +497,7 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 .home .position-relative > p {white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .article-footer .btn-link{width: 200px;}
 #profile .profile-user-box .save{position: absolute;bottom: 0;right: 5%;}
-
+.side-nav-item .svg-icon.backstage{width: 1.2em;height: 1.2em;}
 
 
 
@@ -554,7 +554,7 @@ body[theme=night] table tbody tr, body[theme=night] table tr:nth-child(2n), body
 body[theme=night] .text-dark, body[theme=night] .more-button-list-item{
     color: #aaa!important;
 }
-body[theme=night] a.text-dark:focus, a.text-dark:hover{
+body[theme=night] a.text-dark:focus, body[theme=night] a.text-dark:hover{
     color: white!important;
 }
 body[theme=night] .more-button-list{

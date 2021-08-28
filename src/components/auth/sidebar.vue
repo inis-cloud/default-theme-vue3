@@ -35,33 +35,10 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="javascript: void(0);" class="side-nav-link">
-                    <i><svg-icon file-name="manage"></svg-icon></i>
-                    <span> 管理 </span>
-                    <span class="menu-arrow"><svg-icon file-name="right"></svg-icon></span>
-                </a>
-                <ul class="side-nav-second-level" aria-expanded="false">
-                    <li>
-                        <router-link :to="{name:'manage-article'}">
-                            管理文章
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="javascript: void(0);" class="side-nav-link">
-                    <i><svg-icon file-name="sort"></svg-icon></i>
-                    <span> 分类 </span>
-                    <span class="menu-arrow"><svg-icon file-name="right"></svg-icon></span>
-                </a>
-                <ul class="side-nav-second-level" aria-expanded="false">
-                    <li>
-                        <router-link :to="{path:'/cross'}">
-                            友链分组
-                        </router-link>
-                    </li>
-                </ul>
+                <router-link :to="{name:'profile'}" class="side-nav-link">
+                    <i><svg-icon file-name="backstage"></svg-icon></i>
+                    <span> 个人信息 </span>
+                </router-link>
             </li>
 
             <li class="side-nav-title side-nav-item mt-1">控制台</li>
@@ -94,11 +71,9 @@
 </template>
 
 <script>
-import { GET } from '@/utils/http/request'
 import { reactive, onMounted, toRefs } from 'vue'
 import { mapState } from 'vuex'
 import { inisHelper } from '@/utils/helper/helper'
-import axios from 'axios'
 
 export default {
     setup(){

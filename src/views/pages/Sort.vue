@@ -171,7 +171,7 @@ export default {
             },
             // 获取文章分类数据
             getArticle(id = null, page = 1){
-                let params = {id,page,limit:4,order:'is_top desc, create_time asc'}
+                let params = {id,page,limit:8,order:'is_top desc, create_time asc'}
                 if (page <= state.article.page) {
                     if (page == state.article.page) state.last_page = true
                     GET('article-sort',{params}).then((res)=>{

@@ -24,7 +24,7 @@
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
                 
-                <li v-show="is_update" v-on:click.stop="setClass('#show-update')" id="show-update" class="dropdown notification-list nav-item">
+                <li v-show="is_update" class="dropdown notification-list nav-item">
                     <a data-toggle="modal" data-target="#update-info" class="nav-link dropdown-toggle arrow-none nav-item" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">
                         <!-- 图标 -->
                         <div id="lottie-beil"></div>
@@ -474,7 +474,7 @@ export default {
         },
         // 前往更新
         goUpdate(){
-            window.open('https://inis.cc/index/detail/1.html')
+            window.open(this.update.update_url)
         },
         // 设置class
         setClass(className){

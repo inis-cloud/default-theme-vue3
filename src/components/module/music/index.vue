@@ -58,7 +58,7 @@
 
         <!-- 歌单列表 - 开始 -->
         <div class="slimscroll music-playlist" style="max-height: 230px;">
-            <a v-for="data in music_play_list.data" :key="data.id" v-on:click="methods.setPlayListId(data.id)" data-stopPropagation="true" href="javascript:void(0);" class="dropdown-item notify-item">
+            <a v-for="data in music_play_list.data" :key="data.id" v-on:click.stop="methods.setPlayListId(data.id)" data-stopPropagation="true" href="javascript:;" class="dropdown-item notify-item">
                 <div class="notify-icon">
                     <img :src="data.head_img || ''" class="img-fluid rounded-circle" />
                 </div>
