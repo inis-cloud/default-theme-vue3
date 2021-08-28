@@ -30,7 +30,7 @@
             <li class="side-nav-item">
                 <a href="/" class="side-nav-link">
                     <i><svg-icon file-name="home"></svg-icon></i>
-                    <span> 首页 </span>
+                    <span>首页</span>
                 </a>
             </li>
 
@@ -67,6 +67,7 @@
                 <ul class="side-nav-second-level" aria-expanded="false">
                     <li v-for="data in article_sort" :key="data.id">
                         <router-link :to="/sort/+data.id">
+                            <img :src="data.opt.head_img || ''">
                             {{ data.name }}
                             <span class="badge badge-primary float-right">{{ data.expand.count }}</span>
                         </router-link>
@@ -97,7 +98,10 @@
                 </a>
                 <ul class="side-nav-second-level" aria-expanded="false">
                     <li v-for="(links, id) in links.data" :key="id">
-                        <a :href="links.url" target="_blank" data-toggle="tooltip" :data-original-title="links.description"><img :src="links.head_img">{{links.name}}</a>
+                        <a :href="links.url" target="_blank" data-toggle="tooltip" :data-original-title="links.description">
+                            <img :src="links.head_img">
+                            {{links.name}}
+                        </a>
                     </li>
                 </ul>
             </li>

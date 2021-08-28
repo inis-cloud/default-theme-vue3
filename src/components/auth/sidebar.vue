@@ -30,14 +30,14 @@
             <li class="side-nav-item">
                 <router-link :to="{name:'admin'}" class="side-nav-link">
                     <i><svg-icon file-name="home"></svg-icon></i>
-                    <span> 控制台 </span>
+                    <span>控制台</span>
                 </router-link>
             </li>
 
             <li class="side-nav-item">
                 <router-link :to="{name:'profile'}" class="side-nav-link">
                     <i><svg-icon file-name="backstage"></svg-icon></i>
-                    <span> 个人信息 </span>
+                    <span>个人信息</span>
                 </router-link>
             </li>
 
@@ -46,7 +46,7 @@
             <li v-if="user.level == 'admin'" class="side-nav-item">
                 <router-link :to="{name:'option'}" class="side-nav-link">
                     <i><svg-icon file-name="option"></svg-icon></i>
-                    <span> 主题配置 </span>
+                    <span>主题配置</span>
                 </router-link>
             </li>
 

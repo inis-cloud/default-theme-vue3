@@ -1,6 +1,6 @@
 /* 字体选择颜色 */
-::selection{color:#4988fd;}
-::-moz-selection{color:#4988fd;}
+::selection{color:#4988fd;background: #727cf512;}
+::-moz-selection{color:#4988fd;background: #727cf512;}
 
 /* 页面滚动条 */
 html{scrollbar-width: thin;scrollbar-color: rgba(0,0,0,.2) transparent;}
