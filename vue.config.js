@@ -23,14 +23,14 @@ module.exports = {
   // 向 PWA 插件传递选项。
   pwa: {
     name: 'inis默认主题',
-    // iconPaths: {
-    //   favicon64: 'favicon.ico',
-    //   favicon32: 'favicon.ico',
-    //   favicon16: 'favicon.ico',
-    //   appleTouchIcon: 'favicon.ico',
-    //   maskIcon: 'favicon.ico',
-    //   msTileImage: 'favicon.ico'
-    // },
+    iconPaths: {
+      // favicon64: 'favicon.ico',
+      // favicon32: 'favicon.ico',
+      // favicon16: 'favicon.ico',
+      appleTouchIcon: 'favicon.ico',
+      maskIcon: 'favicon.ico',
+      msTileImage: 'favicon.ico'
+    },
     themeColor: '#727cf5'
   },
   chainWebpack: config => {

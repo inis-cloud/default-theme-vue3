@@ -17,10 +17,10 @@
             <router-link :to="{path:'/cross'}">
                 <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
                 <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
-                <span class="leftbar-user-name text-muted font-12px">
-                    {{user.description || theme_config.site.present}}
-                </span>
             </router-link>
+            <span class="leftbar-user-name text-muted font-12px">
+                {{user.description || theme_config.site.present}}
+            </span>
         </div>
 
         <ul class="metismenu side-nav">

@@ -38,6 +38,7 @@ export default {
         "basic": {          // 基本信息
             "article_copy":  true,
             "music_show"  :  true,
+            "wecome"      :  true,
             "auto_night"  :  false,
             "night_start" :  22,
             "night_end"   :  6

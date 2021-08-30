@@ -17,10 +17,10 @@
             <router-link :to="{path:'/cross'}">
                 <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
                 <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
-                <span class="leftbar-user-name text-muted font-12px">
-                    {{user.description || theme_config.site.present}}
-                </span>
             </router-link>
+            <span class="leftbar-user-name text-muted font-12px">
+                {{user.description || theme_config.site.present}}
+            </span>
         </div>
 
         <ul class="metismenu side-nav">
@@ -69,7 +69,7 @@
                         <router-link :to="/sort/+data.id">
                             <img :src="data.opt.head_img || ''">
                             {{ data.name }}
-                            <span class="badge badge-primary float-right">{{ data.expand.count }}</span>
+                            <span class="badge text-primary float-right mr-2">{{ data.expand.count }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -127,9 +127,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { GET } from '@/utils/http/request'
 import { reactive, onMounted, toRefs } from 'vue'
-import { mapState } from 'vuex'
 import { inisHelper } from '@/utils/helper/helper'
 
 export default {
@@ -152,15 +152,14 @@ export default {
         const methods = {
             // 初始化数据
             initData(){
-                // 获取友链数据
                 methods.getLinks()
-                // 获取文章分类
-                GET('article-sort').then( res => {
-                    if (res.data.code == 200) state.article_sort = res.data.data.data
-                })
+                methods.articleSort()
                 // 侧边栏滚动
                 inisHelper.set.css(".left-side-menu .slimScrollDiv","height:" + (window.innerHeight - 100) + "px!important;")
                 methods.getPage()
+            },
+            initState(){
+
             },
             // 获取友链
             async getLinks(){
@@ -195,8 +194,16 @@ export default {
                         state.pages = res.data.data
                     }
                 })
-            }
+            },
+            // 获取文章分类
+            articleSort(){
+                GET('article-sort').then( res => {
+                    if (res.data.code == 200) state.article_sort = res.data.data.data
+                })
+            },
         }
+
+        methods.initState()
 
         onMounted(()=>{
             methods.initData()

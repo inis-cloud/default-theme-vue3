@@ -514,16 +514,6 @@ export default {
     ...mapState(['theme_config'])
   },
   watch:{
-    //   test: {
-    //     handler(newValue,oldValue){
-    //         if (newValue) {
-    //             console.log(newValue)
-    //             this.methods.getArticle()
-    //         }
-    //     },
-    //     immediate: true,
-    //     deep: true,
-    //   }
   }
 }
 </script>

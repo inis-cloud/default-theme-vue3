@@ -228,6 +228,11 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
                                                                     <p class="mb-0 flex">
+                                                                        首页访问欢迎：
+                                                                        <input v-model="theme_config.basic.wecome" type="checkbox" id="wecome" checked data-switch="success">
+                                                                        <label for="wecome" data-on-label="Yes" data-off-label="No"></label>
+                                                                    </p>
+                                                                    <p class="mb-0 flex">
                                                                         显示音乐播放器：
                                                                         <input v-model="theme_config.basic.music_show" type="checkbox" id="music_show" checked data-switch="success">
                                                                         <label for="music_show" data-on-label="Yes" data-off-label="No"></label>

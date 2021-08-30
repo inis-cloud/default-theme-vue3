@@ -137,11 +137,12 @@
 </template>
 
 <script>
-import iFooter from '@/components/public/footer'
-import { GET } from '@/utils/http/request'
-import { inisHelper } from '@/utils/helper/helper'
-import { onMounted, reactive, toRefs } from 'vue'
+import axios from 'axios'
 import { mapState, useStore } from 'vuex'
+import { GET } from '@/utils/http/request'
+import iFooter from '@/components/public/footer'
+import { onMounted, reactive, toRefs, watch } from 'vue'
+import { inisHelper } from '@/utils/helper/helper'
 
 export default {
     name: 'Index',
@@ -199,11 +200,33 @@ export default {
                         })
                     } else state.hitokoto.hitokoto = description
                 },500)
+            },
+            wecome(){
+                axios.all([
+                    GET('other/ua').then(res=>res.data),
+                    GET('location/weather').then(res=>res.data)
+                ]).then(axios.spread((ua, weather)=>{
+
+                    if (ua.code == 200 && weather.code == 200) {
+                        let info = `<p class="mb-1">欢迎来自 ${weather.data.lives[0].province} ${weather.data.lives[0].city} 的朋友</p>
+                        <p class="mb-1"><span class="text-primary">${weather.data.lives[0].city}</span> 当前气温 <span class="text-primary">${weather.data.lives[0].temperature} ℃ ${weather.data.lives[0].weather}</span></p>
+                        <p class="mb-1">系统：${ua.data.os.system} ${ua.data.os.version} </p>
+                        <p class="mb-1">内核：${ua.data.browser.kernel}</p>`
+                        $.NotificationApp.send("", info, "top-right", "rgba(0,0,0,0.2)", "info")
+                    }
+                }))
             }
         }
 
         onMounted(() => {
             methods.initData()
+        })
+
+        // 监听是否显示页面欢迎
+        watch(()=>store.state.theme_config.basic, ()=>{
+            let basic = store.state.theme_config.basic
+            let is_wecome = (basic.wecome == 'true') ? true : false
+            if (is_wecome) methods.wecome()
         })
 
         // 返回数据
@@ -228,7 +251,7 @@ export default {
                 item.views = inisHelper.format.number(item.views)
             })
             return result
-        }
+        },
     }
 }
 </script>
