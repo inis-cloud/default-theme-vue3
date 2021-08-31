@@ -14,5 +14,5 @@ window.INIS = {
     //     location / {
     //         try_files $uri $uri/ /index.html;
     //     }
-    version: '1.2.0',
+    version: '1.2.3',
 }
