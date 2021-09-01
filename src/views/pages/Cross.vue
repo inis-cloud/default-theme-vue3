@@ -438,7 +438,7 @@ export default {
                             params.append('mode', 'upload')
                             params.append('login-token', login_storage['login-token'])
                             
-                            axios.post(INIS.api + '/file', params, {
+                            axios.post(inisHelper.customProcessApi(INIS.api) + 'file', params, {
                                 headers: {
                                     "Content-Type": "multipart/form-data"
                                 }

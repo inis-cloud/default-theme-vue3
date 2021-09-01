@@ -10,11 +10,12 @@
 
 import qs from 'qs'
 import axios from 'axios'
+import { inisHelper } from '@/utils/helper/helper'
 
 // 创建 axios 对象
 const instance = axios.create({
     // baseURL: process.env.VUE_APP_API,
-    baseURL: INIS.api + '/',
+    baseURL: inisHelper.customProcessApi(INIS.api),
     timeout: 60 * 1000,
 })
 
