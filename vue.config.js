@@ -72,18 +72,18 @@ module.exports = {
     requireModuleExtension: false 
   },
   // 代理
-  devServer: {
-    // open: true,
-    https: false,
-    hotOnly: false,
-    proxy: {
-        '/api': {
-            target: "https://test.inis.cn/api",
-            changeOrigin: true,             // 是否跨域
-            pathRewrite: {                  // 路径重置
-                '^/api': ''
-            }
-        }
-    }
-}
+  // devServer: {
+  //   // open: true,
+  //   https: false,
+  //   hotOnly: false,
+  //   proxy: {
+  //       '/api': {
+  //           target: "https://test.inis.cn/api",
+  //           changeOrigin: true,             // 是否跨域
+  //           pathRewrite: {                  // 路径重置
+  //               '^/api': ''
+  //           }
+  //       }
+  //   }
+  // }
 }

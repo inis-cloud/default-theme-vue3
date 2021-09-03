@@ -399,14 +399,14 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-group mb-3">
                                                                     <label>一级菜单</label>
-                                                                    <textarea v-model="theme_config.menu.one" class="form-control inis-scroll" rows="5" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <textarea v-model="theme_config.menu.one" class="form-control inis-scroll" rows="5" placeholder="JSON代码"></textarea>
                                                                     <p class="text-muted mb-0">推荐将配置复制粘贴到 <a href="//json.cn" target="_blank">在线编辑器</a> 编辑</p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
                                                                     <label>二级菜单</label>
-                                                                    <textarea v-model="theme_config.menu.two" class="form-control inis-scroll" rows="5" placeholder="推荐填写HTML代码"></textarea>
+                                                                    <textarea v-model="theme_config.menu.two" class="form-control inis-scroll" rows="5" placeholder="JSON代码"></textarea>
                                                                     <p class="text-muted mb-0">推荐将配置复制粘贴到 <a href="//json.cn" target="_blank">在线编辑器</a> 编辑</p>
                                                                 </div>
                                                             </div>
@@ -460,6 +460,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="float-left mt-3">
+                                    <button v-on:click="reset()" type="button" class="btn btn-light">恢复默认配置</button>
+                                </div>
                                 <div class="float-right mt-3">
                                     <button v-on:click="methods.save()" type="button" class="btn btn-success">保存配置</button>
                                 </div>
@@ -475,11 +478,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
+import default_theme_config from '@/assets/json/config.json'
 
 export default {
     components: { iFooter },
@@ -561,6 +566,21 @@ export default {
         natureTime(date){
             let time = inisHelper.date.to.time(date)
             return inisHelper.time.nature(time)
+        },
+        // 恢复默认配置
+        async reset(){
+            let params = {
+                'login-token':this.user['login-token'],
+                keys: 'inis_config',
+                mode: 'remove'
+            }
+            POST('options', params).then(res=>{
+                if (res.data.code == 200) {
+                    this.$store.dispatch('commitThemeConfig', default_theme_config)
+                    this.theme_config = default_theme_config
+                    this.methods.getConfig()
+                }
+            })
         }
     },
     computed: {

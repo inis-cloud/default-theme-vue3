@@ -1,7 +1,7 @@
 window.INIS = {
 
-    // API地址
-    api: "https://api.inis.cn/api",
+    // API地址 - 填写后端域名
+    api: "http://inis.a152.top/api",
 
     // 后端开启token验证后，需要将token填写到此处
     token: '19221686b6db02eb4953d688e5cb7231',
@@ -17,5 +17,5 @@ window.INIS = {
     //     }
 
     // 版本号，禁止私自修改，后果自负
-    version: '1.2.4',
+    version: '1.2.5',
 }

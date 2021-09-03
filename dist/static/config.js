@@ -1,6 +1,6 @@
 window.INIS = {
 
-    // API地址
+    // API地址 - 填写后端域名
     api: "https://api.inis.cn/api",
 
     // 后端开启token验证后，需要将token填写到此处
@@ -17,5 +17,5 @@ window.INIS = {
     //     }
 
     // 版本号，禁止私自修改，后果自负
-    version: '1.2.4',
+    version: '1.2.5',
 }

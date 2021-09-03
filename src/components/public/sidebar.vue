@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { useStore, mapState } from 'vuex'
 import { GET } from '@/utils/http/request'
 import { reactive, onMounted, toRefs } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
@@ -217,7 +217,16 @@ export default {
         
     },
     computed: {
-        ...mapState(['site_info','theme_config'])
+        ...mapState(['site_info']),
+        theme_config:{
+            get(){
+                const store = useStore()
+                let theme_config = store.state.theme_config
+                if (inisHelper.is.empty(theme_config.menu.one)) theme_config.menu.one = "[]"
+                if (inisHelper.is.empty(theme_config.menu.two)) theme_config.menu.two = "[]"
+                return theme_config
+            }
+        }
     },
 }
 </script>

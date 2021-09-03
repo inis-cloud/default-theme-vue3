@@ -3,15 +3,15 @@
         "title"       :  "inis默认主题",
         "favicon"     :  "./favicon.ico",
         "nickname"    :  "inis",
-        "description" :  "这是一个非常棒的博客系统！",
+        "description" :  "",
         "head_img"    :  "https://q.qlogo.cn/g?b=qq&nk=97783391&s=640",
-        "present"     :  "愿出走半生，归来仍是少年！",
+        "present"     :  "",
         "cross_bg"    :  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8338cc6defcfcf0d0762e43866eb4d0075c41c747f21ab56061a5c86f1aa03f276f2de0a8dc015c19f079946be304978?pictype=scale&from=30013&version=3.3.3.3&uin=1211515059&fname=1565407470038.jpg&size=1024"
     },
     "logo": {
         "big_day"     :  "assets/images/logo.png",
         "small_day"   :  "assets/images/logo_sm.png",
-        "big_night"   :  "assets/images/logo.png",
+        "big_night"   :  "assets/images/logo_night.png",
         "small_night" :  "assets/images/logo_sm.png"
     },
     "copy": {
@@ -25,8 +25,8 @@
         "is_show"     :  true
     },
     "footer": {
-        "left"        :  "",
-        "right"       :  ""
+        "left"        :  "<span class=\"item left bg-danger ml-1\">自定义脚</span><span class=\"item right bg-success\"><a href=\"//inis.cn\" target=\"_blank\">左边</a></span>",
+        "right"       :  "<span class=\"item left bg-info\"><a href=\"//racns.com/inis.html\" target=\"_blank\">自定义脚</a></span><span class=\"item right bg-light mr-1\"><a href=\"//inis.cc\" target=\"_blank\">右边</a></span>"
     },
     "code": {
         "css"         :  "",
@@ -36,8 +36,13 @@
     "basic": {
         "article_copy":  true,
         "music_show"  :  true,
+        "wecome"      :  true,
         "auto_night"  :  false,
         "night_start" :  22,
         "night_end"   :  6
+    },
+    "menu": {
+        "one": "[{\"title\":\"inis官网\",\"class\":\"mr-2\",\"svg\":\"<svg t=\\\"1600000888204\\\" class=\\\"icon\\\" viewBox=\\\"0 0 1024 1024\\\" version=\\\"1.1\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\" p-id=\\\"3727\\\" width=\\\"20\\\" height=\\\"20\\\"><path d=\\\"M272 196h140c44.182 0 80 35.818 80 80v140c0 44.182-35.818 80-80 80h-140c-44.182 0-80-35.818-80-80v-140c0-44.182 35.818-80 80-80z\\\" fill=\\\"#4988FD\\\" p-id=\\\"3728\\\"></path><path d=\\\"M612 196h140c44.184 0 80 35.818 80 80v140c0 44.182-35.816 80-80 80h-140c-44.184 0-80-35.818-80-80v-140c0-44.182 35.816-80 80-80z\\\" fill=\\\"#DFECFD\\\" p-id=\\\"3729\\\"></path><path d=\\\"M272 536h140c44.182 0 80 35.816 80 80v140c0 44.184-35.818 80-80 80h-140c-44.182 0-80-35.816-80-80v-140c0-44.184 35.818-80 80-80zM612 536h140c44.184 0 80 35.816 80 80v140c0 44.184-35.816 80-80 80h-140c-44.184 0-80-35.816-80-80v-140c0-44.184 35.816-80 80-80z\\\" fill=\\\"#4988FD\\\" p-id=\\\"3730\\\"></path></svg>\",\"url\":\"https://inis.cc\",\"target\":\"_block\"},{\"title\":\"INIS - 使用文档\",\"class\":\"mr-2 fas fa-bicycle text-primary\",\"svg\":\"\",\"url\":\"https://docs.inis.cc\",\"target\":\"_block\"}]",
+        "two": "[{\"title\":\"菜单一\",\"class\":\"fas fa-tags text-danger font-12px\",\"svg\":\"\",\"child\":[{\"title\":\"萌卜兔\",\"url\":\"//racns.com\",\"target\":\"_block\"},{\"title\":\"自定义 - 后台修改\",\"url\":\"//inis.cn\",\"target\":\"_block\"}]},{\"title\":\"菜单二\",\"class\":\"fas fa-comments text-warning font-12px\",\"svg\":\"\",\"child\":[{\"title\":\"萌卜兔\",\"url\":\"//racns.com\",\"target\":\"_block\"}]}]"
     }
 }
