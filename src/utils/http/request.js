@@ -14,10 +14,10 @@ import { inisHelper } from '@/utils/helper/helper'
 
 // 创建 axios 对象
 const instance = axios.create({
-    // baseURL: process.env.VUE_APP_API,
     baseURL: inisHelper.customProcessApi(INIS.api),
     timeout: 60 * 1000,
 })
+
 
 // 请求拦截
 //   所有的网络请求都会先走这个方法

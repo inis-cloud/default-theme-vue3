@@ -67,7 +67,7 @@
                 <ul class="side-nav-second-level" aria-expanded="false">
                     <li v-for="data in article_sort" :key="data.id">
                         <router-link :to="/sort/+data.id">
-                            <img :src="data.opt.head_img || ''">
+                            <img :src="data.opt.head_img || 'assets/images/empty.png'">
                             {{ data.name }}
                             <span class="badge text-primary float-right mr-2">{{ data.expand.count }}</span>
                         </router-link>
@@ -99,7 +99,7 @@
                 <ul class="side-nav-second-level" aria-expanded="false">
                     <li v-for="(links, id) in links.data" :key="id">
                         <a :href="links.url" target="_blank" data-toggle="tooltip" :data-original-title="links.description">
-                            <img :src="links.head_img">
+                            <img :src="links.head_img || 'assets/images/empty.png'">
                             {{links.name}}
                         </a>
                     </li>
@@ -225,6 +225,16 @@ export default {
                 if (inisHelper.is.empty(theme_config.menu.one)) theme_config.menu.one = "[]"
                 if (inisHelper.is.empty(theme_config.menu.two)) theme_config.menu.two = "[]"
                 return theme_config
+            }
+        },
+        article_sort:{
+            get(){
+                let article_sort = this.article_sort
+                article_sort.forEach(item=>{
+                    if (inisHelper.is.empty(item.opt)) item.opt.head_img = "assets/images/empty.png"
+                    else if (inisHelper.is.empty(item.opt.head_img)) item.opt.head_img = "assets/images/empty.png"
+                })
+                return article_sort
             }
         }
     },

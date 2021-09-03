@@ -490,3 +490,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.svg-icon-1-5em{width: 1.5em;height: 1.5em;}
+#lottie-mail{height:22px;width:22px;display:flex}
+#lottie-music{height:28px;width:28px;display:flex}
+#lottie-beil{height:26px;width:26px;display:flex}
+</style>

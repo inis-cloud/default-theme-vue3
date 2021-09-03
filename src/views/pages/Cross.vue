@@ -5,7 +5,7 @@
             <div class="col-lg-8">
 
                 <div class="card">
-                    <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" :src="theme_config.site.cross_bg || null" />
+                    <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" :src="theme_config.site.cross_bg || 'assets/images/empty.png'" />
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -48,7 +48,7 @@
                         </div>
                         
                         <div class="profile-img">
-                            <img :src="user.head_img || null" class="rounded-circle shadow-sm mb-1" height="100" width="100">
+                            <img :src="user.head_img || 'assets/images/empty.png'" class="rounded-circle shadow-sm mb-1" height="100" width="100">
                             <strong>{{user.nickname || '站长'}}</strong>
                         </div>
                     </div>

@@ -1071,18 +1071,23 @@ export class helper{
         let result = url
 
         if (!this.is.empty(url)) {
+
             let prefix = "//"
+
             if (url.indexOf("https://") != -1)     prefix = "https://"
             else if (url.indexOf("http://") != -1) prefix = "http://"
+
             // 过滤http(s)://
-            result = url.replace(/http(s):\/\//g,"")
+            result = url.replace(/http(s)?:\/\//g,"")
+            
             // URL转数组
             result = result.split("/")
+            
             // 去除空数组
             result = result.filter((s)=>{
                 return s && s.trim();
             });
-
+            
             if (result.length == 1) result = prefix + result[0] + "/" + api + "/"
             else if (result.length == 2) {
                 result = prefix + result[0] + "/" + result[1] + "/"
