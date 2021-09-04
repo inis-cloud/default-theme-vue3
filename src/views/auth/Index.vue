@@ -138,7 +138,10 @@
                                     <div v-for="data in comments.data" :key="data.id" class="timeline-item">
                                         <i class="mdi mdi-airplane bg-primary-lighten text-primary timeline-icon"></i>
                                         <div class="timeline-item-info">
-                                            <a href="javascript:;" class="text-primary font-weight-bold mb-1 d-block">《{{data.expand.article.title || '文章'}}》 - [{{data.nickname || '谁评论的'}}]</a>
+                                            <a href="javascript:;" class="text-primary font-weight-bold mb-1 d-block">
+                                                <span v-if="data.expand.article">《{{data.expand.article.title || '文章'}}》 - </span>
+                                                <span>昵称：{{data.nickname || '谁评论的'}}</span>
+                                            </a>
                                             <small>{{data.content || '评论内容'}}</small>
                                             <p class="mb-0 pb-2">
                                                 <small class="text-muted">{{natureTime(data.create_time)}}</small>
