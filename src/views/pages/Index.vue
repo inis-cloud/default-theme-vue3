@@ -201,6 +201,7 @@ export default {
                     } else state.hitokoto.hitokoto = description
                 },500)
             },
+            // 页面欢迎信息
             wecome(){
                 axios.all([
                     GET('other/ua').then(res=>res.data),
@@ -240,17 +241,19 @@ export default {
     },
     computed: {
         ...mapState(['site_info', 'theme_config']),
-        article_data(){
-            let result = this.article_data
-            result.forEach(item=>{
-                if (inisHelper.is.empty(item.opt)) {
-                    item.opt = {auth:"anyone"}
-                } else if (inisHelper.is.empty(item.opt.auth)) {
-                    item.opt.auth = "anyone"
-                }
-                item.views = inisHelper.format.number(item.views)
-            })
-            return result
+        article_data:{
+            get(){
+                let result = this.article_data
+                result.forEach(item=>{
+                    if (inisHelper.is.empty(item.opt)) {
+                        item.opt = {auth:"anyone"}
+                    } else if (inisHelper.is.empty(item.opt.auth)) {
+                        item.opt.auth = "anyone"
+                    }
+                    item.views = inisHelper.format.number(item.views)
+                })
+                return result
+            }
         },
     }
 }

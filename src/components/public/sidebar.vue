@@ -109,7 +109,7 @@
         </ul>
 
         <div v-if="((theme_config.help.is_show == 'true') ? true : false)" class="help-box text-center">
-            <a v-on:click="methods.setHelp()" href="javascript: void(0);" class="float-right close-btn text-body">
+            <a href="javascript:;" class="float-right close-btn text-body">
                 <i><svg-icon file-name="close" style="width: 0.6em;height: 0.6em;"></svg-icon></i>
             </a>
             <img :src="theme_config.help.img_src || null" height="90" />

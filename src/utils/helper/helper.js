@@ -793,9 +793,9 @@ export class helper{
      */
     formatNumber (number = 1, unit = true)
     {
-        number = parseInt(number)
-        
-        let [result,units] = [null,null]
+        // number = (typeof number == "string") ? parseInt(number) : number
+
+        let [result,units] = ['','']
         
         if (number >= 100000000) {
             units  = '亿'
