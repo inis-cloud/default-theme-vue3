@@ -99,7 +99,7 @@
                         <div v-show="moving.count >= 1" v-for="(data, index) in moving.data" :key="data.id" class="card">
                             <div class="card-body">
                                 <div class="media mb-2">
-                                    <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40" height="40">
+                                    <img :src="data.expand.head_img || 'assets/images/empty.png'" class="mr-3 rounded-circle" width="40" height="40">
                                     <div class="media-body">
                                         <h5 class="mt-0 mb-1">{{data.nickname || '昵称'}}</h5>
                                         <span class="font-13">{{methods.natureTime(data.create_time)}}</span>
@@ -249,7 +249,7 @@
                                                 <div class="card-body pb-0">
                                                     <blockquote class="card-bodyquote">
                                                         <a :href="data.url || '#'" target="_blank">
-                                                            <img :src="data.head_img || null" height="42" class="rounded-circle shadow-sm head-img">
+                                                            <img :src="data.head_img || 'assets/images/empty.png'" height="42" width="42" class="rounded-circle shadow-sm head-img">
                                                             <span class="text-muted">{{data.name || '用户'}}</span>
                                                         </a>
                                                         <p class="text-muted mt-2 mb-0">{{data.description || '这个人很神秘~'}}</p>

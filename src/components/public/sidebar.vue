@@ -15,7 +15,7 @@
 
         <div class="leftbar-user">
             <router-link :to="{path:'/cross'}">
-                <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
+                <img :src=" user.head_img || theme_config.site.head_img" height="50" width="50" class="rounded-circle shadow-sm">
                 <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
             </router-link>
             <span class="leftbar-user-name text-muted font-12px">
@@ -59,7 +59,7 @@
             <li class="side-nav-title side-nav-item mt-1">组成</li>
 
             <li class="side-nav-item">
-                <a href="javascript: void(0);" class="side-nav-link">
+                <a href="javascript:;" class="side-nav-link">
                     <i><svg-icon file-name="sort"></svg-icon></i>
                     <span> 分类 </span>
                     <span class="menu-arrow"><svg-icon file-name="right"></svg-icon></span>

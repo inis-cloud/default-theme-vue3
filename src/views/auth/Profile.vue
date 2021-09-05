@@ -296,9 +296,9 @@ export default {
         // 格式化用户数据
         user(){
             let user     = this.user
-            user.email   = user.email.replace(/ /g,'')
-            user.phone   = user.phone.replace(/ /g,'')
-            user.account = user.account.replace(/ /g,'')
+            user.email   = (!inisHelper.is.empty(user.email))   ? user.email.replace(/ /g,'')   : user.email
+            user.phone   = (!inisHelper.is.empty(user.phone))   ? user.phone.replace(/ /g,'')   : user.phone
+            user.account = (!inisHelper.is.empty(user.account)) ? user.account.replace(/ /g,'') : user.account
             return user
         }
     },
