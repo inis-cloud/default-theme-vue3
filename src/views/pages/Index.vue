@@ -122,9 +122,9 @@
                 <div class="col-lg-12 article-footer">
                     <div class="card-body pt-0">
                         <div class="flex-center">
-                            <span v-show="last_page">再怎么找也没有啦~</span>
+                            <span v-show="last_page" class="see-more pt-1 pb-1 pl-3 pr-3">再怎么找也没有啦~</span>
                             <span>
-                                <button v-show="!last_page" v-on:click="methods.getArticle(self_page+1)" type="button" class="btn btn-link text-muted">查看更多</button>
+                                <button v-show="!last_page" v-on:click="methods.getArticle(self_page + 1)" type="button" class="btn btn-link text-muted pt-1 pb-1 pl-3 pr-3 see-more">查看更多</button>
                             </span>
                         </div>
                     </div>

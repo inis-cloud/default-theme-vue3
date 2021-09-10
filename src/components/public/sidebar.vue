@@ -197,7 +197,9 @@ export default {
             },
             // 获取文章分类
             articleSort(){
-                GET('article-sort').then( res => {
+                GET('article-sort', {
+                    params:{limit:999}
+                }).then( res => {
                     if (res.data.code == 200) state.article_sort = res.data.data.data
                 })
             },
