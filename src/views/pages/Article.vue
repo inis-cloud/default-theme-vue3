@@ -394,6 +394,8 @@ export default {
             let children   = content.children
             slimscroll.innerHTML = ''
             inisHelper.set.css(".directory","display: none;")
+            // 转换数组，防止报错
+            children = Array.from(children)
             children.forEach((item, index)=>{
                 let tag_name = item.tagName.toUpperCase()
                 if (tag_name.substr(0,1) == "H" && tag_name.substr(0,2) != "HR") {

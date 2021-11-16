@@ -28,10 +28,12 @@
             <li class="side-nav-title side-nav-item">导航</li>
 
             <li class="side-nav-item">
-                <a href="/" class="side-nav-link">
+                <router-link :to="{name:'index'}" class="side-nav-link">
+                <!-- <a href="/" class="side-nav-link"> -->
                     <i><svg-icon file-name="home"></svg-icon></i>
                     <span>首页</span>
-                </a>
+                <!-- </a> -->
+                </router-link>
             </li>
 
             <!-- 自定义菜单栏 - 开始 -->

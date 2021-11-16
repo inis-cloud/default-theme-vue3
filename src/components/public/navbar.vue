@@ -13,14 +13,16 @@
         <div class="container-fluid">
 
             <!-- LOGO -->
-            <a href="/" class="topnav-logo">
+            <!-- <a href="/" class="topnav-logo"> -->
+            <router-link :to="{name:'index'}" class="topnav-logo">
                 <span class="topnav-logo-lg">
                     <img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32">
                 </span>
                 <span class="topnav-logo-sm">
                     <img :src="theme_config.logo.small_day || 'assets/images/logo_sm.png'" height="28">
                 </span>
-            </a>
+            </router-link>
+            <!-- </a> -->
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
                 

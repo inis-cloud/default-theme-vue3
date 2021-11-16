@@ -499,11 +499,12 @@ pre.vditor-reset::-webkit-scrollbar-track, #example-textarea::-webkit-scrollbar-
 #profile .profile-user-box .save{position: absolute;bottom: 0;right: 5%;}
 .side-nav-item .svg-icon.backstage{width: 1.2em;height: 1.2em;}
 .see-more{border-radius: 16px;background: white;transition: -webkit-transform 0.25s;transition: transform 0.25s;transition: transform 0.25s, -webkit-transform 0.25s;box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);}
-
-
-
-
-
+.article-content .alert-info{background-color: #eef6fd !important;}
+.article-content .alert{border-top: unset;border-right: unset;border-bottom: unset;}
+.article-content .alert-danger{ background-color: #fedee545!important;}
+.article-content .alert-success{background-color: #cef5ea85!important;}
+.article-content .alert-warning{background-color: #fff2cc94!important;}
+.article-content .alert-primary{background-color: #e3e5fd87!important;}
 
 
 

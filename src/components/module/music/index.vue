@@ -13,14 +13,14 @@
                     <span style="color:#4e4748">{{music_info.msg || null}}</span>
                 </p>
                 <p class="mb-0 svg-list">
-                    <span v-if="play.mode == 'order'" v-on:click="methods.switchPlayMode('random')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-order"></svg-icon></span>
-                    <span v-else-if="play.mode == 'random'" v-on:click="methods.switchPlayMode('single')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-random"></svg-icon></span>
-                    <span v-else-if="play.mode == 'single'" v-on:click="methods.switchPlayMode('list')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-single"></svg-icon></span>
-                    <span v-else-if="play.mode == 'list'" v-on:click="methods.switchPlayMode('order')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-list"></svg-icon></span>
-                    <span v-on:click="methods.previous" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-left"></svg-icon></span>
-                    <span v-if="!play.is_play" v-on:click="methods.isPlay(true)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-play"></svg-icon></span>
-                    <span v-else-if="play.is_play" v-on:click="methods.isPlay(false)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-stop"></svg-icon></span>
-                    <span v-on:click="methods.next" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-right"></svg-icon></span>
+                    <span v-if="play.mode == 'order'" v-on:click.stop="methods.switchPlayMode('random')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-order"></svg-icon></span>
+                    <span v-else-if="play.mode == 'random'" v-on:click.stop="methods.switchPlayMode('single')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-random"></svg-icon></span>
+                    <span v-else-if="play.mode == 'single'" v-on:click.stop="methods.switchPlayMode('list')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-single"></svg-icon></span>
+                    <span v-else-if="play.mode == 'list'" v-on:click.stop="methods.switchPlayMode('order')" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-list"></svg-icon></span>
+                    <span v-on:click.stop="methods.previous" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-left"></svg-icon></span>
+                    <span v-if="!play.is_play" v-on:click.stop="methods.isPlay(true)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-play"></svg-icon></span>
+                    <span v-else-if="play.is_play" v-on:click.stop="methods.isPlay(false)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-stop"></svg-icon></span>
+                    <span v-on:click.stop="methods.next" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-right"></svg-icon></span>
                     <span v-if="!play.is_muted" v-on:click="methods.muted(false)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-sound-on"></svg-icon></span>
                     <span v-if="play.is_muted" v-on:click="methods.muted(true)" class="mr-1" data-stopPropagation="true"><svg-icon i-class="music" file-name="music-sound-off"></svg-icon></span>
                     <span v-on:click="methods.playlist" class="music-play-list mr-1" data-stopPropagation="true">
@@ -38,7 +38,7 @@
 
         <!-- 歌曲列表 - 开始 -->
         <div class="slimscroll" style="max-height: 0;height:unset">
-            <a v-for="(data, index) in music.songs" :key="index" v-on:click="methods.musicInfo(index,data.song_id)" data-stopPropagation="true" class="dropdown-item notify-item cursor">
+            <a v-for="(data, index) in music.songs" :key="index" v-on:click.stop="methods.musicInfo(index,data.song_id)" data-stopPropagation="true" class="dropdown-item notify-item cursor">
                 <span class="limit font-13 mr-2">
                     <span class="text-muted mr-2">{{ index + 1 }}</span>
                     {{data.name}}
@@ -157,7 +157,7 @@ export default {
             isPlay(bool = false){
                 state.play.is_play = bool
                 inisHelper.set.storage('music',state.play)
-                event.stopPropagation();
+                // event.stopPropagation();
             },
             // 当前播放音乐的数据
             musicInfo(index = 0, song_id = null) {
