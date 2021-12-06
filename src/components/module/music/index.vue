@@ -374,9 +374,10 @@ export default {
         onMounted(()=>{
             methods.autoBar()
             // 监听是否显示音乐播放器
-            watch(()=>store.state.theme_config.basic, ()=>{
+            watch(()=>store.state.theme_config, ()=>{
                 let basic = store.state.theme_config.basic
-                let music_show = (basic.music_show == 'true') ? true : false
+                let other = store.state.theme_config.other
+                let music_show = (other.module.music == 'true') ? true : false
                 if (music_show) methods.musicPlayList()
             })
             // 监听静音按钮，初始化缓存中的数据

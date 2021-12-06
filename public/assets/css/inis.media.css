@@ -41,4 +41,23 @@
     #update-info .alert.alert-light{margin-left: 0!important;margin-right: 0 !important;}
     #profile .profile-user-box .save{position: unset;}
     #profile .profile-user-box .save button{width: 100%;}
+	.home #carouselExampleCaptions .carousel-inner .carousel-item > img{height: 170px;object-fit: cover;}
+	.home #carouselExampleCaptions .carousel-indicators {
+	    left: 14px;
+	    justify-content: unset;
+	    margin: 0;
+	}
+	.home #carouselExampleCaptions .carousel-caption {
+	    position: absolute;
+	    right: unset;
+	    top: 20px;
+	    left: 20px;
+	    padding-top: 20px;
+	    padding-bottom: unset;
+	    text-align: unset;
+	}
+	.home #carouselExampleCaptions .carousel-indicators li{width: 8px;}
+	.home #carouselExampleCaptions .carousel-indicators.carousel-indicators .active {width: 30px;}
+	.home .banner .col-md-4 .card-body{height: auto;}
+	.home .banner .col-md-4 .row{display: none;}
 }

@@ -57,7 +57,7 @@ const routes = [
       }
     ],
     meta: {
-      title: store.state.theme_config.site.title,
+      title: store.state.theme_config.basic.site.title,
     }
   },
   {
@@ -101,7 +101,7 @@ const routes = [
       }
     ],
     meta: {
-      title: store.state.theme_config.site.title,
+      title: store.state.theme_config.basic.site.title,
     }
   },
   {

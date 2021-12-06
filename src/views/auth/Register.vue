@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="inputBox">
-                    <button v-on:click="methods.save()" type="button" class="btn login flex">
+                    <button v-on:click="methods.save()" type="button" class="btn login flex-center">
                         <span v-if="login_is_load" class="spinner-border text-light mr-1" role="status"></span>
                         <span>{{ (login_is_load) ? "注册中" : "提交注册" }}</span>
                     </button>

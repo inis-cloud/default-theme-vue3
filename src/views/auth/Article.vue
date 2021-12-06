@@ -231,7 +231,7 @@ export default {
         watch(()=>store.state.theme_config,()=>{
             let site = store.state.theme_config.site
             // 设置页面 title
-            document.title = site.title
+            document.title = basic.site.title
         })
 
         onMounted(()=>{

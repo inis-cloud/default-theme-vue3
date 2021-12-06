@@ -15,11 +15,11 @@
 
         <div class="leftbar-user">
             <router-link :to="{path:'/cross'}">
-                <img :src=" user.head_img || theme_config.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
-                <span class="text-muted d-block mt-1">{{user.nickname || theme_config.site.nickname}}</span>
+                <img :src=" user.head_img || theme_config.basic.site.head_img" height="42" width="42" class="rounded-circle shadow-sm">
+                <span class="text-muted d-block mt-1">{{user.nickname || theme_config.basic.site.nickname}}</span>
             </router-link>
             <span class="leftbar-user-name text-muted font-12px">
-                {{user.description || theme_config.site.present}}
+                {{user.description || theme_config.basic.site.present}}
             </span>
         </div>
 
@@ -52,15 +52,15 @@
 
         </ul>
 
-        <div v-if="((theme_config.help.is_show == 'true') ? true : false)" class="help-box text-center">
+        <div v-if="((theme_config.other.help.is_show == 'true') ? true : false)" class="help-box text-center">
             <a href="javascript:;" class="float-right close-btn text-body">
                 <i><svg-icon file-name="close" style="width: 0.6em;height: 0.6em;"></svg-icon></i>
             </a>
-            <img :src="theme_config.help.img_src || null" height="90" />
+            <img :src="theme_config.other.help.img_src || null" height="90" />
             <h5 class="mt-3">{{ user.nickname || null }}</h5>
-            <p class="mb-3">{{theme_config.help.description || null}}</p>
-            <a :href="theme_config.help.btn_url || null" target="_block" class="btn btn-outline-primary btn-sm">
-                {{theme_config.help.btn_text || null}}
+            <p class="mb-3">{{theme_config.other.help.description || null}}</p>
+            <a :href="theme_config.other.help.btn_url || null" target="_block" class="btn btn-outline-primary btn-sm">
+                {{theme_config.other.help.btn_text || null}}
             </a>
         </div>
 

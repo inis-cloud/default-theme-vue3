@@ -96,7 +96,7 @@
                                 <div class="card-body">
                                     <div class="flex-center">
                                         <button type="button" class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#reward-alert-modal">
-                                            <svg-icon file-name="reward"></svg-icon> 赞 赏 
+                                            <svg-icon file-name="reward"></svg-icon> 赞 赏
                                         </button>
                                     </div>
                                     <p class="text-center mt-3">如果觉得我的文章对你有帮助，请随意赞赏</p>
@@ -148,12 +148,12 @@
                                 </teleport>
                             </div>
 
-                            <div v-show="((theme_config.basic.article_copy == 'true') ? true : false)" class="row flex-center copy">
+                            <div v-show="((theme_config.other.module.article_copy == 'true') ? true : false)" class="row flex-center copy">
                                 <span class="end">END</span>
                                 <span class="line"></span>
                             </div>
 
-                            <div v-show="((theme_config.basic.article_copy == 'true') ? true : false)" class="row table mt-2 ml-0">
+                            <div v-show="((theme_config.other.module.article_copy == 'true') ? true : false)" class="row table mt-2 ml-0">
                                 <table>
                                     <thead>
                                         <tr>
@@ -191,9 +191,9 @@
                             </div>
 
                         </div>
-                    </div>  
+                    </div>
                 </div>
-                
+
                 <div class="col-md-4">
 
                     <div v-show="is_top.is_show" class="card">
@@ -233,9 +233,13 @@
             <div v-if="!auth.is_pwd" class="row">
                 <div class="col-md-8">
                     <!-- 评论 - 开始 -->
-                    <div class="card" id="article-comments">
-                        <div class="card-body">
+                    <div class="card mb-0" id="article-comments">
+                        <div v-show="config.comments.allow" class="card-body">
                             <h4 class="mt-0 mb-3">发表评论 [ {{ comment }} ]</h4>
+                            <i-comment-reply></i-comment-reply>
+                        </div>
+                        <div v-show="!config.comments.allow" class="card-body p-2">
+                            <h4 class="text-center">评论功能已关闭</h4>
                             <i-comment-reply></i-comment-reply>
                         </div>
                     </div>
@@ -250,10 +254,12 @@
         <teleport to="head">
             <!-- 代码高亮 CSS - 开始 -->
             <i-link src="assets/css/highlight/dark.min.css"></i-link>
+            <i-link src="assets/libs/fancybox/jquery.fancybox.min.css"></i-link>
             <!-- 代码高亮 CSS - 结束 -->
         </teleport>
         <teleport to="body">
             <!-- 页面依赖 JS - 开始 -->
+            <i-link tag="script" src="assets/libs/fancybox/jquery.fancybox.min.js"></i-link>
             <!-- 页面依赖 JS - 结束 -->
         </teleport>
     </div>
@@ -266,13 +272,13 @@ import { GET } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
 import iFooter from '@/components/public/footer.vue'
 import { onMounted, reactive, toRefs, onUpdated, watch, watchEffect } from 'vue'
-import iCommentReply from '@/components/module/comments/CommentReply.vue'
+import iCommentReply from '@/components/module/comments/article/CommentReply.vue'
 import { useStore, mapState } from 'vuex'
 
 export default {
   components: { iFooter, iLink, iCommentReply },
   setup() {
-    
+
     // 响应式实例
     const route = useRoute()
     const store = useStore()
@@ -287,6 +293,12 @@ export default {
         is_top: [],         // 置顶文章
         url: '#',           // 当前URL
         auth:[],            // 文章权限
+        config: {			// 配置
+            comments: {
+                show : true,// 显示评论
+                allow: true,// 允许评论
+            },
+        },
     })
 
     store.dispatch('commitArticle', {is_comments:false})
@@ -330,7 +342,8 @@ export default {
         getArticle(){
             // 获取文章数据
             GET('article',{
-                params:{id:state.id,'login-token':`${store.state.login['login-token']}`,password:state.auth.password}
+                params:{id:state.id,password:state.auth.password},
+                headers:{'login-token':`${store.state.login['login-token']}`}
             }).then( res=> {
                 if(res.data.code == 200){
                     state.auth.is_pwd = false
@@ -344,21 +357,22 @@ export default {
                     else state.tag = {is_show:true,data:tag}
                     state.is_load = false
                     // 设置页面 title
-                    document.title = state.article.title + ' - ' + store.state.theme_config.site.title
+                    document.title = state.article.title + ' - ' + store.state.theme_config.basic.site.title
                 } else {
                     $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
+                // 获取系统配置
+                methods.getConfig()
             })
         },
         getIsTop(){
+            const params = {
+                limit:3,
+                where:"is_top=1;is_show=1",
+                order:"create_time asc"
+            }
             // 获取置顶文章
-            GET('article/sql',{
-                params:{
-                    limit:3,
-                    where:"is_top=1;is_show=1",
-                    order:"create_time asc"
-                }
-            }).then(res=>{
+            GET('article/sql',{params}).then(res=>{
                 if (res.data.code == 200) {
                     state.is_top = res.data.data
                     state.is_top.is_show = (state.is_top.count != 0) ? true : false
@@ -457,7 +471,7 @@ export default {
             let content= document.querySelectorAll('.hide .hide-content')
             let status = store.state.article.is_comments
             let description = document.querySelectorAll('.hide .hide-description')
-            
+
             if (!status && !inisHelper.is.empty(content)) {
                 content.forEach((item, index)=>{
                     state.hide[index] = {html:item.innerHTML}
@@ -476,7 +490,41 @@ export default {
                     item.style.display = "none"
                 })
             }
-        }
+        },
+        // 获取系统配置
+        getConfig(){
+            const params = {
+                key:'config:system'
+            }
+            GET('options', {params}).then(res=>{
+                if (res.data.code == 200) {
+                    const result = res.data.data
+                    methods.setShow(result.opt)
+                }
+            })
+        },
+        // 设置显示
+        setShow(config = {}){
+            // 文章配置
+            let opt = state.article.opt
+            // 本地配置
+            let comments = {show:false, allow:false}
+            // 文章内的评论配置
+            if (!inisHelper.is.empty(opt)) {
+                if (!inisHelper.is.empty(opt.comments)) {
+                    comments.show = (opt.comments.show == 'true' || opt.comments.show == true) ? true : false
+                    comments.allow= (opt.comments.allow== 'true' || opt.comments.allow== true) ? true : false
+                }
+            }
+            // 文章评论的全局配置 - 优先级最高
+            let system_comments = {show:false, allow:false}
+
+            system_comments = config.article.comments
+            comments.show = (system_comments.show == 'true' || system_comments.show == true) ? comments.show  : false
+            comments.allow= (system_comments.allow== 'true' || system_comments.allow== true) ? comments.allow : false
+            
+            state.config.comments = comments
+        },
     }
 
     methods.initState()
@@ -501,22 +549,32 @@ export default {
     window.onresize = () => {
         methods.setDirectory()
     }
-    
+
     // 返回数据
     return { ...toRefs(state), methods }
   },
   methods:{
-      // 人性化时间  
+      // 人性化时间
       natureTime(date){
         let time = inisHelper.date.to.time(date)
         return inisHelper.time.nature(time)
       },
+      // 图片预览框
+      imagesBox(){
+        // 获取渲染文章下的全部图片
+        let images = document.querySelector(".article-content").getElementsByTagName("img");
+        for (let item of images) {
+            // 给图片上预览盒子
+            item.outerHTML = `<a data-fancybox="gallery" href="${item.src}" data-caption="${item.alt}">${item.outerHTML}</a>`
+        }
+      }
   },
   computed: {
     ...mapState(['theme_config'])
   },
-  watch:{
-  }
+  updated() {
+      this.imagesBox()
+  },
 }
 </script>
 

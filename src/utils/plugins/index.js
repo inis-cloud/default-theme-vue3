@@ -1,16 +1,19 @@
 // SVG 组件
 import svgIcon from '@/components/tool/SvgIcon'
 // 代码高亮
-import hljs from 'highlight.js'
 import JQ from 'jquery'
-import { inisHelper } from '@/utils/helper/helper'
 import store from '@/store'
+import hljs from 'highlight.js'
+import select2 from 'vue3-select2-component';
+import { inisHelper } from '@/utils/helper/helper'
+
 
 const plugins = {
     install: Vue => {
 
         // 定义全局组件
         Vue.component('svg-icon', svgIcon)
+        Vue.component('select2', select2)
 
         // 自定义一个代码高亮指令
         Vue.directive('code-highlight',(el)=>{
@@ -19,7 +22,7 @@ const plugins = {
                 hljs.highlightBlock(block)
                 // 显示行号
                 block.innerHTML = "<ul><li>" + block.innerHTML.replace(/\n/g, "\n</li><li>") + "\n</li></ul>";
-                /* 添加头 */
+                // 添加头
                 let language = null
                 block.classList.forEach((className)=>{
                     if (className.indexOf("language-") != -1) language = className.split('-')[1]
@@ -36,7 +39,7 @@ const plugins = {
             // 复制操作
             el.querySelectorAll('pre').forEach((item)=>{
                 JQ(item).find('.copy').click(()=>{
-                    let result = inisHelper.set.copy.text(JQ(item).find('code').text(), store.state.theme_config.copy.text || null)
+                    let result = inisHelper.set.copy.text(JQ(item).find('code').text(), store.state.theme_config.other.copy.text || null)
                     if (result) $(item).find(".copy").html("<img class='w-auto mr-1' src='assets/svg/tag.svg' />已复制</span>")
                 })
             })

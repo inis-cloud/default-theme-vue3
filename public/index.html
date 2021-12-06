@@ -8,19 +8,29 @@
     <!-- inis - 配置文件 -->
     <script src="<%= htmlWebpackPlugin.files.publicPath %>static/config.js"></script>
     <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>manifest.json">
-    <!-- font-awesome - 字体图标 -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css">
     <title>inis默认主题</title>
     <!-- QQ卡片 - 开始 -->
     <meta itemprop="name" content="inis默认主题">
     <meta itemprop="image" content="https://inis.cn/assets/images/logo_sm.png">
+	  <meta name="keywords" content="inis, inis theme, inis博客, inis程序, 博客系统">
     <meta name="description" itemprop="description" content="inis · 新一代博客系统！这是市面上为数不多的新一代博客系统，整站封装，全站分离，真正意义上的前后端分离。">
     <!-- QQ卡片 - 结束 -->
+    <!-- 预加载动画CSS -->
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <!-- 预加载动画 - 开始 -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+      <div id="load_title">正在加载中，请稍后</div>
+    </div>
+    <!-- 预加载动画 - 结束 -->
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

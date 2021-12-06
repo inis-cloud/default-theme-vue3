@@ -13,16 +13,14 @@
         <div class="container-fluid">
 
             <!-- LOGO -->
-            <!-- <a href="/" class="topnav-logo"> -->
             <router-link :to="{name:'index'}" class="topnav-logo">
                 <span class="topnav-logo-lg">
-                    <img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32">
+                    <img :src="theme_config.other.images.logo.day.big || 'assets/images/logo.png'" height="32">
                 </span>
                 <span class="topnav-logo-sm">
-                    <img :src="theme_config.logo.small_day || 'assets/images/logo_sm.png'" height="28">
+                    <img :src="theme_config.other.images.logo.day.small || 'assets/images/logo_sm.png'" height="28">
                 </span>
             </router-link>
-            <!-- </a> -->
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
                 
@@ -454,9 +452,9 @@ export default {
         })
 
         // 监听是否显示音乐播放器
-        watch(()=>store.state.theme_config.basic, ()=>{
-            let basic = store.state.theme_config.basic
-            state.music_is_show = (basic.music_show == 'true') ? true : false
+        watch(()=>store.state.theme_config.other, ()=>{
+            let other = store.state.theme_config.other
+            state.music_is_show = (other.module.music == 'true') ? true : false
         })
 
         onMounted(()=>{

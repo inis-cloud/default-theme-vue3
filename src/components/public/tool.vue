@@ -93,17 +93,17 @@ export default {
                     state.theme = '日间模式'
                     body.setAttribute('theme','night')
                     setTimeout(()=>{
-                        lg_logo.src = store.state.theme_config.logo.big_night
-                        sm_logo.src = store.state.theme_config.logo.small_night
-                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.logo.big_night
+                        lg_logo.src = store.state.theme_config.other.images.logo.night.big
+                        sm_logo.src = store.state.theme_config.other.images.logo.night.small
+                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.other.images.logo.night.big
                     }, 300)
                 } else {
                     state.theme = '夜间模式'
                     body.setAttribute('theme','')
                     setTimeout(()=>{
-                        lg_logo.src = store.state.theme_config.logo.big_day
-                        sm_logo.src = store.state.theme_config.logo.small_day
-                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.logo.big_day
+                        lg_logo.src = store.state.theme_config.other.images.logo.day.big
+                        sm_logo.src = store.state.theme_config.other.images.logo.day.small
+                        if (login_logo != 'undefined') login_logo.src = store.state.theme_config.other.images.logo.day.big
                     }, 300)
                 }
             },
@@ -134,8 +134,8 @@ export default {
 
         watch(()=>store.state.theme_config.basic, ()=>{
             let config = store.state.theme_config
-            if (config.basic.auto_night == 'true') {
-                methods.autoNight(config.basic.night_start, config.basic.night_end)
+            if (config.other.night.auto == 'true') {
+                methods.autoNight(config.other.night.start, config.basic.end)
                 methods.setTheme()
             }
         })
@@ -163,9 +163,9 @@ export default {
 .list-container.active .more-button-list-item:nth-child(3){-webkit-animation-delay:0.6s;animation-delay:0.6s}
 .list-container.active .more-button-list-item:nth-child(4){-webkit-animation-delay:0.8s;animation-delay:0.8s}
 .list-container.active .menu-icon-wrapper{transform:rotate(-45deg)}
-.more-button{background-color:white;box-shadow:0 0 35px 0 rgb(154 161 171 / 46%);border-radius:50%;width:40px;height:40px;border:none;padding:0;cursor:pointer;transition:0.2s ease-in;display:flex;align-items:center;justify-content:center;color:#fff;position:relative;z-index:2}
+.more-button{background-color:var(--inis-main);box-shadow:0 0 35px 0 rgb(154 161 171 / 46%);border-radius:50%;width:40px;height:40px;border:none;padding:0;cursor:pointer;transition:0.2s ease-in;display:flex;align-items:center;justify-content:center;color:#fff;position:relative;z-index:2}
 .more-button:focus{outline:0}
-.more-button-list{background-color:#fff;border-radius:8px;list-style-type:none;width:140px;box-shadow:0 0 35px 0 rgb(154 161 171 / 46%);padding:0;padding:6px;position:absolute;right:24px;bottom:0;opacity:0;transform:scale(0);transform-origin:bottom right;transition:all 0.3s ease 0.1s}
+.more-button-list{background-color:var(--inis-main);border-radius:8px;list-style-type:none;width:140px;box-shadow:0 0 35px 0 rgb(154 161 171 / 46%);padding:0;padding:6px;position:absolute;right:24px;bottom:0;opacity:0;transform:scale(0);transform-origin:bottom right;transition:all 0.3s ease 0.1s}
 .more-button-list li{opacity:0}
 .more-button-list-item{display:flex;align-items:center;color:#6c757d;padding:10px;border-radius:4px;cursor:pointer;position:relative;transition:0.2s ease-in;transform:translatex(-10px)}
 .more-button-list-item:hover{color:#727cf5}

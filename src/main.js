@@ -4,4 +4,6 @@ import router from './router'
 import store from './store'
 import plugins from './utils/plugins'
 
+
 createApp(App).use(store).use(router).use(plugins).mount('#app')
+

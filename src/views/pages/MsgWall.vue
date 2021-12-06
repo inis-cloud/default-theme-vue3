@@ -250,7 +250,7 @@ export default {
                         // 加载动画
                         state.is_load = false
                         // 设置页面 title
-                        document.title = '留言墙 - ' + store.state.theme_config.site.title
+                        document.title = '留言墙 - ' + store.state.theme_config.basic.site.title
                     }
                 })
 

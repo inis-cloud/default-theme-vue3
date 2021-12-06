@@ -372,7 +372,11 @@ export default {
                 unwarp(charts).setOption(option);
                 charts.resize()
                 window.addEventListener('resize', () => {
-                    let width = document.querySelector(".col-xl-8").offsetWidth
+                    try {
+                        let width = document.querySelector(".col-xl-8").offsetWidth
+                    } catch (e) {
+                        
+                    }
                     dom.style.width  = `${width - 50}px`
                     charts.resize()
                 })
@@ -409,7 +413,7 @@ export default {
         }
 
         watch(()=>store.state.theme_config,()=>{
-            let site = store.state.theme_config.site
+            let site = store.state.theme_config.basic.site
             // 设置页面 title
             document.title = site.title
         })

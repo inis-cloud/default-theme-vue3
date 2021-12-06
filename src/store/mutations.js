@@ -18,7 +18,7 @@ export default {
     setThemeConfig(state, params = {}) {
 
         if (inisHelper.is.empty(params)) {
-            GET('options',{params:{key:'inis_config'}}).then(res=>{
+            GET('options',{params:{key:'config:default-theme'}}).then(res=>{
                 if (res.data.code == 200) {
                     state.theme_config = res.data.data.opt
                 }

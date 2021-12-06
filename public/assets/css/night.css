@@ -1,0 +1,78 @@
+/* 夜间模式 CSS */
+body[theme=night], body[theme=night] .help-box, body[theme=night] .bg-white, body[theme=night] .article-content blockquote{
+    color: #fff;
+    background-color: rgba(0,0,0,1) !important;
+}
+body[theme=night] .left-side-menu, body[theme=night] .navbar-custom, body[theme=night] .card, body[theme=night] .modal-content, body[theme=night] .see-more{
+    background-color: 	rgba(33,33,33,1) !important;
+    box-shadow: 0 1px 1px 1px rgb(0 0 0 / 25%)!important;
+}
+body[theme=night] img, body[theme=night] svg{
+    filter: brightness(70%);
+}
+body[theme=night] .list-container{
+    opacity: .8 !important;
+}
+body[theme=night] .bg-primary{
+    opacity: .5 !important;
+}
+body[theme=night] h1, body[theme=night] h2, body[theme=night] h3, body[theme=night] h4, body[theme=night] h5, body[theme=night] h6,
+body[theme=night] .position-relative .text-title, body[theme=night] .notify-details > span, body[theme=night] .btn{
+    color:rgba(255,255,255,.8) !important;
+}
+body[theme=night] p, body[theme=night] ul, body[theme=night] ol, body[theme=night] span, 
+body[theme=night] .tab-content, body[theme=night] .nav-pills .nav-link.active, .nav-pills .show > .nav-link, body[theme=night] .alert,
+body[theme=night] .card-header, body[theme=night] #accordion .card-body, body[theme=night] hr,
+body[theme=night] .directory-item, body[theme=night] .more-button, body[theme=night] .head-svg, body[theme=night] .profile-img strong{
+    color: #999!important;
+}
+body[theme=night] .nav-tabs .nav-link.active{
+    color: white;
+    background-color: unset;
+}
+body[theme=night] .modal-header .close, body[theme=night] .media .card-body h5 a {
+    color: white;
+}
+body[theme=night] table thead tr{
+    background-color: #252525!important;
+}
+body[theme=night] table tbody tr, body[theme=night] table tr:nth-child(2n), body[theme=night] #example-textarea .card, body[theme=night] .form-control {
+    background-color: #2b2b2b!important;
+}
+body[theme=night] .text-dark, body[theme=night] .more-button-list-item{
+    color: #aaa!important;
+}
+body[theme=night] a.text-dark:focus, body[theme=night] a.text-dark:hover{
+    color: white!important;
+}
+body[theme=night] .more-button-list{
+    color: #fff;
+    background-color: #2b2b2b!important;
+    box-shadow: 0 1px 1px 1px rgb(0 0 0 / 25%)!important;
+}
+body[theme=night] .article-content pre, body[theme=night] .article-content pre .repair{
+    background-color: #161616!important;
+}
+body[theme=night] span img, body[theme=night] li p, body[theme=night] pre ul, body[theme=night] pre span, body[theme=night] .tab-content .alert,
+body[theme=night] .tab-content ul, body[theme=night] ul span{
+    opacity: unset!important;
+}
+body[theme=night] .list-container.active .more-button-list, body[theme=night] .active > span, body[theme=night] #msg-wall .wall blockquote .head-img,
+body[theme=night] .cross .bg-white, body[theme=night] .cross .bg-white img, body[theme=night] .cross .bg-white span, body[theme=night] .cross .bg-white p{
+    opacity: 1!important;
+}
+body[theme=night] .article-content blockquote{
+    border-left: 3px solid #6c7071!important;
+}
+body[theme=night] .card-header{background-color: #212121;}
+body[theme=night] #show-login .dropdown-menu .media h6{color: #212121 !important;}
+body[theme=night] .bg-primary{background-color:#727cf5!important;opacity: 0.5!important;}
+body[theme=night] .bg-secondary{background-color:#6c757d!important;opacity: 0.5!important;}
+body[theme=night] .bg-success{background-color:#0acf97!important;opacity: 0.5!important;}
+body[theme=night] .bg-info{background-color:#39afd1!important;opacity: 0.5!important;}
+body[theme=night] .bg-warning{background-color:#ffbc00!important;opacity: 0.5!important;}
+body[theme=night] .bg-danger{background-color:#fa5c7c!important;opacity: 0.5!important;}
+body[theme=night] .bg-light{background-color:#e3eaef!important;opacity: 0.5!important;}
+body[theme=night] .bg-dark{background-color:#313a46!important;opacity: 0.5!important;}
+body[theme=night] .bg-white{background-color:#fff!important;opacity: 0.5!important;}
+body[theme=night] .bg-transparent{background-color:transparent!important;opacity: 0.5!important;}

@@ -9,20 +9,18 @@
 <!-- +---------------------------------------------------------------------- -->
 
 <template>
-    <div class="navbar-custom topnav-navbar fixed-top">
+    <div class="navbar-custom topnav-navbar fixed-top blur">
         <div class="container-fluid">
 
             <!-- LOGO -->
-            <!-- <a href="/" class="topnav-logo"> -->
             <router-link :to="{name:'index'}" class="topnav-logo">
                 <span class="topnav-logo-lg">
-                    <img :src="theme_config.logo.big_day || 'assets/images/logo.png'" height="32">
+                    <img :src="theme_config.other.images.logo.day.big || 'assets/images/logo.png'" height="32">
                 </span>
                 <span class="topnav-logo-sm">
-                    <img :src="theme_config.logo.small_day || 'assets/images/logo_sm.png'" height="28">
+                    <img :src="theme_config.other.images.logo.day.small || 'assets/images/logo_sm.png'" height="28">
                 </span>
             </router-link>
-            <!-- </a> -->
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
                 
@@ -81,7 +79,7 @@
                     </div>
                 </li>
 
-                <li v-if="!is_login" class="dropdown notification-list nav-item">
+                <li v-if="!is_login && login_show" class="dropdown notification-list nav-item">
                     <a href="#" data-toggle="modal" data-target="#login-modal" class="nav-link dropdown-toggle nav-user arrow-none mr-0">
                         <!-- 图标 -->
                         <span class="account-user-avatar">
@@ -214,7 +212,7 @@
                 <div class="modal-body">
                     <div class="text-center mt-2">
                         <router-link :to="{name: 'login'}" class="text-success" data-dismiss="modal">
-                            <span><img :src="theme_config.logo.big_day || 'assets/images/logo.png'" class="login-logo" height="32"></span>
+                            <span><img :src="theme_config.other.images.logo.day.big || 'assets/images/logo.png'" class="login-logo" height="32"></span>
                         </router-link>
                     </div>
                     <div class="card-body">
@@ -319,6 +317,7 @@ export default {
             update: [],          // 最新版本
             is_update: false,    // 是否显示更新
             music_is_show: false,// 是否显示音乐播放器
+            login_show: true,    // 是否显示登录入口
         })
 
         // 获取缓存中的登录信息
@@ -454,9 +453,10 @@ export default {
         })
 
         // 监听是否显示音乐播放器
-        watch(()=>store.state.theme_config.basic, ()=>{
-            let basic = store.state.theme_config.basic
-            state.music_is_show = (basic.music_show == 'true') ? true : false
+        watch(()=>store.state.theme_config.other, ()=>{
+            let other = store.state.theme_config.other
+            state.music_is_show = (other.module.music == 'true') ? true : false
+            state.login_show = (other.module.login == 'true') ? true : false
         })
 
         onMounted(()=>{

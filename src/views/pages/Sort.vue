@@ -189,7 +189,7 @@ export default {
                             if (inisHelper.is.empty(state.article.data)) state.article_is_empty = true
                             else state.article_is_empty = false
                             // 设置页面 title
-                            document.title = `分类 ${state.sort.name} 下的文章 - ${store.state.theme_config.site.title}`
+                            document.title = `分类 ${state.sort.name} 下的文章 - ${store.state.theme_config.basic.site.title}`
                         }
                     })
                 } else state.last_page = true

@@ -5,7 +5,7 @@
             <div class="col-lg-8">
 
                 <div class="card">
-                    <img class="w-100" height="200" style="object-fit: cover;border-radius: 5px 5px 0 0;" :src="theme_config.site.cross_bg || 'assets/images/empty.png'" />
+                    <i-img class="w-100" height="200" :src="theme_config.other.images.cross_bg"></i-img>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="profile-img">
                             <img :src="user.head_img || 'assets/images/empty.png'" class="rounded-circle shadow-sm mb-1" height="100" width="100">
                             <strong>{{user.nickname || '站长'}}</strong>
@@ -319,18 +319,20 @@
 </template>
 
 <script>
+
+import axios from "axios"
+import Vditor from "vditor"
+import * as echarts from 'echarts'
+import { useStore, mapState } from 'vuex'
+import iImg from '@/components/tool/Iimg'
 import iLink from '@/components/tool/Link'
 import { GET, POST } from '@/utils/http/request'
 import iFooter from '@/components/public/footer'
-import { onMounted, onUpdated, reactive, toRefs, watch } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
-import axios from "axios"
-import Vditor from "vditor"
-import { useStore, mapState } from 'vuex'
-import * as echarts from 'echarts'
+import { onMounted, onUpdated, reactive, toRefs, watch } from 'vue'
 
 export default {
-    components: { iFooter, iLink },
+    components: { iFooter, iLink, iImg },
     setup(){
 
         const store = useStore()
@@ -383,7 +385,7 @@ export default {
                 methods.moving()
                 methods.users()
                 // 设置页面 title
-                document.title = '时光机 - ' + store.state.theme_config.site.title
+                document.title = '时光机 - ' + store.state.theme_config.basic.site.title
             },
             // 初始化编辑器
             initVditor(){
@@ -430,14 +432,14 @@ export default {
                         multiple: false,
                         // 上传失败自定义方法
                         handler: (files) => {
-                            
+
                             window.vditor.tip('上传中...', 2000)
 
                             let params = new FormData
                             params.append('file', ...files)
                             params.append('mode', 'upload')
                             params.append('login-token', login_storage['login-token'])
-                            
+
                             axios.post(inisHelper.customProcessApi(INIS.api) + 'file', params, {
                                 headers: {
                                     "Content-Type": "multipart/form-data"
@@ -535,27 +537,33 @@ export default {
             },
             // 保存动态
             saveMoving(){
-                
+
                 let content = window.vditor.getHTML()
 
                 if (inisHelper.is.empty(content)) {
                     $.NotificationApp.send("提示！", "请写点什么再发表", "top-right", "rgba(0,0,0,0.2)", "warning")
                 } else {
 
-                    let params = {
-                        content, 
-                        'login-token':login_storage['login-token'],
+                    const params = {
+                        content,
                         type: 'moving',
                         opt: {'like':1}
+                    }
+
+                    const config = {
+                        headers: {
+                            'login-token':login_storage['login-token']
+                        }
                     }
 
                     // 修改动态
                     if (!inisHelper.is.empty(state.id)) {
                         params.id   = state.id
                         params.mode = 'edit'
-                    } 
+                    }
 
-                    POST('comments', params).then(res=>{
+
+                    POST('comments', params, config).then(res=>{
                         if (res.data.code == 200) {
                             state.id = null
                             window.vditor.setValue('')

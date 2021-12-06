@@ -1,8 +1,14 @@
 :root {
-	--inis-bg:#fff;
-	--inis-match:#f5fbff;
+	--inis-nav:#FFFFFF;
+	--inis-left:#FFFFFF;
+	--inis-main:#FFFFFF;
+	--inis-background:#FAFBFE;
+	--inis-font-color:#6c757d;
+	--inis-font-size:13;
+	--inis-radius:0.25em;
+	--inis-opacity:1;
+	--inis-primary: rgba(80,181,255,var(--inis-opacity));
 	--font-color:#58666e;
-	--inis-primary: #50b5ff;
 	--blue:#2c8ef8;
 	--indigo:#727cf5;
 	--purple:#6b5eae;

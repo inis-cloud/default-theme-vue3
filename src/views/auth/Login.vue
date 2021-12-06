@@ -33,7 +33,7 @@
                         <input v-model="password" v-on:keyup.enter="methods.login()" type="password" placeholder="密码">
                     </div>
                     <div class="inputBox">
-                        <button v-on:click="methods.login()" type="button" class="btn login flex">
+                        <button v-on:click="methods.login()" type="button" class="btn login flex-center">
                             <span v-if="login_is_load" class="spinner-border text-light mr-1" role="status"></span>
                             <span>{{ (login_is_load) ? "登录中" : "登录" }}</span>
                         </button>

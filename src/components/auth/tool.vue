@@ -92,15 +92,15 @@ export default {
                     state.theme = '日间模式'
                     body.setAttribute('theme','night')
                     setTimeout(()=>{
-                        lg_logo.src = store.state.theme_config.logo.big_night
-                        sm_logo.src = store.state.theme_config.logo.small_night
+                        lg_logo.src = store.state.theme_config.other.images.logo.night.big
+                        sm_logo.src = store.state.theme_config.other.images.logo.night.small
                     }, 500)
                 } else {
                     state.theme = '夜间模式'
                     body.setAttribute('theme','')
                     setTimeout(()=>{
-                        lg_logo.src = store.state.theme_config.logo.big_day
-                        sm_logo.src = store.state.theme_config.logo.small_day
+                        lg_logo.src = store.state.theme_config.other.images.logo.day.big
+                        sm_logo.src = store.state.theme_config.other.images.logo.day.small
                     }, 500)
                 }
             },
@@ -131,8 +131,8 @@ export default {
 
         watch(()=>store.state.theme_config.basic, ()=>{
             let config = store.state.theme_config
-            if (config.basic.auto_night == 'true') {
-                methods.autoNight(config.basic.night_start, config.basic.night_end)
+            if (config.other.night.auto == 'true') {
+                methods.autoNight(config.other.night.start, config.basic.end)
                 methods.setTheme()
             }
         })
