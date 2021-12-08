@@ -476,7 +476,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/svg/write.svg"
   },
   {
-    "revision": "9237fe16d019dd692af85667b00045cd",
+    "revision": "d98d5cab6f735c75565312e42ee3e0db",
     "url": "index.html"
   },
   {
