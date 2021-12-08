@@ -53,7 +53,7 @@
                     <div class="card mb-lg-3 mb-2">
                         <div class="card-body">
                             <div id="lottie-performance" class="cursor" data-toggle="tooltip" data-placement="left" data-original-title="性能检测工具">
-                              <img src="assets/images/performance.gif" width="65" />
+                              <img :src="handleCDN() + 'assets/images/performance.gif'" width="65" />
                             </div>
                             <h5 class="page-title display-7 animated fadeInUp">{{theme_config.basic.site.title || ''}}</h5>
                             <p class="text-muted mb-0">{{hitokoto.hitokoto || ''}}</p>
@@ -460,7 +460,19 @@ export default {
         },
         closePlacard(url = ''){
             window.location.href = url
-        }
+        },
+        // 自动处理CDN地址
+        handleCDN(cdn = INIS.cdn){
+            if (!inisHelper.is.empty(cdn)) {
+                // 过滤http(s):// - 转数组 - 去空
+                let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
+                    return s && s.trim();
+                });
+                cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
+                if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
+            }
+            return cdn
+        },
     },
     computed: {
         ...mapState(['theme_config']),

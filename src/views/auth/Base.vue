@@ -33,13 +33,19 @@
     <i-tool></i-tool>
 
     <teleport to="head">
+      <i-link :src="handleCDN() + 'assets/css/root.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/css/app.min.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/css/inis.min.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/css/inis.media.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/css/night.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/libs/animate/animate.min.css'"></i-link>
       <!-- 核心CSS - 开始 -->
       <i-tag tag="style" v-html="theme_config.developer.code.css"></i-tag>
       <!-- 核心CSS - 结束 -->
     </teleport>
     <teleport to="body">
       <!-- 公共依赖 JS - 开始 -->
-      <i-link tag="script" src="assets/js/app.min.js"></i-link>
+      <i-link tag="script" :src="handleCDN() + 'assets/js/app.min.js'"></i-link>
       <!-- 公共依赖 JS - 结束 -->
     </teleport>
   </div>
@@ -53,7 +59,7 @@ import iNav from '@/components/auth/navbar'
 import iSide from '@/components/auth/sidebar'
 import iTool from '@/components/auth/tool'
 import { inisHelper } from '@/utils/helper/helper'
-import { watch, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
 import { useStore, mapState } from 'vuex'
 import { onBeforeRouteUpdate } from 'vue-router'
 import JQ from 'jquery'
@@ -126,35 +132,16 @@ export default {
       },
       // 自动处理CDN地址
       handleCDN(cdn = ''){
-
         if (!inisHelper.is.empty(cdn)) {
           // 过滤http(s):// - 转数组 - 去空
           let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
               return s && s.trim();
           });
-          
           cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
-          
           if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
         }
-        
         return cdn
       },
-      // 设置静态资源
-      setLinks(){
-        
-        let cdn = methods.handleCDN(INIS.cdn)
-        
-        inisHelper.set.links([
-          `${cdn}assets/css/root.css`,
-          `${cdn}assets/css/inis.min.css`,
-          `${cdn}assets/css/inis.media.css`,
-          `${cdn}assets/css/night.css`,
-          `${cdn}assets/libs/animate/animate.min.css`
-        ],'link')
-        // 关闭页面加载动画
-        document.querySelector('body').setAttribute('class','loaded')
-      }
     }
 
     methods.initData()
@@ -171,10 +158,20 @@ export default {
   },
   updated(){
     document.querySelector('body').setAttribute('class','loaded')
+  },
+  methods:{
+    // 自动处理CDN地址
+    handleCDN(cdn = INIS.cdn){
+        if (!inisHelper.is.empty(cdn)) {
+            // 过滤http(s):// - 转数组 - 去空
+            let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
+                return s && s.trim();
+            });
+            cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
+            if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
+        }
+        return cdn
+    }
   }
 }
 </script>
-
-<style>
-@import url('~@/assets/css/app.min.css');
-</style>

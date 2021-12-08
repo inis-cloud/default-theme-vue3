@@ -561,7 +561,6 @@
 
 <script>
 
-import qs from 'qs'
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'

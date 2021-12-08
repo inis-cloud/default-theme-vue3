@@ -66,7 +66,7 @@
     </section>
     <teleport to="body">
     <!-- 公共依赖 JS - 开始 -->
-    <i-link tag="script" src="assets/js/app.min.js"></i-link>
+    <i-link tag="script" :src="handleCDN() + 'assets/js/app.min.js'"></i-link>
     <!-- 公共依赖 JS - 结束 -->
     <!-- 注册成功 - 开始 -->
     <div id="fill-signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fill-primary-modalLabel" aria-hidden="true">
@@ -236,6 +236,20 @@ export default {
         })
 
         return { ...toRefs(state), methods }
+    },
+    methods:{
+        // 自动处理CDN地址
+        handleCDN(cdn = INIS.cdn){
+            if (!inisHelper.is.empty(cdn)) {
+                // 过滤http(s):// - 转数组 - 去空
+                let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
+                    return s && s.trim();
+                });
+                cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
+                if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
+            }
+            return cdn
+        },
     }
 }
 </script>

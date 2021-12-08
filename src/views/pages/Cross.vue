@@ -96,7 +96,7 @@
                                 <div id="vditor"></div>
                             </div>
                         </div>
-                        <div v-show="moving.count >= 1" v-for="(data, index) in moving.data" :key="data.id" class="card">
+                        <div v-show="moving.count >= 1" v-for="(data, index) in moving.data" :key="data.id" class="card content">
                             <div class="card-body">
                                 <div class="media mb-2">
                                     <img :src="data.expand.head_img || 'assets/images/empty.png'" class="mr-3 rounded-circle" width="40" height="40">
@@ -310,8 +310,16 @@
 
     <teleport to="head">
       <!-- 编辑器 - 开始 -->
-      <i-link src="assets/css/vditor/index.css"></i-link>
+      <i-link :src="handleCDN() + 'assets/css/vditor/index.css'"></i-link>
+      <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>
       <!-- 编辑器 - 结束 -->
+    </teleport>
+
+    <teleport to="body">
+        <!-- 页面依赖 JS - 开始 -->
+        <i-link tag="script" :src="handleCDN() + 'assets/libs/fancybox/jquery-3.3.1.min.js'"></i-link>
+        <i-link tag="script" :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.js'"></i-link>
+        <!-- 页面依赖 JS - 结束 -->
     </teleport>
 
     <i-footer></i-footer>
@@ -830,10 +838,34 @@ export default {
                 }
             }
             return url
-        }
+        },
+        // 图片预览框
+        imagesBox(){
+            // 获取渲染文章下的全部图片
+            let images = document.querySelector("#time-machine").getElementsByTagName("img");
+            for (let item of images) {
+                // 给图片上预览盒子
+                item.outerHTML = `<a data-fancybox="gallery" href="${item.src}" data-caption="${item.alt}">${item.outerHTML}</a>`
+            }
+        },
+        // 自动处理CDN地址
+        handleCDN(cdn = INIS.cdn){
+            if (!inisHelper.is.empty(cdn)) {
+                // 过滤http(s):// - 转数组 - 去空
+                let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
+                    return s && s.trim();
+                });
+                cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
+                if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
+            }
+            return cdn
+        },
     },
     computed: {
         ...mapState(['theme_config'])
+    },
+    updated(){
+        this.imagesBox()
     }
 }
 </script>
