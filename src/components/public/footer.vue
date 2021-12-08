@@ -40,7 +40,7 @@ export default {
         year:()=>{
             return (new Date).getFullYear()
         },
-        ...mapState(['site_info', 'theme_config'])
+        ...mapState(['theme_config'])
     }
 }
 </script>

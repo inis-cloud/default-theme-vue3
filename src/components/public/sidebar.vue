@@ -221,7 +221,6 @@ export default {
         
     },
     computed: {
-        ...mapState(['site_info']),
         theme_config:{
             get(){
                 const store = useStore()

@@ -176,7 +176,6 @@ export default {
                     if (res.data.code == 200) {
                         const result  = res.data.data
                         state.comments= result
-                        console.log(result)
                     }
                 })
             },

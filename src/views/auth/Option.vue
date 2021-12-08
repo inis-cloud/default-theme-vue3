@@ -539,33 +539,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-header" id="optimize">
-                                                    <h5 class="m-0">
-                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#optimizeOne" aria-expanded="false" aria-controls="collapseOne">
-                                                            速度优化<span class="text-muted font-13">（将静态资源使用CDN加速）</span>
-                                                            <span class="float-right"><i class="fa fa-chevron-down"></i></span>
-                                                        </a>
-                                                    </h5>
-                                                </div>
-                                                <div id="optimizeOne" class="collapse" aria-labelledby="optimize" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group mb-3">
-                                                                    <label>CDN地址</label>
-                                                                    <input v-model="theme_config.developer.optimize.cdn" type="text" class="form-control" placeholder="请提交一个CDN地址，为空使用本地资源">
-                                                                    <p class="text-muted mb-0">需要获取或自行发布CDN请前往<a href="//docs.inis.cc/#/tool/cdn" class="ml-1" target="_blank">文档</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
 
@@ -588,6 +561,7 @@
 
 <script>
 
+import qs from 'qs'
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'
@@ -651,6 +625,7 @@ export default {
                   keys:'config:default-theme',
                   opt :state.theme_config,
                 })
+
                 const config = {headers:{'login-token':state.user['login-token']}}
 
                 POST('options', params, config).then(res=>{

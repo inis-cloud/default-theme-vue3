@@ -1,7 +1,6 @@
 import config from '@/assets/json/config.json'
 
 export default {
-    site_info: {},          // 站点信息
     login: {                // 用户登录信息
         "login-token":"",
         user: {

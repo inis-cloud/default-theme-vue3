@@ -65,8 +65,6 @@ export default {
     inisHelper.set.storage('inis',{'mobile':inisHelper.is.mobile()})
     // 主题配置
     store.dispatch('commitThemeConfig')
-    // 站点信息
-    store.dispatch('commitSiteInfo')
     // 登录信息
     store.dispatch('commitLogin')
 
@@ -89,24 +87,10 @@ export default {
           JQ('head').append(code.html.head)
           JQ('body').append(code.html.body)
         },500)
-
+        
         watchEffect(()=>{
           
           let theme_config = store.state.theme_config
-          let cdn   = theme_config.developer.optimize.cdn;
-
-          // 自动处理CDN地址
-          if (!inisHelper.is.empty(cdn)) {
-
-            // 过滤http(s):// - 转数组 - 去空
-            let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
-                return s && s.trim();
-            });
-            
-            cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
-            
-            if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
-          }
 
           // 动态修改 favicon
           let link  = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -123,24 +107,11 @@ export default {
               src:theme_config.basic.style.background.static,
             }])
           } else if (theme_config.basic.style.background.dynamic != 0) {
-            let cdn = theme_config.developer.optimize.cdn;
+            let cdn = methods.handleCDN(INIS.cdn);
             // 使用本地资源
-            if (inisHelper.is.empty(cdn)) {
-              inisHelper.set.links(`assets/js/bg/${theme_config.basic.style.background.dynamic}.js`)
-            } else {
-              if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
-              inisHelper.set.links(`${cdn}assets/js/bg/${theme_config.basic.style.background.dynamic}.js`)
-            }
+            inisHelper.set.links(`${cdn}assets/js/bg/${theme_config.basic.style.background.dynamic}.js`)
           }
           
-          inisHelper.set.links([
-            `${cdn}assets/css/root.css`,
-            `${cdn}assets/css/inis.min.css`,
-            `${cdn}assets/css/inis.media.css`,
-            `${cdn}assets/css/night.css`,
-            `${cdn}assets/libs/animate/animate.min.css`
-          ],'link')
-
           let style = theme_config.basic.style
 
           // 设置自定义主题颜色
@@ -154,18 +125,48 @@ export default {
             --inis-radius:${style.radius};
             --inis-opacity:${style.opacity};
           `)
-
-          document.querySelector('body').setAttribute('class','loaded')
         })
       },
       // 颜色转换
       color(color,opacity){
         let result = inisHelper.color(color,opacity)
         return result.rgba
+      },
+      // 自动处理CDN地址
+      handleCDN(cdn = ''){
+
+        if (!inisHelper.is.empty(cdn)) {
+          // 过滤http(s):// - 转数组 - 去空
+          let result = ((cdn.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
+              return s && s.trim();
+          });
+          
+          cdn = (result.length == 1) ? inisHelper.customProcessApi(cdn, 'theme/default') : cdn
+          
+          if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
+        }
+        
+        return cdn
+      },
+      // 设置静态资源
+      setLinks(){
+
+        let cdn = methods.handleCDN(INIS.cdn)
+        
+        inisHelper.set.links([
+          `${cdn}assets/css/root.css`,
+          `${cdn}assets/css/inis.min.css`,
+          `${cdn}assets/css/inis.media.css`,
+          `${cdn}assets/css/night.css`,
+          `${cdn}assets/libs/animate/animate.min.css`
+        ],'link')
+        // 关闭页面加载动画
+        document.querySelector('body').setAttribute('class','loaded')
       }
     }
 
     methods.initData()
+    methods.setLinks()
 
     // 监听路由更新
     onBeforeRouteUpdate((to, from, next)=>{

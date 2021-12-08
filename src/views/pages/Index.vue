@@ -15,7 +15,7 @@
             <!-- 标题部分 - 开始 -->
             <div v-show="!theme_config.other.module.banner" class="row mb-2 master-info">
                 <div class="col-sm-4">
-                    <h1 class="page-title display-6">{{theme_config.basic.site.title || site_info.title}}</h1>
+                    <h1 class="page-title display-6">{{theme_config.basic.site.title || ''}}</h1>
                     <p class="text-muted mb-0">{{hitokoto.hitokoto || ''}}</p>
                 </div>
                 <div v-if="false" class="col-sm-8">
@@ -55,7 +55,7 @@
                             <div id="lottie-performance" class="cursor" data-toggle="tooltip" data-placement="left" data-original-title="性能检测工具">
                               <img src="assets/images/performance.gif" width="65" />
                             </div>
-                            <h5 class="page-title display-7 animated fadeInUp">{{theme_config.basic.site.title || site_info.title}}</h5>
+                            <h5 class="page-title display-7 animated fadeInUp">{{theme_config.basic.site.title || ''}}</h5>
                             <p class="text-muted mb-0">{{hitokoto.hitokoto || ''}}</p>
                             <h5 v-if="false" class="mb-1 font-weight-normal animated bounceInRight">
                               {{time.tts}}
@@ -302,7 +302,6 @@ export default {
         const methods = {
             // 初始化数据
             initData(){
-                methods.getTime()
                 methods.hitokoto()
                 methods.getGroup()
                 methods.getBanner()
@@ -391,15 +390,6 @@ export default {
                     }
                 }))
             },
-            // 获取时间
-            getTime(){
-                axios.all([
-                    axios.get('https://timor.tech/api/holiday/next').then(res=>res.data),
-                    axios.get('https://timor.tech/api/holiday/tts').then(res=>res.data),
-                ]).then(axios.spread((next,tts)=>{
-                    if (tts.code == 0) state.time.tts = tts.tts
-                }))
-            },
             // 获取统计数据
             getGroup(){
               const params = {
@@ -473,7 +463,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['site_info', 'theme_config']),
+        ...mapState(['theme_config']),
         article_data:{
             get(){
                 let result = this.article_data

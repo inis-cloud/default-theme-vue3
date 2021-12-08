@@ -117,7 +117,7 @@ export default {
         
     },
     computed: {
-        ...mapState(['site_info','theme_config'])
+        ...mapState(['theme_config'])
     },
 }
 
