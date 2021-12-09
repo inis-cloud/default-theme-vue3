@@ -160,12 +160,14 @@ export default {
       document.querySelector("body").classList.remove("sidebar-enable")
       next()
     })
+
+    document.querySelector('body').setAttribute('class','loaded')
   },
   computed: {
     ...mapState(['theme_config'])
   },
   updated(){
-    document.querySelector('body').setAttribute('class','loaded')
+    // document.querySelector('body').setAttribute('class','loaded')
   },
   methods:{
     // 自动处理CDN地址
@@ -179,9 +181,6 @@ export default {
           if (!inisHelper.is.string.end(cdn,'/')) cdn = cdn + '/';
       }
       return cdn
-    },
-    test(){
-      console.log('test')
     }
   }
 }

@@ -213,7 +213,7 @@ export default {
                 let width  = document.querySelector(".col-xl-7")
                 let height = document.querySelector(".col-xl-5 .col-lg-6 .card-body")
 
-                let charts = echarts.init(dom)
+                let charts = echarts.init(dom, null, {devicePixelRatio:2.5})
 
                 dom.style.width  = `${width.offsetWidth}px`
                 dom.style.height = `${height.offsetHeight * 2 - 60}px`
@@ -311,7 +311,7 @@ export default {
             // 统计
             count(){
                 let dom    = document.querySelector("#count")
-                let charts = echarts.init(dom)
+                let charts = echarts.init(dom, null, {devicePixelRatio:2.5})
                 dom.style.width  = `${document.querySelector(".col-xl-8").offsetWidth - 50}px`
                 dom.style.height = `430px`
                 let option = {
@@ -368,7 +368,6 @@ export default {
                         }
                     ]
                 };
-                // charts.setOption(option)
                 unwarp(charts).setOption(option);
                 charts.resize()
                 window.addEventListener('resize', () => {
