@@ -235,6 +235,9 @@ export default {
             }
         })
 
+        // 关闭开屏动画
+        document.querySelector('body').setAttribute('class','loaded')
+
         return { ...toRefs(state), methods }
     },
     methods:{

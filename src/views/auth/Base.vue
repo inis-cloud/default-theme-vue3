@@ -153,13 +153,11 @@ export default {
       next()
     })
 
+    // 关闭开屏动画
     document.querySelector('body').setAttribute('class','loaded')
   },
   computed: {
     ...mapState(['theme_config'])
-  },
-  updated(){
-    // document.querySelector('body').setAttribute('class','loaded')
   },
   methods:{
     // 自动处理CDN地址
