@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group mb-3">
-                <textarea v-model="comment.content" class="form-control inis-scroll" rows="3" placeholder="说点什么吧* ... ..."></textarea>
+                <textarea v-model="comment.content" class="form-control inis-scroll" rows="3" placeholder="说点什么吧 (支持Mackdown语法！) * ... ..."></textarea>
             </div>
         </div>
         <div class="col-md-12">

@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            <div v-code-highlight v-html="article.content" class="article-content"></div>
+                            <div v-code-highlight v-html="article.content" class="mackdown"></div>
 
                             <div class="row mt-3">
                                 <div class="card-body">
@@ -226,7 +226,7 @@
             </div>
 
             <div class="row">
-                <div v-code-highlight id="preview" class="article-content"></div>
+                <div v-code-highlight id="preview" class="mackdown"></div>
                 <div id="outline"></div>
             </div>
 
@@ -254,8 +254,8 @@
         <teleport to="head">
             <!-- 代码高亮 CSS - 开始 -->
             <i-link :src="handleCDN() + 'assets/css/highlight/dark.min.css'"></i-link>
-            <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>
             <!-- 代码高亮 CSS - 结束 -->
+            <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>
         </teleport>
         <teleport to="body">
             <!-- 页面依赖 JS - 开始 -->
@@ -404,7 +404,7 @@ export default {
         // 文章目录
         directory(){
             document.querySelector(".directory .inis-scroll").style.setProperty("height","200px")
-            let content    = document.querySelector(".article-content")
+            let content    = document.querySelector(".mackdown")
             let slimscroll = document.querySelector(".directory .inis-scroll")
             let children   = content.children
             slimscroll.innerHTML = ''
@@ -472,11 +472,10 @@ export default {
             let content= document.querySelectorAll('.hide .hide-content')
             let status = store.state.article.is_comments
             let description = document.querySelectorAll('.hide .hide-description')
-
             if (!status && !inisHelper.is.empty(content)) {
                 content.forEach((item, index)=>{
                     state.hide[index] = {html:item.innerHTML}
-                    item.innerHTML = '你好坏坏哟，居然想偷看人家的秘密'
+                    // item.innerHTML = '你好坏坏哟，居然想偷看人家的秘密'
                     item.style.display = "none"
                 })
                 description.forEach(item=>{
@@ -563,7 +562,7 @@ export default {
       // 图片预览框
       imagesBox(){
         // 获取渲染文章下的全部图片
-        let images = document.querySelector(".article-content").getElementsByTagName("img");
+        let images = document.querySelector(".mackdown").getElementsByTagName("img");
         for (let item of images) {
             // 给图片上预览盒子
             item.outerHTML = `<a data-fancybox="gallery" href="${item.src}" data-caption="${item.alt}">${item.outerHTML}</a>`

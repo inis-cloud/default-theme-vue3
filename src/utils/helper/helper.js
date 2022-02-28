@@ -15,80 +15,87 @@ class helper{
      */
     constructor()
     {
+        this.config = {
+            log: false
+        }
+        
         /* 定义 get 方法 */
-        const get_cookie    = (name) => this.getCookie(name)
+        const getCookie     = (name) => this.getCookie(name)
         const query         = {string:(name)=>this.getQueryString(name)}
         const page          = {name:()=>this.getPageName()}
-        const str_count     = {count:(string,search)=>this.getStringCount(string,search)}
-        const get_storage   = (namespace,key) => this.getStorage(namespace,key)
-        const get_browser   = (all) => this.getBrowser(all)
-        const get_random_num= {num:(min,max) => this.getRandomNum(min,max)}
-        const get_key_name  = {name:(keycode)=>this.getKeyName(keycode)}
+        const strCount      = {count:(string,search)=>this.getStringCount(string,search)}
+        const getStorage    = (namespace,key) => this.getStorage(namespace,key)
+        const getBrowser    = (all) => this.getBrowser(all)
+        const getRandomNum  = {num:(min,max) => this.getRandomNum(min,max)}
+        const getKeyName    = {name:(keycode)=>this.getKeyName(keycode)}
         
         // 链式操作 get 属性
-        this.get         = { cookie:get_cookie, query, page, string:str_count, storage:get_storage, browser:get_browser, random:get_random_num, key:get_key_name }
+        this.get         = { cookie:getCookie, query, page, string:strCount, storage:getStorage, browser:getBrowser, random:getRandomNum, key:getKeyName }
 
 
 
         /* 定义 set 方法 */
-        const set_cookie = (name,value,exdays)   => this.setCookie(name,value,exdays)
-        const set_storage= (namespace,key,value) => this.setStorage(namespace,key,value)
+        const setCookie  = (name,value,exdays)   => this.setCookie(name,value,exdays)
+        const setStorage = (namespace,key,value) => this.setStorage(namespace,key,value)
         const css        = (classOrId,css,cover) => this.setCss(classOrId,css,cover)
-        const copy_text  = {text: (text,remark)  => this.setCopyText(text,remark)}
-        const set_links  = (url,type,tag)        => this.setLinks(url,type,tag)
+        const copyText   = {text: (text,remark)  => this.setCopyText(text,remark)}
+        const setLinks   = (url,type,tag)        => this.setLinks(url,type,tag)
         
         // 链式操作 set 属性
-        this.set         = { cookie:set_cookie, storage:set_storage, css, copy:copy_text, links:set_links }
+        this.set         = { cookie:setCookie, storage:setStorage, css, copy:copyText, links:setLinks }
 
 
 
         /* 定义 clear 方法 */
-        const has_storage= (key)  => this.hasStorage(key)
+        const hasStorage = (key)  => this.hasStorage(key)
         
         // 链式操作 has 属性
-        this.has         = { storage:has_storage }
+        this.has         = { storage:hasStorage }
 
 
 
 
         /* 定义 clear 方法 */
-        const clear_cookie = (name) => this.clearCookie(name)
-        const clear_storage= (key)  => this.clearStorage(key)
+        const clearCookie  = (name) => this.clearCookie(name)
+        const clearStorage = (key)  => this.clearStorage(key)
         
         // 链式操作 delete 属性
-        this.clear      = { cookie:clear_cookie, storage:clear_storage }
+        this.clear      = { cookie:clearCookie, storage:clearStorage }
 
 
 
         /* 定义 create 方法 */
-        const paging = (item,page,numb) => this.createPaging(item,page,numb)
-        const create_array  = (min,max,step)   => this.createArray(min,max,step)
+        const paging       = (item,page,numb) => this.createPaging(item,page,numb)
+        const createArray  = (min,max,step)   => this.createArray(min,max,step)
         
         // 链式操作 create 属性
-        this.create  = { paging, array:create_array }
+        this.create  = { paging, array:createArray }
 
 
 
         /* 定义 is 方法 */
-        const mobile = () => this.isMobile()
-        const NULL   = (value) => this.isNull(value)
-        const empty  = (value) => this.isEmpty(value)
-        const email  = (value,bool) => this.isEmail(value,bool)
-        const is_url = (url) => this.isUrl(url)
-        const is_phone = (string) => this.isPhone(string)
-        const is_id_card = {card:(string) => this.isIdCard(string)}
-        const is_string_end = {end:(string,target)=>this.isStringEnd(string,target)}
+        const mobile      = () => this.isMobile()
+        const NULL        = (value) => this.isNull(value)
+        const empty       = (value) => this.isEmpty(value)
+        const email       = (value,bool) => this.isEmail(value,bool)
+        const isUrl       = (url) => this.isUrl(url)
+        const isPhone     = (string) => this.isPhone(string)
+        const isIdCard    = {card:(string) => this.isIdCard(string)}
+        const isStringEnd = {end:(string,target)=>this.isStringEnd(string,target)}
+        const isDomain    = (domain)=>this.isDomain(domain)
+        const isTrue      = (data)=>this.isTrue(data)
+        const isFalse     = (data)=>this.isFalse(data)
         
         // 链式操作 is 属性
-        this.is      = { mobile, NULL, empty, email, url:is_url, id:is_id_card, phone:is_phone, string:is_string_end }
+        this.is      = { mobile, NULL, empty, email, url:isUrl, id:isIdCard, phone:isPhone, string:isStringEnd, domain:isDomain, true:isTrue, false:isFalse }
 
 
 
         /* 定义 in 方法 */
-        const in_array = (search,array) => this.inArray(search,array)
+        const inArray  = (search,array) => this.inArray(search,array)
         
         // 链式操作 in 属性
-        this.in        = { array:in_array }
+        this.in        = { array:inArray }
 
 
 
@@ -104,20 +111,20 @@ class helper{
 
 
         /* 定义 date 方法 */
-        const date_to = {time:(date)=>this.dateToTime(date)}
+        const dateTo  = {time:(date)=>this.dateToTime(date)}
         
         // 链式操作 date 属性
-        this.date     = { to:date_to }
+        this.date     = { to:dateTo }
 
 
 
 
         /* 定义 trim 方法 */
-        const trim_array  = (arr) => this.trimArray(arr)
-        const trim_string = (value,type) => this.trimString(value,type)
+        const trimArray   = (arr) => this.trimArray(arr)
+        const trimString  = (value,type) => this.trimString(value,type)
         
         // 链式操作 trim 属性
-        this.trim   = {array:trim_array, string:trim_string}
+        this.trim   = {array:trimArray, string:trimString}
 
 
 
@@ -132,10 +139,12 @@ class helper{
 
         /* 定义 array 方法 */
         const unique = (array) => this.arrayUnique(array)
+        const arrayObjectUnique = {unique:(array, key)  => this.arrayObjectUnique(array, key)}
         const arraySortTwo = {two:(array,key,sort) => this.arraySortTwo(array,key,sort)}
+        const arraySearch  = (array, key, value)   => this.arraySearch(array, key, value)
         
         // 链式操作 array 属性
-        this.array = { unique, sort:arraySortTwo }
+        this.array = { unique, sort:arraySortTwo, search:arraySearch, object:arrayObjectUnique }
 
 
 
@@ -159,7 +168,19 @@ class helper{
         this.to = { scroll:toScroll }
     
 
+
     
+    
+    
+        /* 定义 fetch 方法 */
+        const fetchGet    = (url,params,config) => this.fetchGet(url,params,config)
+        const fetchPut    = (url,params,config) => this.fetchPut(url,params,config)
+        const fetchPost   = (url,params,config) => this.fetchPost(url,params,config)
+        const fetchPatch  = (url,params,config) => this.fetchPatch(url,params,config)
+        const fetchDelete = (url,params,config) => this.fetchDelete(url,params,config)
+        
+        // 链式操作 fetch 属性
+        this.fetch = { get:fetchGet, put:fetchPut, post:fetchPost, patch:fetchPatch, delete:fetchDelete }
     }
 
     /**
@@ -570,65 +591,93 @@ class helper{
     /**
      * @name 人性化时间
      * @param {number} timestamp 时间戳
-     * @param {number} type 1-详细日期 2-简易日期 3-时间戳 4-日期格式
+     * @param {number} type 1-详细日期 2-简易日期 3-时间戳 4-日期格式 5-多少年前
      * @return {string} result
      */
-    natureTime(timestamp,type)
-    {
-        let result = Math.round(new Date() / 1000)
-        type = type || 1
-        timestamp = timestamp || result
-        
-        if (type == 1) {
-            
-            let zeroize = (num) => { return (String(num).length == 1 ? '0': '') + num; }
-            let curTimestamp = parseInt(new Date().getTime() / 1000);
-            let timestampDiff = curTimestamp - timestamp;
-            let curDate = new Date(curTimestamp * 1000);
-            let tmDate = new Date(timestamp * 1000);
-            
-            let Y = tmDate.getFullYear(),
-            m = tmDate.getMonth() + 1,
-            d = tmDate.getDate();
-            
-            let H = tmDate.getHours(),
-            i = tmDate.getMinutes(),
-            s = tmDate.getSeconds();
-            
-            if (timestampDiff < 60) {
-                result = "刚刚";
-            } else if (timestampDiff < 3600) {
-                result = Math.floor(timestampDiff / 60) + "分钟前";
-            } else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
-                result = '今天' + zeroize(H) + ':' + zeroize(i);
-            } else {
-                let newDate = new Date((curTimestamp - 86400) * 1000);
-                
-                if (newDate.getFullYear() == Y && newDate.getMonth() + 1 == m && newDate.getDate() == d) {
-                    result = '昨天' + zeroize(H) + ':' + zeroize(i);
-                } else if (curDate.getFullYear() == Y) {
-                    result = zeroize(m) + '-' + zeroize(d) + ' ' + zeroize(H) + ':' + zeroize(i);
-                } else {
-                    result = Y + '-' + zeroize(m) + '-' + zeroize(d) + ' ' + zeroize(H) + ':' + zeroize(i);
-                }
-            }
-        } else if(type == 2){
-            let mistiming = Math.round(new Date() / 1000) - timestamp;
-            let postfix = mistiming > 0 ? "前" : "后";
-            mistiming = Math.abs(mistiming);
-            let arrr = ["年", "个月", "星期", "天", "小时", "分钟", "秒"];
-            let arrn = [31536000, 2592000, 604800, 86400, 3600, 60, 1];
-            
-            for (let i = 0; i < 7; i++) {
-                let inm = Math.floor(mistiming / arrn[i]);
-                if (inm != 0) result = inm + arrr[i] + postfix;
-            }
-        } else if (type == 4) {
-            result = new Date(parseInt(timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-        }
-        
-        return result;
-    }
+     natureTime(timestamp,type)
+     {
+         let result = Math.round(new Date() / 1000)
+         type = type || 1
+         timestamp = timestamp || result
+         
+         if (type == 1) {
+             
+             let zeroize = (num) => { return (String(num).length == 1 ? '0': '') + num; }
+             let curTimestamp = parseInt(new Date().getTime() / 1000);
+             let timestampDiff = curTimestamp - timestamp;
+             let curDate = new Date(curTimestamp * 1000);
+             let tmDate = new Date(timestamp * 1000);
+             
+             let Y = tmDate.getFullYear(),
+             m = tmDate.getMonth() + 1,
+             d = tmDate.getDate();
+             
+             let H = tmDate.getHours(),
+             i = tmDate.getMinutes(),
+             s = tmDate.getSeconds();
+             
+             if (timestampDiff < 60) {
+                 result = "刚刚";
+             } else if (timestampDiff < 3600) {
+                 result = Math.floor(timestampDiff / 60) + "分钟前";
+             } else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
+                 result = '今天' + zeroize(H) + ':' + zeroize(i);
+             } else {
+                 let newDate = new Date((curTimestamp - 86400) * 1000);
+                 
+                 if (newDate.getFullYear() == Y && newDate.getMonth() + 1 == m && newDate.getDate() == d) {
+                     result = '昨天' + zeroize(H) + ':' + zeroize(i);
+                 } else if (curDate.getFullYear() == Y) {
+                     result = zeroize(m) + '-' + zeroize(d) + ' ' + zeroize(H) + ':' + zeroize(i);
+                 } else {
+                     result = Y + '-' + zeroize(m) + '-' + zeroize(d) + ' ' + zeroize(H) + ':' + zeroize(i);
+                 }
+             }
+             
+         } else if(type == 2){
+             
+             let mistiming = Math.round(new Date() / 1000) - timestamp;
+             let postfix = mistiming > 0 ? "前" : "后";
+             mistiming = Math.abs(mistiming);
+             let arrr = ["年", "个月", "星期", "天", "小时", "分钟", "秒"];
+             let arrn = [31536000, 2592000, 604800, 86400, 3600, 60, 1];
+             
+             for (let i = 0; i < 7; i++) {
+                 let inm = Math.floor(mistiming / arrn[i]);
+                 if (inm != 0) result = inm + arrr[i] + postfix;
+             }
+             
+         } else if (type == 4) {
+             
+             result = new Date(parseInt(timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+             
+         } else if (type == 5) {
+             
+             const now    = Math.round(new Date / 1000)
+             const second = Math.floor(now - timestamp)
+             const minute = Math.floor(second / 60)
+             const hour   = Math.floor(minute / 60)
+             const day    = Math.floor(hour / 24)
+             const month  = Math.floor(day / 31)
+             const year   = Math.floor(month / 12)
+             if (year > 0)       result = year  + '年前'
+             else if (month > 0) result = month + '月前'
+             else if (day > 0) {
+                 let res = day + '天前'
+                 if (day >= 7 && day < 14)       res = '1周前'
+                 else if (day >= 14 && day < 21) res = '2周前'
+                 else if (day >= 21 && day < 28) res = '3周前'
+                 else if (day >= 28 && day < 31) res = '4周前'
+                 result = res
+             }
+             else if (hour > 0)   result = hour   + '小时前'
+             else if (minute > 0) result = minute + '分钟前'
+             else if (second > 0) result = second + '秒前'
+             else result = '刚刚'
+         }
+         
+         return result;
+     }
 
     /**
      * @name 时间戳转日期格式
@@ -831,24 +880,26 @@ class helper{
 
     /**
      * @name 判断是否为空 (包括空字符串、空格、null,{})
-     * @param {string} string 字符串
+     * @param {Any} data 任意类型
      * @return {boolean} result
      */
-    isEmpty(string = "")
+    isEmpty(data = null)
     {
         let result = false;
         
-        if (Array.isArray(string)){
+        if (Array.isArray(data)){
             
-            if (Array.prototype.isPrototypeOf(string) && string.length === 0) result = true;
+            if (Array.prototype.isPrototypeOf(data) && data.length === 0) result = true;
             
-        } else if (!this.isNull(string)) {
+        } else if (typeof data == 'number') {
+            result = isNaN(data)
+        } else if (!this.isNull(data)) {
             
-            if (string instanceof Object) {
+            if (data instanceof Object) {
                 
-                if (JSON.stringify(string) == "{}") result = true
+                if (JSON.stringify(data) == "{}") result = true
                 
-            } else if ((string + '').replace(/(^\s*)|(\s*$)/g, '').length === 0) result = true;
+            } else if ((data + '').replace(/(^\s*)|(\s*$)/g, '').length === 0) result = true;
             
         } else result = true;
         
@@ -930,7 +981,7 @@ class helper{
         if (this.isEmpty(string)) console.warn("请输入一个电话号码")
         else return /^(\+?0?86\-?)?1[3456789]\d{9}$/.test(string)
     }
-
+    
     /**
      *
      * @name   判断字符串末位是否为指定值
@@ -943,12 +994,74 @@ class helper{
         let result = false,
             start  = string.length - target.length,
             end    = string.substr(start,target.length);
-
+            
         if (end == target) result = true;
         
         return result;
     }
-
+    
+    /**
+     *
+     * @name   判断域名是否合法
+     * @param  {String} domain [域名]
+     * @return {Boolean}
+     */
+    isDomain(domain = null) {
+        
+        let result = false
+        
+        if (this.config.log) if (this.isEmpty(domain)) console.warn('参数一不得为空：<domian = null : string>')
+        
+        const rule = /^(([-\u4E00-\u9FA5a-z0-9]{1,63})\.)+([\u4E00-\u9FA5a-z]{2,63})\.?$/
+        
+        // 过滤 http(s):// 和 / 并 校验规则
+        result = (rule.test((domain.replace(/^https?\:\/\//i, '')).replace(/\//g,''))) ? true : false
+        
+        return result;
+    }
+    
+    /**
+     *
+     * @name   判断是否为TRUE
+     * @param  {Any} value [数据]
+     * @return {Boolean}
+     */
+    isTrue(data = null) {
+        
+        let result = false
+        
+        if (this.config.log) if (this.isEmpty(data)) console.warn('参数一不得为空：<data = null : any>')
+        
+        if (typeof data == 'string')         result = (data == 'true') ? true : false
+        else if (typeof data == 'number')    result = (data == 1) ? true : false
+        else if (typeof data == 'boolean')   result = data
+        else if (typeof data == 'object')    result = !this.isEmpty(data)
+        else if (typeof data == 'undefined') result = false
+        
+        return result;
+    }
+    
+    /**
+     *
+     * @name   判断是否为FALSE
+     * @param  {Any} value [数据]
+     * @return {Boolean}
+     */
+    isFalse(data = null) {
+        
+        let result = true
+        
+        if (this.config.log) if (this.isEmpty(data)) console.warn('参数一不得为空：<data = null : any>')
+        
+        if (typeof data == 'string')         result = (data == 'false') ? true : false
+        else if (typeof data == 'number')    result = (data == 0) ? true : false
+        else if (typeof data == 'boolean')   result = data
+        else if (typeof data == 'object')    result = this.isEmpty(data)
+        else if (typeof data == 'undefined') result = true
+        
+        return result;
+    }
+    
     /**
      * @name 设置cookie
      * @param {string} name
@@ -962,7 +1075,7 @@ class helper{
         if (this.isEmpty(name)) result = '请设置 cookie 名称！'
         else {
             
-            let time = new Date();
+            let time = new Date
             
             time.setTime(time.getTime() + (exdays * 24 * 60 * 60 * 1000));
             
@@ -1074,13 +1187,34 @@ class helper{
                 result = value
             }
         }
-
+        
         return result;
     }
-
-    arrayUnique(arr = [])
+    
+    /*
+     * @name 数组去重
+     * @param {array} array
+     * @return {array}
+     */
+    arrayUnique(array = [])
     {
-        return Array.from(new Set(arr))
+        return Array.from(new Set(array))
+    }
+    
+    /*
+     * @name 数组对象去重
+     * @param {array}  array [数组对象]
+     * @param {string} key   [筛选的键]
+     * @return {array}
+     */
+    arrayObjectUnique(array = [], key = 'id')
+    {
+        const deWeightThree = () => {
+            let map = new Map
+            for (let item of array) if (!map.has(item[key])) map.set(item[key], item);
+            return [...map.values()]
+        }
+        return deWeightThree()
     }
 
     /*
@@ -1313,8 +1447,8 @@ class helper{
      */
     setCopyText(text = '', remark = '')
     {
-        let result  = false
-        const textarea = document.createElement("textarea");
+        let result     = false
+        let textarea   = document.createElement("textarea");
         textarea.value = text
         document.body.appendChild(textarea);
         
@@ -1366,7 +1500,32 @@ class helper{
         }
         return array
     }
-
+    
+    /*
+     * @name 数组内搜索
+     * @param {array} array [{},{}]
+     * @param {string} key [需要被查询的值]
+     * @return {array}
+     */
+    arraySearch(array, key, value)
+    {
+        let result = []
+        
+        if (this.isEmpty(array)) {
+            if (this.config.log) console.warn('第一参数请给一个数组，格式 [{},{}]')
+        } else if (this.isEmpty(key)) {
+            if (this.config.log) console.warn('第二参数请给一个字符串，被查询的值')
+        } else if (this.isEmpty(value)) {
+            if (this.config.log) console.warn('第三参数亲给一个字符串，被查询的内容')
+        } else {
+            array.forEach(item=>{
+                if (item[key].indexOf(value) != -1) result.push(item)
+            })
+        }
+        
+        return result
+    }
+    
     /*
      * @name 是否为有效链接
      * @param {string} url [链接]
@@ -1406,7 +1565,7 @@ class helper{
             
         } else {
             // 输入为空
-            console.warn("版本号不能为空");
+            if (this.config.log) console.warn("版本号不能为空");
             return false;
         }
     }
@@ -1452,14 +1611,8 @@ class helper{
             if (url.indexOf("https://") != -1)     prefix = "https://"
             else if (url.indexOf("http://") != -1) prefix = "http://"
             
-            // 过滤http(s)://
-            result = url.replace(/http(s)?:\/\//g,"")
-            
-            // URL转数组
-            result = result.split("/")
-            
-            // 去除空数组
-            result = result.filter((s)=>{
+            // 过滤http(s):// - 转数组 - 去空
+            result = ((url.replace(/http(s)?:\/\//g,"")).split("/")).filter((s)=>{
                 return s && s.trim();
             });
             
@@ -1636,6 +1789,138 @@ class helper{
         return result
     }
     
+    /**
+     *
+     * @name   网络请求 - GET
+     * @param  {Object} params [参数]
+     * @param  {Object} config [配置]
+     * @return {Object}
+     */
+    async fetchGet(url, params = {}, config = {})
+    {
+        const response = await fetch(url + (this.isEmpty(params) ? '' : '?' + this.stringfy(params)), config);
+        return await response.json();
+    }
+    
+    /**
+     *
+     * @name   网络请求 - POST
+     * @param  {Object} params [参数]
+     * @param  {Object} config [配置]
+     * @return {Object}
+     */
+    async fetchPost(url, params = {}, config = {})
+    {
+        // 默认配置
+        const opt = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:(typeof params === 'object') ? (new helper).stringfy(params) : params
+        }
+        
+        // 合并配置
+        if (!this.isEmpty(config)) for (let item in config) {
+            if (item == 'headers')     opt[item] = {...opt[item], ...config[item]}
+            else if (item == 'method') opt[item] = config[item].toUpperCase()
+            else opt[item] = config[item]
+        }
+        
+        const response = await fetch(url, opt)
+        
+        return await response.json();
+    }
+    
+    /**
+     *
+     * @name   网络请求 - PUT
+     * @param  {Object} params [参数]
+     * @param  {Object} config [配置]
+     * @return {Object}
+     */
+    async fetchPut(url, params = {}, config = {})
+    {
+        // 默认配置
+        const opt = {
+            method:'PUT',
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:(typeof params === 'object') ? (new helper).stringfy(params) : params
+        }
+        
+        // 合并配置
+        if (!this.isEmpty(config)) for (let item in config) {
+            if (item == 'headers')     opt[item] = {...opt[item], ...config[item]}
+            else if (item == 'method') opt[item] = config[item].toUpperCase()
+            else opt[item] = config[item]
+        }
+        
+        const response = await fetch(url, opt)
+        
+        return await response.json();
+    }
+    
+    /**
+     *
+     * @name   网络请求 - DEL
+     * @param  {Object} params [参数]
+     * @param  {Object} config [配置]
+     * @return {Object}
+     */
+    async fetchDelete(url, params = {}, config = {})
+    {
+        // 默认配置
+        const opt = {
+            method:'DELETE',
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:(typeof params === 'object') ? (new helper).stringfy(params) : params
+        }
+        
+        // 合并配置
+        if (!this.isEmpty(config)) for (let item in config) {
+            if (item == 'headers')     opt[item] = {...opt[item], ...config[item]}
+            else if (item == 'method') opt[item] = config[item].toUpperCase()
+            else opt[item] = config[item]
+        }
+        
+        const response = await fetch(url, opt)
+        
+        return await response.json();
+    }
+    
+    /**
+     *
+     * @name   网络请求 - PATCH
+     * @param  {Object} params [参数]
+     * @param  {Object} config [配置]
+     * @return {Object}
+     */
+    async fetchPatch(url, params = {}, config = {})
+    {
+        // 默认配置
+        const opt = {
+            method:'PATCH',
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:(typeof params === 'object') ? (new helper).stringfy(params) : params
+        }
+        
+        // 合并配置
+        if (!this.isEmpty(config)) for (let item in config) {
+            if (item == 'headers')     opt[item] = {...opt[item], ...config[item]}
+            else if (item == 'method') opt[item] = config[item].toUpperCase()
+            else opt[item] = config[item]
+        }
+        
+        const response = await fetch(url, opt)
+        
+        return await response.json();
+    }
 
 
 

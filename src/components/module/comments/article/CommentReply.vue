@@ -14,7 +14,7 @@
     <i-comment-box v-if="is_show && config.comments.allow" v-on:reset="methods.getComments()"></i-comment-box>
     <!-- 评论框 - 结束 -->
 
-    <div class="media mt-2 row">
+    <div class="media mt-2 row mackdown comments" v-code-highlight>
         <!-- 评论 - 开始 -->
         <div class="card-body inbox-widget col-md-12"  v-for="data in comments.data" :key="data.id">
             <div class="inbox-item">
@@ -28,7 +28,8 @@
                     <a href="javascript:;" v-on:click="methods.btnReply(data.id)" class="badge badge-success ml-2" style="color:#fff">回复</a>
                 </h5>
                 <p class="inbox-item-text">{{ data.create_time }}</p>
-                <p class="text-muted">{{ data.content }}</p>
+                <p v-html="data.expand.html" class="text-muted"></p>
+                <!-- <p class="text-muted">{{ data.content }}</p> -->
             </div>
 
             <!-- 回复 - 开始 -->
@@ -43,7 +44,8 @@
                     <a href="javascript:;" v-on:click="methods.btnReply(reply.id)" class="badge badge-success ml-2" style="color:#fff">回复</a>
                 </h5>
                 <p class="inbox-item-text">{{ reply.create_time }}</p>
-                <p class="text-muted">{{ reply.content }}</p>
+                <!-- <p class="text-muted">{{ reply.content }}</p> -->
+                <p v-html="reply.expand.html" class="text-muted"></p>
                 <!-- 评论框 - 开始 -->
                 <i-comment-box v-if="(comments_reply_id == reply.id) ? true : false" :pid="reply.id" v-on:reset="methods.getComments()"></i-comment-box>
                 <!-- 评论框 - 结束 -->

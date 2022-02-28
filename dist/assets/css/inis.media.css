@@ -15,6 +15,8 @@
 
 /* 超小设备（手机，小于 768px） */
 @media screen and (max-width:768px) {
+    .d-mb-none{display: none;}
+    .img-h-auto{height: 80px;}
     .master-info .col-sm-4{text-align:center}
     .master-info p.text-muted.mb-0{padding-bottom:10px}
     .master-info .col-sm-8{display:none}

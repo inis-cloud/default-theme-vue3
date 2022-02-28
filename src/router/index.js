@@ -54,6 +54,15 @@ const routes = [
         mame: 'cross',
         path: 'cross',
         component: () => import('@/views/pages/Cross'),
+      },
+      {
+        title: '搜索',
+        mame: 'search',
+        path: 'search',
+        component: () => import('@/views/pages/Search'),
+        meta: {
+          title:'搜索'
+        }
       }
     ],
     meta: {

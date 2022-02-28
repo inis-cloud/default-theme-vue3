@@ -254,49 +254,6 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="card mb-1">
-                                                <div class="card-header" id="basic-1">
-                                                    <h5 class="m-0">
-                                                        <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#basicTwo" aria-expanded="false" aria-controls="collapseOne">
-                                                            夜间模式<span class="text-muted font-13">（开始时间、结束时间）</span>
-                                                            <span class="float-right"><i class="fa fa-chevron-down"></i></span>
-                                                        </a>
-                                                    </h5>
-                                                </div>
-                                                <div id="basicTwo" class="collapse" aria-labelledby="basic-1" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
-                                                                    <label>夜间模式开始时间（24小时制）</label>
-                                                                    <input v-model="theme_config.other.night.start" type="text" class="form-control" placeholder="该配置项填写小时的时间（24进制），如：22">
-                                                                    <p class="text-muted mb-0">该配置只有在 夜间/日间模式选择自动才会生效。</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group mb-3">
-                                                                    <label>夜间模式结束时间（24小时制）</label>
-                                                                    <input v-model="theme_config.other.night.end" type="text" class="form-control" placeholder="该配置项填写小时的时间（24进制），如：6">
-                                                                    <p class="text-muted mb-0">该配置只有在 夜间/日间模式选择自动才会生效。</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <p class="mb-0 flex">
-                                                                        自动开启夜间模式：
-                                                                        <input v-model="theme_config.other.night.auto" type="checkbox" id="auto_night" checked data-switch="success">
-                                                                        <label for="auto_night" data-on-label="Yes" data-off-label="No"></label>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card mb-1">
                                                 <div class="card-header" id="images-1">
                                                     <h5 class="m-0">
                                                         <a class="custom-accordion-title d-block pt-2 pb-2" data-toggle="collapse" href="#imagesOne" aria-expanded="false" aria-controls="collapseOne">

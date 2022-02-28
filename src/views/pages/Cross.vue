@@ -109,7 +109,7 @@
                                     </span>
                                 </div>
                                 <hr>
-                                <div v-html="data.content" class="col-lg-12 article-content"></div>
+                                <div v-html="data.content" v-code-highlight class="col-lg-12 mackdown"></div>
                             </div>
                             <div class="card-body pt-0">
                                 <div class="float-left">
@@ -309,6 +309,9 @@
     </div>
 
     <teleport to="head">
+      <!-- 代码高亮 CSS - 开始 -->
+      <i-link :src="handleCDN() + 'assets/css/highlight/dark.min.css'"></i-link>
+      <!-- 代码高亮 CSS - 结束 -->
       <!-- 编辑器 - 开始 -->
       <i-link :src="handleCDN() + 'assets/css/vditor/index.css'"></i-link>
       <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>

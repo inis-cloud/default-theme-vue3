@@ -1,66 +1,6 @@
 <template>
 <div class="content-page" id="msg-wall">
     <div class="content links-page">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="header-title mb-3">年访客统计</h4>
-
-                        <div class="row visitor-chart flex-center">
-                            <div id="visitor-chart" class="charts"></div>
-                        </div>
-
-                        <h4 class="header-title mb-3">总评论排行榜</h4>
-
-                        <div v-if="is_load" class="card-body flex-center">
-                            <div class="spinner-border text-primary m-1" role="status"></div>
-                            <div>加载中...</div>
-                        </div>
-                        <div v-else-if="!is_load" class="row">
-                            <div v-for="data in comments.data" :key="data.id" class="col-md-6">
-                                <a :href="'//' + data.url || 'javasctipt:;'" target="_blank">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="media">
-                                                <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40" height="40">
-                                                <div class="media-body">
-                                                    <h5 class="mt-0 mb-1 text-dark">{{data.nickname || '友链名称'}}</h5>
-                                                    <span class="font-13 text-muted text-line line-limit-1">{{data.url || '这个人很懒，什么都没留下！'}}</span>
-                                                </div>
-                                                <span :class="'badge ' + methods.randomClass()">{{data.count}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="header-title">90天内评论排行</h4>
-
-                        <div class="flex-center">
-                            <canvas id="comments-chart"></canvas>
-                        </div>
-
-                        <div class="chart-widget-list">
-                            <p v-for="(data,index) in ranking" :key="index">
-                                {{data.name}}
-                                <span class="float-right">{{data.value}}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row wall">
             <div class="col-lg-12">
@@ -118,8 +58,82 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-lg-12 article-footer">
+                <div class="card-body pt-0">
+                    <div class="flex-center">
+                        <span v-show="page.msgWall.code == msg_wall.page" class="see-more pt-1 pb-1 pl-3 pr-3">再怎么找也没有啦~</span>
+                        <span>
+                            <button v-show="page.msgWall.code != msg_wall.page" v-on:click="methods.getMsgWall(page.msgWall.code + 1)" type="button" class="btn btn-link text-muted pt-1 pb-1 pl-3 pr-3 see-more">查看更多</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="header-title mb-3">总评论排行榜</h4>
+
+                        <div v-if="page.comments.load" class="card-body flex-center">
+                            <div class="spinner-border text-primary m-1" role="status"></div>
+                            <div>加载中...</div>
+                        </div>
+                        <div v-else-if="!page.comments.load" class="row">
+                            <div v-for="data in comments.data" :key="data.id" class="col-md-6">
+                                <a :href="'//' + data.url || 'javasctipt:;'" target="_blank">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="media">
+                                                <img :src="data.expand.head_img || null" class="mr-3 rounded-circle" width="40" height="40">
+                                                <div class="media-body">
+                                                    <h5 class="mt-0 mb-1 text-dark">{{data.nickname || '友链名称'}}</h5>
+                                                    <span class="font-13 text-muted text-line line-limit-1">{{data.url || '这个人很懒，什么都没留下！'}}</span>
+                                                </div>
+                                                <span :class="'badge ' + methods.randomClass()">{{data.count}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex space-between align-items-center mt-2">
+                            <div class="d-none d-md-block"> 共 {{comments.page || 0}} 页 {{comments.count || 0}} 条数据 </div>
+                            <div class="btn-group">
+                                <button v-on:click="methods.getComments(null, 1)" type="button" class="btn btn-light btn-sm"><svg-icon file-name="primary-left"></svg-icon></button>
+                                <button v-for="(item, index) in page.comments.list" :key="index" v-on:click="methods.getComments(null, item)" :class="'btn btn-sm ' + ((page.comments.code == item) ? 'btn-primary' : 'btn-light') ">
+                                    {{item}}
+                                </button>
+                                <button v-on:click="methods.getComments(null, comments.page)" type="button" class="btn btn-light btn-sm"><svg-icon file-name="primary-right"></svg-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="header-title">90天内评论排行</h4>
+
+                        <div class="flex-center">
+                            <canvas id="comments-chart"></canvas>
+                        </div>
+
+                        <div class="chart-widget-list">
+                            <p v-for="(data,index) in ranking" :key="index">
+                                {{data.name}}
+                                <span class="float-right">{{data.value}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <teleport to="body">
     <div id="fill-primary-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fill-primary-modalLabel" aria-hidden="true" style="display: none;">
@@ -208,17 +222,29 @@ export default {
 
         const state = reactive({
             comments: [],    // 友链数据
-            is_load: true,   // 加载动画
             links_chart: [], // 友链统计
             ranking: [],     // 规定时间内的排行 - 排序前
             year: (new Date).getFullYear(), // 本年
             is_login: false, // 是否登录
-            msg_wall:[],     // 随心贴数据
+            msg_wall:{       // 随心贴数据
+                data:[]
+            },
             add_msg_wall:[], // 添加随心贴的内容
             msg_wall_title:"紫色", // 默认随心贴颜色
             login_storage: [],     // 登录缓存
             show_comments:null,    // 显示评论
             like:[],               // 点赞
+            page:{
+                comments:{
+                    code:1,
+                    list:[],
+                    show:false,
+                    load:false
+                },
+                msgWall: {
+                    code:1
+                }
+            }
         })
 
         // Vuex 响应实例
@@ -238,17 +264,28 @@ export default {
                 methods.getComments()
                 methods.getMsgWall()
             },
-            getComments(id = null){
+            getComments(id = null, page = state.page.comments.code){
 
-                state.is_load = true
+                state.page.comments.load = true
                 
-                const params = {mode:"group",limit:999}
+                const params = {mode:"group",limit:8,page}
 
                 GET('comments', {params}).then(res=>{
                     if (res.data.code == 200) {
-                        state.comments = res.data.data
+                        const result   = res.data.data
+                        state.comments = result
+
+                        // 是否显示分页
+                        if (inisHelper.is.empty(result.data) || result.page == 1) state.page.comments.show = false
+                        else state.page.comments.show = true
+                        
+                        // 更新页码
+                        state.page.comments.code = page
+                        
+                        // 页码列表
+                        state.page.comments.list = inisHelper.create.paging(page, result.page, 5)
                         // 加载动画
-                        state.is_load = false
+                        state.page.comments.load = false
                         // 设置页面 title
                         document.title = '留言墙 - ' + store.state.theme_config.basic.site.title
                     }
@@ -309,90 +346,6 @@ export default {
                 // 降序排序
                 state.anking = inisHelper.array.sort.two(state.ranking,'value','desc')
             },
-            // 访客统计
-            visitorEcharts(){
-
-                let chart = echarts.init(document.querySelector("#visitor-chart"));
-                
-                chart.setOption({
-                    tooltip: {
-                        position: 'top',
-                        trigger: 'item',
-                        padding: 10,
-                        // backgroundColor: "#555",
-                        // borderColor: "#777",
-                        borderWidth: 1,
-                        formatter: (params)=>{
-                            let value = params.value;
-                            return '<div style="font-size: 14px;">' + value[0] + "：" + value[1] + "</div>"
-                        }
-                    },
-                    visualMap: {
-                        min: 0,
-                        max: 1000,
-                        calculable: true,
-                        orient: 'horizontal',
-                        left: 'center',
-                        top: 'top',
-                        textStyle: { color: '#000' },
-                        precision: 0,
-                        type: 'piecewise',
-                        inRange: {
-                            // color: ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"], // 图元的颜色
-                            color: [ '#f0f0f0', '#dcf064', '#d2e650', '#bed228', '#5ab40a' ], // 图元的颜色
-                            colorAlpha: 0.9, // 图元的颜色的透明度
-                        }
-                    },
-                    grid: {
-                        bottom: 150,
-                        top: 20,
-                        right: 0,
-                        left: 50,
-                        height: 300
-                    },
-                    itemStyle: {
-                        borderWidth: 1,
-                        borderColor: 'white'
-                    },
-                    calendar: [{
-                        range: state.year,
-                        // 尺寸大小
-                        // cellSize: ['auto', 20],
-                        cellSize: [13,13],
-                        splitLine: {
-                            show: false
-                        },
-                        itemStyle: {
-                            borderColor: "#fff",
-                            borderWidth: 2
-                        },
-                        yearLabel: {
-                            show: true
-                        },
-                        monthLabel: {
-                            nameMap: "cn",
-                            fontSize: 11,
-                        },
-                        dayLabel: {
-                            formatter: "{start}  1st",
-                            nameMap: "cn",
-                            fontSize: 11,
-                        }
-                    }],
-                    series: [{
-                        type: 'heatmap',
-                        coordinateSystem: 'calendar',
-                        calendarIndex: 0,
-                        data: methods.getVirtulData(2021),
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }]
-                })
-            },
             getVirtulData(year = state.year){
                 let date = +echarts.number.parseDate(year + '-01-01');
                 let end = +echarts.number.parseDate((+year + 1) + '-01-01');
@@ -420,7 +373,7 @@ export default {
                     })
                     $('#fill-primary-modal').modal('show')
                 } else {
-                    $.NotificationApp.send("提示！", '请先登录！', "top-right", "rgba(0,0,0,0.2)", "warning")
+                    $.NotificationApp.send(null, '请先登录！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
             },
             // 提交前设置随心贴内容
@@ -485,17 +438,22 @@ export default {
                 })
             },
             // 获取随心贴
-            getMsgWall(){
+            getMsgWall(page = state.page.msgWall.code){
                 const params = {
                     mode:"type",
                     type:"msg_wall",
                     tree: false,
-                    limit: 9999,
+                    limit: 6,
+                    page,
                     order:"desc"
                 }
                 GET('comments',{params}).then(res=>{
                     if (res.data.code == 200) {
-                        state.msg_wall = res.data.data
+                        const result   = res.data.data
+                        state.msg_wall.page = result.page
+                        state.msg_wall.count= result.count
+                        state.msg_wall.data = [...state.msg_wall.data, ...result.data]
+                        state.page.msgWall.code = page
                     }
                 })
             },
@@ -513,7 +471,7 @@ export default {
                         state.add_msg_wall.token = state.login_storage['login-token']
                     }
                 } else {
-                    $.NotificationApp.send("提示！", '请先登录！', "top-right", "rgba(0,0,0,0.2)", "warning")
+                    $.NotificationApp.send(null, '请先登录！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
             },
             // 点赞
@@ -541,7 +499,6 @@ export default {
 
         onMounted(()=>{
             methods.initData()
-            methods.visitorEcharts()
         })
 
         return { ...toRefs(state), methods }

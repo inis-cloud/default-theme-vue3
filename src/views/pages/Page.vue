@@ -9,7 +9,7 @@
 
                         <h3 class="mt-0 text-center">{{pages.title}}</h3>
 
-                        <div v-html="pages.content" v-code-highlight class="article-content"></div>
+                        <div v-html="pages.content" v-code-highlight class="mackdown"></div>
 
                         <div class="row mt-3">
                             <div class="card-body">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="card-body pt-0">
                         <div class="inis-scroll">
-                            <div class="media row">
+                            <div class="media row mackdown comments" v-code-highlight>
                                 <!-- 评论 - 开始 -->
                                 <div class="inbox-widget col-md-12" v-for="data in comments.data" :key="data.id">
                                     <div class="inbox-item">
@@ -52,7 +52,7 @@
                                             <span class="text-muted font-13 mx-2">{{ natureTime(data.create_time) }}</span>
                                             <a href="javascript:;" v-on:click="setReplyId(data.id)" class="badge bg-light text-dark rounded-pill">回复</a>
                                         </h5>
-                                        <p class="text-dark mb-0">{{ data.content || '' }}</p>
+                                        <p v-html="data.expand.html" class="text-dark mb-0"></p>
                                     </div>
 
                                     <!-- 回复 - 开始 -->
@@ -67,7 +67,7 @@
                                             <span class="text-muted font-13 mx-2">{{ natureTime(reply.create_time) }}</span>
                                             <a href="javascript:;" v-on:click="setReplyId(reply.id)" class="badge bg-light text-dark rounded-pill">回复</a>
                                         </h5>
-                                        <p class="text-dark">{{ reply.content }}</p>
+                                        <p v-html="reply.expand.html" class="text-dark"></p>
                                         <!-- 评论框 - 开始 -->
                                         <i-box v-if="config.comment.reply_id == reply.id" :params="{type:'page:'+alias,pid:reply.id}" v-on:change="methods.getComments()" class="mt-3"></i-box>
                                         <!-- 评论框 - 结束 -->
@@ -91,8 +91,8 @@
     <teleport to="head">
         <!-- 代码高亮 CSS - 开始 -->
         <i-link :src="handleCDN() + 'assets/css/highlight/dark.min.css'"></i-link>
-        <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>
         <!-- 代码高亮 CSS - 结束 -->
+        <i-link :src="handleCDN() + 'assets/libs/fancybox/jquery.fancybox.min.css'"></i-link>
     </teleport>
 
     <teleport to="body">
@@ -192,7 +192,7 @@ export default {
       // 图片预览框
       imagesBox(){
         // 获取渲染文章下的全部图片
-        let images = document.querySelector(".article-content").getElementsByTagName("img");
+        let images = document.querySelector(".mackdown").getElementsByTagName("img");
         for (let item of images) {
             // 给图片上预览盒子
             item.outerHTML = `<a data-fancybox="gallery" href="${item.src}" data-caption="${item.alt}">${item.outerHTML}</a>`

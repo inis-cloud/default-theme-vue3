@@ -23,6 +23,13 @@
             </router-link>
 
             <ul class="list-unstyled topbar-right-menu float-right mb-0 navbar-list">
+
+                <li class="dropdown notification-list nav-item d-block d-md-none">
+                    <a v-on:click="toRouter({path:'/search'})" class="nav-link dropdown-toggle arrow-none nav-item mr-0" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">
+                        <!-- 图标 -->
+                        <div id="lottie-search-sm"></div>
+                    </a>
+                </li>
                 
                 <li v-show="is_update" class="dropdown notification-list nav-item">
                     <a data-toggle="modal" data-target="#update-info" class="nav-link dropdown-toggle arrow-none nav-item" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">
@@ -118,7 +125,7 @@
                             </div>
                         </a> -->
 
-                        <router-link :to="{name:'admin'}" class="dropdown-item notify-item">
+                        <a v-on:click="toRouter({name:'admin'})" href="javascript:;" class="dropdown-item notify-item">
                             <div class="media align-items-center">
                                 <div class="rounded">
                                     <svg-icon file-name="backstage"></svg-icon>
@@ -128,7 +135,7 @@
                                     <p class="mb-0 font-size-12">您是尊贵的贵宾吗！</p>
                                 </div>
                             </div>
-                        </router-link>
+                        </a>
 
                         <router-link :to="{name:'profile'}" class="dropdown-item notify-item">
                             <div class="media align-items-center">
@@ -167,10 +174,10 @@
             </a>
             <div class="app-search">
                 <div class="input-group" style="max-width: 320px;">
-                    <input v-model="search" v-on:keyup.enter="search" v-on:click="methods.search_focus()" name="search" autocomplete="off" type="text" class="form-control" placeholder="擅用搜索，事半功倍！">
+                    <input v-model="search" v-on:keyup.enter="toRouter({path:'/search',query:{value:search}})" v-on:click="methods.search_focus()" name="search" autocomplete="off" type="text" class="form-control" placeholder="擅用搜索，事半功倍！">
                     <span class="mdi mdi-magnify"></span>
                     <div class="input-group-append notification-list">
-                        <button class="btn btn-primary">
+                        <button v-on:click="toRouter({path:'/search'})" class="btn btn-primary">
                             <div v-show="!searching" id="lottie-search"></div>
                             <b v-show="searching" class="spinner-border text-light" role="status"></b>
                         </button>
@@ -184,7 +191,7 @@
                             </div>
 
                             <div class="slimscroll" style="max-height: 230px;">
-                                <a v-for="data in search_result.data" :key="data.id" v-on:click="toPage('/article/', data.id)" class="dropdown-item notify-item cursor">
+                                <a v-for="data in search_result.data" :key="data.id" v-on:click="toRouter({name:'article',params:{id:data.id}})" class="dropdown-item notify-item cursor">
                                     <div class="notify-icon">
                                         <img :src="data.expand.img_src || null" class="img-fluid object-fit w-100 h-100">
                                     </div>
@@ -219,12 +226,12 @@
 
                         <div class="form-group">
                             <label>帐号</label>
-                            <input v-model="account" name="username" class="form-control" type="text" placeholder="帐号 | 邮箱">
+                            <input v-model="account" name="username" class="form-control custom-input" type="text" placeholder="帐号 | 邮箱">
                         </div>
 
                         <div class="form-group mb-2">
                             <label>密码</label>
-                            <input v-model="password" name="password" v-on:keyup.enter="methods.login()" class="form-control" type="password" placeholder="密码">
+                            <input v-model="password" name="password" v-on:keyup.enter="methods.login()" class="form-control custom-input" type="password" placeholder="密码">
                         </div>
 
                         <div class="form-group">
@@ -341,10 +348,22 @@ export default {
                     axios.get('assets/libs/lottie/json/music.json').then(res=>res.data),
                     axios.get('assets/libs/lottie/json/mail.json').then(res=>res.data),
                     axios.get('assets/libs/lottie/json/search.json').then(res=>res.data),
-                ]).then(axios.spread((music,mail,search)=>{
-                    lottie.loadAnimation({container:document.getElementById("lottie-music"),renderer:"svg",loop:!0,autoplay:!0,animationData:music})
-                    lottie.loadAnimation({container:document.getElementById("lottie-mail"),renderer:"svg",loop:!0,autoplay:!0,animationData:mail})
-                    lottie.loadAnimation({container:document.getElementById("lottie-search"),renderer:"svg",loop:!0,autoplay:!0,animationData:search})
+                    axios.get('assets/libs/lottie/json/search-sm.json').then(res=>res.data)
+                ]).then(axios.spread((music,mail,search,searchSm)=>{
+                    const musicDom    = document.querySelector('#lottie-music')
+                    const emailDom    = document.querySelector('#lottie-mail')
+                    const searchDom   = document.querySelector('#lottie-search')
+                    const searchSmDom = document.querySelector('#lottie-search-sm')
+                    // 清空SVG，防止重复
+                    musicDom.innerHTML    = ''
+                    emailDom.innerHTML    = ''
+                    searchDom.innerHTML   = ''
+                    searchSmDom.innerHTML = ''
+                    // 加载SVG
+                    lottie.loadAnimation({container:musicDom,renderer:"svg",loop:!0,autoplay:!0,animationData:music})
+                    lottie.loadAnimation({container:emailDom,renderer:"svg",loop:!0,autoplay:!0,animationData:mail})
+                    lottie.loadAnimation({container:searchDom,renderer:"svg",loop:!0,autoplay:!0,animationData:search})
+                    lottie.loadAnimation({container:searchSmDom,renderer:"svg",loop:!0,autoplay:!0,animationData:searchSm})
                 }))
             },
             // 搜索
@@ -373,6 +392,7 @@ export default {
                 if (inisHelper.is.empty(state.account)) $.NotificationApp.send("提示！", '帐号不得为空！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 else if (inisHelper.is.empty(state.password)) $.NotificationApp.send("提示！", '帐号不得为空！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 else {
+
                     let params = {
                         mode:     'login',
                         account:  state.account,
@@ -396,7 +416,7 @@ export default {
                             state.is_login = true
                             // 重载页面
                             location.reload()
-                        } else $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "error")
+                        } else $.NotificationApp.send(null, res.data.msg, "top-right", "rgba(0,0,0,0.2)", "error")
                         // 登录动画
                         state.login_is_load = false
                     })
@@ -410,7 +430,7 @@ export default {
                 // 删除缓存中的登录信息
                 window.localStorage.removeItem('login')
                 // 重载页面
-                location.reload()
+                // location.reload()
             },
             // 获取时光机动态
             moving(page = 1){
@@ -471,9 +491,6 @@ export default {
             let time = inisHelper.date.to.time(date)
             return inisHelper.time.nature(time)
         },
-        toPage(path,id){
-            this.$router.push({path: `${path}` + id})
-        },
         // 前往更新
         goUpdate(){
             window.open(this.update.update_url)
@@ -482,6 +499,10 @@ export default {
         setClass(className){
             let dom = document.querySelector(className)
             dom.classList.toggle('show')
+        },
+        // 路由跳转
+        toRouter(params = {}){
+            this.$router.push(params)
         }
     },
     computed: {
@@ -498,4 +519,5 @@ export default {
 #lottie-mail{height:22px;width:22px;display:flex}
 #lottie-music{height:28px;width:28px;display:flex}
 #lottie-beil{height:26px;width:26px;display:flex}
+#lottie-search-sm{height:20px;width:20px;display:flex}
 </style>

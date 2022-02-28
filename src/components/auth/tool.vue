@@ -57,9 +57,17 @@ export default {
                     axios.get('assets/libs/lottie/json/upup.json').then(res=>res.data),
                     axios.get('assets/libs/lottie/json/menu.json').then(res=>res.data),
                 ]).then(axios.spread((night,upup,menu)=>{
-                    lottie.loadAnimation({container:document.getElementById("lottie-night"),renderer:"svg",loop:true,autoplay:true,animationData:night})
-                    lottie.loadAnimation({container:document.getElementById("lottie-upup"),renderer:"svg",loop:true,autoplay:true,animationData:upup})
-                    lottie.loadAnimation({container:document.getElementById("lottie-menu"),renderer:"svg",loop:true,autoplay:true,animationData:menu})
+                    const nightDom= document.querySelector('#lottie-night')
+                    const upupDom = document.querySelector('#lottie-upup')
+                    const menuDom = document.querySelector('#lottie-menu')
+                    // 清空SVG，防止重复
+                    nightDom.innerHTML = ''
+                    upupDom.innerHTML = ''
+                    menuDom.innerHTML= ''
+                    // 加载SVG
+                    lottie.loadAnimation({container:nightDom,renderer:"svg",loop:true,autoplay:true,animationData:night})
+                    lottie.loadAnimation({container:upupDom,renderer:"svg",loop:true,autoplay:true,animationData:upup})
+                    lottie.loadAnimation({container:menuDom,renderer:"svg",loop:true,autoplay:true,animationData:menu})
                 }))
             },
             // 监听
@@ -121,21 +129,7 @@ export default {
 
                 methods.setTheme()
             },
-            // 自动夜间模式
-            autoNight(start = 22, end = 6){
-                if ((new Date).getHours() <= parseInt(end) || (new Date).getHours() >= parseInt(start)) {
-                    inisHelper.set.storage('inis',{'theme':'night'})
-                } else inisHelper.set.storage('inis',{'theme':''})
-            }
         }
-
-        watch(()=>store.state.theme_config.basic, ()=>{
-            let config = store.state.theme_config
-            if (config.other.night.auto == 'true') {
-                methods.autoNight(config.other.night.start, config.basic.end)
-                methods.setTheme()
-            }
-        })
 
         onMounted(()=>{
             methods.initData()

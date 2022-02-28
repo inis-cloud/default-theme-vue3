@@ -13,7 +13,7 @@
         <!-- col-md-10 offset-lg-1 -->
         <div class="card">
             <div class="card-body">
-                <textarea class="form-control" rows="3" id="text" placeholder="说点什么吧* ... ... " v-model.trim="content"></textarea>
+                <textarea class="form-control" rows="3" id="text" placeholder="说点什么吧 (支持Mackdown语法！) * ... ... " v-model.trim="content"></textarea>
                 <div class="row">
                     <div class="col-4">
                         <input type="text" class="form-control" placeholder="昵称*：" v-model.trim="nickname">

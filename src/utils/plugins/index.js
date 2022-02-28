@@ -17,24 +17,30 @@ const plugins = {
 
         // 自定义一个代码高亮指令
         Vue.directive('code-highlight',(el)=>{
-            const highlight = el.querySelectorAll('pre code');
-            highlight.forEach((block)=>{
-                hljs.highlightBlock(block)
-                // 显示行号
-                block.innerHTML = "<ul><li>" + block.innerHTML.replace(/\n/g, "\n</li><li>") + "\n</li></ul>";
-                // 添加头
-                let language = null
-                block.classList.forEach((className)=>{
-                    if (className.indexOf("language-") != -1) language = className.split('-')[1]
-                })
-                let pre_head = document.createElement("div")
-                pre_head.classList.add('pre-head')
-                pre_head.innerHTML = "<p><span class='code-language'>" + language.toUpperCase() + "</span><span class='copy'><img class='w-auto mr-1' src='assets/svg/tag.svg' />复制</span></p>";
-                block.parentNode.insertBefore(pre_head, block)
-                // 创建修复滚动条白点
-                let repair = document.createElement("span")
-                repair.classList.add("repair")
-                block.parentNode.insertBefore(repair, block)
+            el.querySelectorAll('pre').forEach((pre)=>{
+                // 检查初始化
+                const init = pre.getAttribute('init')
+                if (inisHelper.is.empty(init)) {
+                    const code = pre.querySelector('code')
+                    hljs.highlightBlock(code)
+                    // 显示行号
+                    code.innerHTML = "<ul><li>" + code.innerHTML.replace(/\n/g, "\n</li><li>") + "\n</li></ul>";
+                    // 添加头
+                    let language = null
+                    code.classList.forEach((className)=>{
+                        if (className.indexOf("language-") != -1) language = className.split('-')[1]
+                    })
+                    let pre_head = document.createElement("div")
+                    pre_head.classList.add('pre-head')
+                    pre_head.innerHTML = "<p><span class='code-language'>" + language.toUpperCase() + "</span><span class='copy'><img class='w-auto mr-1' src='assets/svg/tag.svg' />复制</span></p>";
+                    code.parentNode.insertBefore(pre_head, code)
+                    // 创建修复滚动条白点
+                    let repair = document.createElement("span")
+                    repair.classList.add("repair")
+                    code.parentNode.insertBefore(repair, code)
+                    pre.setAttribute('init',true)
+                }
+                
             })
             // 复制操作
             el.querySelectorAll('pre').forEach((item)=>{

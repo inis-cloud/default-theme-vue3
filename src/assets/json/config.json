@@ -55,11 +55,6 @@
                 }
             }
 		},
-        "night":{
-            "auto"  :  false,
-            "start" :  22,
-            "end"   :  6
-        },
         "help": {
             "description" :  "您好！请问有什么可以帮您！",
             "btn_text"    :  "帮助",

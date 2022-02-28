@@ -57,9 +57,6 @@
                             </div>
                             <h5 class="page-title display-7 animated fadeInUp">{{theme_config.basic.site.title || ''}}</h5>
                             <p class="text-muted mb-0">{{hitokoto.hitokoto || ''}}</p>
-                            <h5 v-if="false" class="mb-1 font-weight-normal animated bounceInRight">
-                              {{time.tts}}
-                            </h5>
                             <div v-show="banner.count > 0" class="row mt-3">
                               <div class="col-12 mt-1 mb-1">
                                 <h5 class="mb-1 mt-0 font-weight-normal text-muted">内存占用：</h5>
@@ -278,7 +275,6 @@ export default {
             banner: {               // 轮播内容
                 count:0
             },
-            time: {tts:''},         // 时间
             performance: {          // 性能监控
               blank: {value:0},
               dom: {

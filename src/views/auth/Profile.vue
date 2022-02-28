@@ -41,20 +41,20 @@
         
                                             <ul class="mb-0 list-inline text-light">
                                                 <li class="list-inline-item mr-3">
-                                                    <h5 class="mb-1 text-muted">5482</h5>
-                                                    <p class="mb-0 font-13 text-muted">我的文章</p>
+                                                    <h5 class="mb-1 text-muted">{{format(count.article.count)}}</h5>
+                                                    <p class="mb-0 font-13 text-muted">文章</p>
                                                 </li>
                                                 <li class="list-inline-item mr-3">
-                                                    <h5 class="mb-1 text-muted">25,184</h5>
-                                                    <p class="mb-0 font-13 text-muted">我的评论</p>
+                                                    <h5 class="mb-1 text-muted">{{format(count.comments.count)}}</h5>
+                                                    <p class="mb-0 font-13 text-muted">评论</p>
                                                 </li>
                                                 <li class="list-inline-item mr-3">
-                                                    <h5 class="mb-1 text-muted">25,184</h5>
-                                                    <p class="mb-0 font-13 text-muted">我的访客</p>
+                                                    <h5 class="mb-1 text-muted">{{format(count.other.views)}}</h5>
+                                                    <p class="mb-0 font-13 text-muted">访客</p>
                                                 </li>
                                                 <li class="list-inline-item mr-3">
-                                                    <h5 class="mb-1 text-muted">2184</h5>
-                                                    <p class="mb-0 font-13 text-muted">我的访客</p>
+                                                    <h5 class="mb-1 text-muted">{{format(count.users.count)}}</h5>
+                                                    <p class="mb-0 font-13 text-muted">用户</p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -91,7 +91,7 @@
                                             <div class="form-group row mb-3">
                                                 <label class="col-md-3 col-form-label">性别</label>
                                                 <div class="col-md-9 sex">
-                                                    <select2 v-model="sex.value" :options="sex.data" :settings="sex.opt"></select2>
+                                                    <select2 v-model="sex.value" :options="sex.data" :settings="sex.opt" class="custom-select2"></select2>
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-3">
@@ -187,7 +187,7 @@
 <script>
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
-import { POST } from '@/utils/http/request'
+import { GET, POST } from '@/utils/http/request'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
 import select2 from 'vue3-select2-component';
@@ -197,12 +197,14 @@ export default {
     setup(){
 
         const store = useStore()
-        const state = reactive({})
+        const state = reactive({
+            count: {other:{},article:{},comments:{},users:{}}
+        })
 
         const methods = {
             // 初始化
             initData(){
-
+                methods.getCount()
             },
             initState(){
                 state.user = store.state.login.user
@@ -216,6 +218,14 @@ export default {
                     value: null,
                 }
                 state.modify_email = false
+            },
+            getCount(){
+                GET('group').then(res=>{
+                    if (res.data.code == 200) {
+                        const result = res.data.data
+                        state.count  = result
+                    }
+                })
             }
         }
 
@@ -282,6 +292,10 @@ export default {
                     $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
             })
+        },
+        // 格式化数字
+        format(value = 0){
+            return inisHelper.format.number(value)
         }
     },
     computed: {

@@ -31,10 +31,6 @@
     <i-tool></i-tool>
 
     <teleport to="head">
-      <i-link :src="handleCDN() + 'assets/css/root.css'"></i-link>
-      <i-link :src="handleCDN() + 'assets/css/app.min.css'"></i-link>
-      <i-link :src="handleCDN() + 'assets/css/inis.min.css'"></i-link>
-      <i-link :src="handleCDN() + 'assets/css/inis.media.css'"></i-link>
       <i-link :src="handleCDN() + 'assets/css/night.css'"></i-link>
       <i-link :src="handleCDN() + 'assets/libs/animate/animate.min.css'"></i-link>
       <!-- 核心CSS - 开始 -->
