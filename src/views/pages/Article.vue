@@ -235,7 +235,7 @@
                     <!-- 评论 - 开始 -->
                     <div class="card mb-0" id="article-comments">
                         <div v-show="config.comments.allow" class="card-body">
-                            <h4 class="mt-0 mb-3">发表评论 [ {{ comment }} ]</h4>
+                            <h4 class="mt-0 mb-3">发表评论 [ {{ comment.count }} ]</h4>
                             <i-comment-reply></i-comment-reply>
                         </div>
                         <div v-show="!config.comments.allow" class="card-body p-2">

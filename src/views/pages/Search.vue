@@ -113,7 +113,7 @@
                                                 <span class="float-right flex-center">
                                                     <span class="text-muted fs-em-06 flex-center mr-1">
                                                         <svg-icon i-class="article mr-1" file-name="article-comment"></svg-icon>
-                                                        <span>{{format(item.expand.comments)}}</span>
+                                                        <span>{{format(item.expand.comments.count)}}</span>
                                                     </span>
                                                     <span class="text-muted fs-em-06 flex-center">
                                                         <svg-icon i-class="article mr-1" file-name="views"></svg-icon>
@@ -263,7 +263,7 @@
                                         </router-link>
                                     </div>
                                     <div class="col-7 col-md-8 flex-vertical">
-                                        <router-link :to="{name: 'article', params: { id: item.id }}" class="fs-em-14 text-hover-primary text-muted cursor mb-1">
+                                        <router-link :to="{name: 'article', params: { id: item.id }}" class="fs-em-14 text-hover-primary text-muted cursor mb-1 line-1">
                                             <span class="text-ellipsis text-hover-primary text-muted font-14 text-dark">{{item.title || '文章标题'}}</span>
                                         </router-link>
                                         <p class="mb-1">

@@ -186,7 +186,7 @@
                                         {{ data.expand.author.nickname }}
                                     </span>
                                     <span class="pr-2 text-nowrap">
-                                        评论：{{ data.expand.comments }}
+                                        评论：{{ data.expand.comments.count }}
                                     </span>
                                     <span class="text-nowrap">
                                         时间：{{ natureTime(data.create_time) }}
