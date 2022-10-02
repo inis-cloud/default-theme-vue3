@@ -254,6 +254,7 @@ import axios from 'axios'
 import iImg from '@/components/tool/Iimg'
 import { mapState, useStore } from 'vuex'
 import { GET } from '@/utils/http/request'
+import { Get } from '@/utils/http/fetch'
 import { inisHelper } from '@/utils/helper/helper'
 import iFooter from '@/components/public/footer'
 import { onMounted, reactive, toRefs, watch, onBeforeUpdate } from 'vue'
@@ -397,12 +398,14 @@ export default {
             },
             // 获取公告内容
             getPlacard(){
-                const params = {
-                    whereOr:'type,=,web;type,=,all;'
-                }
-                GET('placard/sql', {params}).then(res=>{
-                    if (res.data.code == 200) {
-                        let result = res.data.data
+                Get('placard/sql', {
+                    whereOr: [
+                        ['type', '=', 'web'],
+                        ['type', '=', 'all']
+                    ]
+                }).then(res=>{
+                    if (res.code == 200) {
+                        let result = res.data
                         state.placard.data = result
                         if (result.count > 0) {
                             let preview = result.data[0]

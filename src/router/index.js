@@ -142,7 +142,8 @@ const routes = [
 ]
 
 // 路由模式
-let history   = (INIS.route_hash) ? createWebHashHistory() : createWebHistory();
+// let history   = (INIS.route_hash) ? createWebHashHistory() : createWebHistory();
+let history   = createWebHashHistory()
 
 const router = createRouter({
   history,

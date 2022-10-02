@@ -211,6 +211,7 @@
 <script>
 import * as echarts from 'echarts'
 import { GET, POST } from '@/utils/http/request'
+import { Get } from '@/utils/http/fetch'
 import iFooter from '@/components/public/footer'
 import { onMounted, reactive, toRefs } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
@@ -293,13 +294,14 @@ export default {
 
                 // 七天内时间戳
                 const time = Math.round(new Date / 1000) - 86400 * 90
-                const params_sql = {
-                    where: `create_time,>=,${time};`,
+                Get('comments/sql',{
+                    where: [
+                        ['create_time', '>', time]
+                    ],
                     limit:99999
-                }
-                GET('comments/sql',{params:params_sql}).then(res=>{
-                    if (res.data.code == 200) {
-                        methods.process(res.data.data.data)
+                }).then(res=>{
+                    if (res.code == 200) {
+                        methods.process(res.data.data)
                     }
                 })
             },

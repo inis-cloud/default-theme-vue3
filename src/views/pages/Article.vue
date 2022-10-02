@@ -31,7 +31,7 @@
                                 </a>
                                 <a href="javascript:;" class="article-svg" data-toggle="tooltip" data-placement="top" data-original-title="评论数">
                                     <svg-icon i-class="article" file-name="article-comment"></svg-icon>
-                                    {{ comment }}
+                                    {{ comment.count }}
                                 </a>
                                 <a href="javascript:;" class="article-svg" data-toggle="tooltip" data-placement="top" data-original-title="字数">
                                     <svg-icon i-class="article" file-name="edit"></svg-icon>
@@ -270,6 +270,7 @@
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import iLink from '@/components/tool/Link'
 import { GET } from '@/utils/http/request'
+import { Get } from '@/utils/http/fetch'
 import { inisHelper } from '@/utils/helper/helper'
 import iFooter from '@/components/public/footer.vue'
 import { onMounted, reactive, toRefs, onUpdated, watch, watchEffect } from 'vue'
@@ -325,11 +326,17 @@ export default {
             state.hide   = []
         },
         checkArticle(){
-            GET('article/sql',{
-                params:{where:`id=${state.id};`,'login-token':`${store.state.login['login-token']}`}
+            Get('article/sql', {
+                where: [
+                    ['id', '=', state.id],
+                ]
+            }, {
+                headers: {
+                    'Authorization': store.state.login['login-token']
+                }
             }).then(res=>{
-                if (res.data.code == 200) {
-                    let result = res.data.data
+                if (res.code == 200) {
+                    let result = res.data
                     if (result.count > 0) {
                         if (!inisHelper.is.empty(result.data[0].opt) && result.data[0].opt.auth == 'password') {
                             state.auth.is_pwd = true
@@ -367,15 +374,17 @@ export default {
             })
         },
         getIsTop(){
-            const params = {
-                limit:3,
-                where:"is_top=1;is_show=1",
-                order:"create_time asc"
-            }
             // 获取置顶文章
-            GET('article/sql',{params}).then(res=>{
-                if (res.data.code == 200) {
-                    state.is_top = res.data.data
+            Get('article/sql',{
+                limit: 3,
+                order: 'create_time asc',
+                where: [
+                    ['is_top', '=', 1],
+                    ['is_show', '=', 1],
+                ]
+            }).then(res=>{
+                if (res.code == 200) {
+                    state.is_top = res.data
                     state.is_top.is_show = (state.is_top.count != 0) ? true : false
                     state.is_top.data.forEach((item,index)=>{
 

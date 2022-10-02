@@ -160,6 +160,7 @@
 <script>
 import iFooter from '@/components/public/footer'
 import { GET } from '@/utils/http/request'
+import { Get } from '@/utils/http/fetch'
 import { useStore } from 'vuex'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
@@ -197,13 +198,14 @@ export default {
             // 获取我的文章
             getMeArticle(page = 1){
                 state.is_load = true
-                let params = {
+                Get('article/sql', {
                     page,
                     limit: 10,
-                    where:`users_id=${store.state.login.user.id};`,
+                    where:[
+                        ['users_id', '=', store.state.login.user.id]
+                    ],
                     'login-token':store.state.login['login-token']
-                }
-                GET('article/sql', {params}).then(res=>{
+                }).then(res=>{
                     if (res.data.code == 200) {
                         state.me_article   = res.data.data
                         // 当前页码

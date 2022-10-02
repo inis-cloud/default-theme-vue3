@@ -164,6 +164,7 @@
 <script>
 import iFooter from '@/components/public/footer'
 import { GET } from '@/utils/http/request'
+import { Get } from '@/utils/http/fetch'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
@@ -400,12 +401,13 @@ export default {
                 if (login_storage != "expire" && login_storage != false) {
                     user = login_storage.user
                 }
-                const email = `email,<>,${user.email}`
-                GET('comments/sql',{
-                    params:{whereOr:email}
+                Get('comments/sql',{
+                    whereOr: [
+                        ['email','<>',user.email]
+                    ]
                 }).then(res=>{
-                    if (res.data.code == 200) {
-                        state.comments = res.data.data
+                    if (res.code == 200) {
+                        state.comments = res.data
                     }
                 })
             },
