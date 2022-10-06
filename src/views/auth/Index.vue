@@ -287,8 +287,8 @@ export default {
             },
             // 获取统计
             getCount(){
-                GET('group',{
-                    params:{ mode: "detail", field: "visit", field: "links,article,users,comments,tag" }
+                GET('group/detail',{
+                    params:{ field: "visit", field: "links,article,users,comments,tag" }
                 }).then(res=>{
                     if (res.data.code == 200) {
                         let count = res.data.data

@@ -269,9 +269,9 @@ export default {
 
                 state.page.comments.load = true
                 
-                const params = {mode:"group",limit:8,page}
+                const params = {limit:8,page}
 
-                GET('comments', {params}).then(res=>{
+                GET('comments/group', {params}).then(res=>{
                     if (res.data.code == 200) {
                         const result   = res.data.data
                         state.comments = result
@@ -442,14 +442,13 @@ export default {
             // 获取随心贴
             getMsgWall(page = state.page.msgWall.code){
                 const params = {
-                    mode:"type",
                     type:"msg_wall",
                     tree: false,
                     limit: 6,
                     page,
                     order:"desc"
                 }
-                GET('comments',{params}).then(res=>{
+                GET('comments/type',{params}).then(res=>{
                     if (res.data.code == 200) {
                         const result   = res.data.data
                         state.msg_wall.page = result.page

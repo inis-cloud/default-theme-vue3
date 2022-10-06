@@ -83,14 +83,13 @@ export default {
                 else if (inisHelper.is.empty(state.password)) $.NotificationApp.send("提示！", '帐号不得为空！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 else {
                     let params = {
-                        mode     : 'login',
                         account  : state.account,
                         password : state.password
                     }
                     // 登录动画
                     state.login_is_load = true
 
-                    POST('users', params).then(res=>{
+                    POST('users/login', params).then(res=>{
                         if (res.data.code == 200) {
                             // 设置登录用户信息
                             state.user = res.data.data.user

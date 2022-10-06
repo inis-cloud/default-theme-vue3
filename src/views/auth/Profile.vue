@@ -188,6 +188,7 @@
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'
+import { Get, Post, Put, Del } from '@/utils/http/fetch'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
 import select2 from 'vue3-select2-component';
@@ -279,17 +280,19 @@ export default {
                 if (this.sex.value == item.id) user.sex = item.text
             })
 
-            user['login-token'] = this.$store.state.login['login-token']
-
-            if (check) POST('users', user).then(res=>{
-                if (res.data.code == 200) {
+            if (check) Put('users/save', user, {
+                headers: {
+                    Authorization: this.$store.state.login['login-token']
+                }
+            }).then(res=>{
+                if (res.code == 200) {
                     this.modify_email = false
                     $.NotificationApp.send("提示！", "保存成功，修改结果将会在重新登录后生效！", "top-right", "rgba(0,0,0,0.2)", "info")
-                } else if (res.data.code == 201) {
+                } else if (res.code == 201) {
                     this.modify_email = true
-                    $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "info")
+                    $.NotificationApp.send("提示！", res.msg, "top-right", "rgba(0,0,0,0.2)", "info")
                 } else {
-                    $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                    $.NotificationApp.send("错误！", res.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
                 }
             })
         },

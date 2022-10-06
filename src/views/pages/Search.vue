@@ -407,7 +407,7 @@ export default {
             },
             // 获取文章分类
             getArticleSort(){
-                Get('article-sort',{limit:99}).then(res=>{
+                Get('article-sort/all',{limit:99}).then(res=>{
                     if (res.code == 200) {
                         const result    = res.data.data
                         state.sort.data = [...state.sort.data,...result]
@@ -446,7 +446,7 @@ export default {
             },
             // 获取热门文章
             getHotArticle(){
-                Get('article',{
+                Get('article/all',{
                     order:'views desc'
                 }).then(res=>{
                     if (res.code == 200) {
@@ -456,7 +456,7 @@ export default {
             },
             // 获取标签
             getTags(){
-                Get('tag',{
+                Get('tag/all',{
                     limit:99
                 }).then(res=>{
                     if (res.code == 200) {

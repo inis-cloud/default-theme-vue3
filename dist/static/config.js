@@ -16,5 +16,5 @@ window.INIS = {
     // 关于路由的详细配置文档：https://docs.inis.cc/#/start/install-inis-theme?id=_6、其他配置
 
     // 版本号，禁止私自修改，后果自负
-    version: '1.4.2',
+    version: '1.4.4',
 }

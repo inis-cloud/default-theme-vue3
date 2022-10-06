@@ -193,7 +193,7 @@ export default {
                 
                 let params = {id,limit:999,order:"id asc"}
 
-                GET('links-sort', {params}).then(res=>{
+                GET('links-sort/all', {params}).then(res=>{
                     if (res.data.code == 200) {
                         if (inisHelper.is.empty(id)) {
                             state.sort = res.data.data
@@ -212,7 +212,7 @@ export default {
             // 获取友链页面
             getLinksPage(){
                 let params = {alias:"links"}
-                GET('page',{params}).then(res=>{
+                GET('page/one',{params}).then(res=>{
                     if (res.data.code == 200) {
                         state.is_load = false
                         state.links_page = res.data.data

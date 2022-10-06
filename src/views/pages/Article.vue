@@ -349,13 +349,16 @@ export default {
         },
         getArticle(){
             // 获取文章数据
-            GET('article',{
-                params:{id:state.id,password:state.auth.password},
-                headers:{'login-token':`${store.state.login['login-token']}`}
+            Get('article/one',{
+                id:state.id,password:state.auth.password
+            }, {
+                headers: {
+                    'Authorization': store.state.login['login-token']
+                }
             }).then( res=> {
-                if(res.data.code == 200){
+                if(res.code == 200){
                     state.auth.is_pwd = false
-                    let result    = res.data.data
+                    let result    = res.data
                     state.article = result
                     state.comment = result.expand.comments
                     state.author  = result.expand.author
@@ -505,7 +508,7 @@ export default {
             const params = {
                 key:'config:system'
             }
-            GET('options', {params}).then(res=>{
+            GET('options/one', {params}).then(res=>{
                 if (res.data.code == 200) {
                     const result = res.data.data
                     methods.setShow(result.opt)

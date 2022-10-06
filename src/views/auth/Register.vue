@@ -124,7 +124,7 @@ export default {
 
                     state.user.password = state.user.password1
 
-                    POST('users', state.user).then((res) => {
+                    POST('users/register', state.user).then((res) => {
                         if (res.data.code == 200) {
                             state.result = res.data.data
                             $.NotificationApp.send("提示！", "注册成功！"  , "top-right", "rgba(0,0,0,0.2)", "info");
@@ -196,11 +196,10 @@ export default {
                     },1000)
 
                     let params = {
-                        mode: "create",
                         email: state.user.email
                     }
                     
-                    POST('verify-code', params).then(res=>{
+                    POST('verify-code/create', params).then(res=>{
                         if (res.data.code == 200) {
                             $.NotificationApp.send("提示！", res.data.msg  , "top-right", "rgba(0,0,0,0.2)", "info");
                         } else if (res.data.code == 412) {

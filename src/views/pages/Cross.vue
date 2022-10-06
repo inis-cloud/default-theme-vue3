@@ -338,6 +338,7 @@ import { useStore, mapState } from 'vuex'
 import iImg from '@/components/tool/Iimg'
 import iLink from '@/components/tool/Link'
 import { GET, POST } from '@/utils/http/request'
+import { Get, Post, Put, Del } from '@/utils/http/fetch'
 import iFooter from '@/components/public/footer'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, onUpdated, reactive, toRefs, watch } from 'vue'
@@ -569,21 +570,40 @@ export default {
 
                     // 修改动态
                     if (!inisHelper.is.empty(state.id)) {
-                        params.id   = state.id
-                        params.mode = 'edit'
+                        Put('comments/edit', {
+                            id: state.id, content, type: 'moving', opt: {'like':1}
+                        }, {
+                            headers: {
+                                Authorization: login_storage['login-token']
+                            }
+                        }).then(res=>{
+                            if (res.code == 200) {
+                                state.id = null
+                                window.vditor.setValue('')
+                                methods.moving()
+                                $.NotificationApp.send("提示！", "发表成功！", "top-right", "rgba(0,0,0,0.2)", "info")
+                            } else {
+                                $.NotificationApp.send("提示！", res.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                            }
+                        })
+                    } else {
+                        Post('comments/add', {
+                            content, type: 'moving', opt: {'like':1}
+                        }, {
+                            headers: {
+                                Authorization: login_storage['login-token']
+                            }
+                        }).then(res=>{
+                            if (res.code == 200) {
+                                state.id = null
+                                window.vditor.setValue('')
+                                methods.moving()
+                                $.NotificationApp.send("提示！", "发表成功！", "top-right", "rgba(0,0,0,0.2)", "info")
+                            } else {
+                                $.NotificationApp.send("提示！", res.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                            }
+                        })
                     }
-
-
-                    POST('comments', params, config).then(res=>{
-                        if (res.data.code == 200) {
-                            state.id = null
-                            window.vditor.setValue('')
-                            methods.moving()
-                            $.NotificationApp.send("提示！", "发表成功！", "top-right", "rgba(0,0,0,0.2)", "info")
-                        } else {
-                            $.NotificationApp.send("提示！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
-                        }
-                    })
                 }
 
             },
@@ -611,14 +631,7 @@ export default {
             like(id, index){
                 state.like.push(id)
                 state.moving.data[index].opt.like++
-                let params = {
-                    id,
-                    'mode':'edit',
-                    'login-token':login_storage['login-token'],
-                    opt: {'like':state.moving.data[index].opt.like}
-                }
-                // 暂时只有管理员点赞生效
-                POST('comments', params)
+                Post('comments/like', { id })
             },
             // 友链分组
             linksSort(){
@@ -675,7 +688,7 @@ export default {
             },
             // 站长信息
             webmaster(){
-                GET('options',{
+                GET('options/one',{
                     params:{
                         key: 'webmaster'
                     }
@@ -689,7 +702,7 @@ export default {
             },
             // 站长信息
             getUser(id = null){
-                GET('users',{params:{id}}).then(res=>{
+                GET('users/one',{params:{id}}).then(res=>{
                     if (res.data.code == 200) {
                         state.user = res.data.data
                     }
@@ -697,7 +710,7 @@ export default {
             },
             // 友链数据
             getLinks(){
-                GET('links',{params:{limit:1}}).then(res=>{
+                GET('links/all',{params:{limit:1}}).then(res=>{
                     if (res.data.code == 200) {
                         state.links = res.data.data
                         state.chart.push({value:state.links.count,name:'友链'})
@@ -706,7 +719,7 @@ export default {
             },
             // 评论数据
             getComments(){
-                GET('comments',{params:{limit:1}}).then(res=>{
+                GET('comments/all',{params:{limit:1}}).then(res=>{
                     if (res.data.code == 200) {
                         state.comments = res.data.data
                         state.chart.push({value:state.comments.count,name:'评论'})
@@ -715,7 +728,7 @@ export default {
             },
             // 获取用户
             users(){
-                GET('users', {params:{order:'last_login_time desc',limit:12}}).then(res=>{
+                GET('users/all', {params:{order:'last_login_time desc',limit:12}}).then(res=>{
                     if (res.data.code == 200) {
                         state.users = res.data.data
                         state.chart.push({value:state.users.count,name:'用户'})

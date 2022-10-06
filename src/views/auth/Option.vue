@@ -521,6 +521,7 @@
 import { useStore, mapState } from 'vuex'
 import iFooter from '@/components/public/footer'
 import { GET, POST } from '@/utils/http/request'
+import { Get, Post, Put, Del } from '@/utils/http/fetch'
 import { inisHelper } from '@/utils/helper/helper'
 import { onMounted, reactive, toRefs, watch } from 'vue'
 import default_theme_config from '@/assets/json/config.json'
@@ -577,15 +578,15 @@ export default {
             // 保存信息
             save(init = false){
 
-                const params = inisHelper.stringfy({
-                  keys:'config:default-theme',
-                  opt :state.theme_config,
-                })
-
-                const config = {headers:{'login-token':state.user['login-token']}}
-
-                POST('options', params, config).then(res=>{
-                    if (res.data.code == 200) {
+                Post('options/save', {
+                    keys:'config:default-theme',
+                    opt :state.theme_config,
+                }, {
+                    headers: {
+                        Authorization: state.user['login-token']
+                    }
+                }).then(res=>{
+                    if (res.code == 200) {
                         if (init) $.NotificationApp.send("提示！", "主题配置初始化完成！", "top-right", "rgba(0,0,0,0.2)", "info")
                         else {
                             $.NotificationApp.send("提示！", "主题配置保存成功！", "top-right", "rgba(0,0,0,0.2)", "info")
@@ -593,7 +594,7 @@ export default {
                             store.dispatch('commitThemeConfig', state.theme_config)
                         }
                     } else {
-                        $.NotificationApp.send("错误！", res.data.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
+                        $.NotificationApp.send("错误！", res.msg, "top-right", "rgba(0,0,0,0.2)", "warning")
                     }
                 })
             },
@@ -632,14 +633,14 @@ export default {
         // 恢复默认配置
         async reset(){
 
-            const params = inisHelper.stringfy({
-                mode: 'remove',
-                keys:'config:default-theme'
-            })
-            const config = {headers:{'login-token':this.user['login-token']}}
-
-            POST('options', params, config).then(res=>{
-                if (res.data.code == 200) {
+            Del('options/remove', {
+                keys: 'config:default-theme'
+            }, {
+                headers: {
+                    Authorization: this.user['login-token']
+                }
+            }).then(res=>{
+                if (res.code == 200) {
                     this.$store.dispatch('commitThemeConfig', default_theme_config)
                     this.theme_config = default_theme_config
                     this.methods.getConfig()

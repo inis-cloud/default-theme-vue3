@@ -174,7 +174,7 @@ export default {
                 let params = {id,page,limit:8,order:'is_top desc, create_time asc'}
                 if (page <= state.article.page) {
                     if (page == state.article.page) state.last_page = true
-                    GET('article-sort',{params}).then((res)=>{
+                    GET('article-sort/article',{params}).then((res)=>{
                         if (res.data.code == 200) {
                             // 分类完整数据
                             state.sort = res.data.data

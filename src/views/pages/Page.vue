@@ -160,7 +160,7 @@ export default {
             // 获取页面详情数据
             getPage(){
                 let params = {alias:state.alias}
-                GET('page', {params}).then(res=>{
+                GET('page/one', {params}).then(res=>{
                     if (res.data.code == 200) {
                         state.pages = res.data.data
                         // 设置页面 title

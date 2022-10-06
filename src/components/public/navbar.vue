@@ -302,6 +302,7 @@ import { onMounted } from 'vue'
 import lottie from 'lottie-web'
 import { mapState, useStore } from 'vuex'
 import { GET, POST } from '@/utils/http/request'
+import { Get, Post, Put, Del } from '@/utils/http/fetch'
 import { reactive, toRefs, watch } from 'vue'
 import { inisHelper } from '@/utils/helper/helper'
 import iMusic from '@/components/module/music/index'
@@ -393,30 +394,28 @@ export default {
                 else if (inisHelper.is.empty(state.password)) $.NotificationApp.send("提示！", '帐号不得为空！', "top-right", "rgba(0,0,0,0.2)", "warning")
                 else {
 
-                    let params = {
-                        mode:     'login',
-                        account:  state.account,
-                        password: state.password
-                    }
 
                     // 登录动画
                     state.login_is_load = true
 
-                    POST('users', params).then(res=>{
-                        if (res.data.code == 200) {
+                    Post('users/login', {
+                        account:  state.account,
+                        password: state.password
+                    }).then(res=>{
+                        if (res.code == 200) {
                             // 设置登录用户信息
-                            state.user = res.data.data.user
+                            state.user = res.data.user
                             // 有效时间
-                            res.data.data.time = 7200
+                            res.data.time = 7200
                             // 登录信息存储到缓存中
-                            inisHelper.set.storage('login',res.data.data)
+                            inisHelper.set.storage('login',res.data)
                             // 关闭登录框
                             $('#login-modal').modal('hide')
                             // 更新登录状态
                             state.is_login = true
                             // 重载页面
                             location.reload()
-                        } else $.NotificationApp.send(null, res.data.msg, "top-right", "rgba(0,0,0,0.2)", "error")
+                        } else $.NotificationApp.send(null, res.msg, "top-right", "rgba(0,0,0,0.2)", "error")
                         // 登录动画
                         state.login_is_load = false
                     })

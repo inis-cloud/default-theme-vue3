@@ -312,7 +312,7 @@ export default {
                     if (page == state.article.page) state.last_page = true
                     const params = {limit:8,page}
                     const headers= {'login-token':`${store.state.login['login-token']}`}
-                    GET('article',{
+                    GET('article/all',{
                         params,headers
                     }).then((res)=>{
                         if (res.data.code == 200) {
@@ -334,7 +334,7 @@ export default {
                 const params = {
                     limit: 5
                 }
-                GET('banner', {params}).then(res=>{
+                GET('banner/all', {params}).then(res=>{
                     if (res.data.code == 200) {
                         let result   = res.data.data
                         state.banner = result
